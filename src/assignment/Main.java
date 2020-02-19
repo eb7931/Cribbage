@@ -9,7 +9,7 @@ public class Main {
 
 class NamePrinter {
     /**
-     * Prints the names of the group members separated by spaces.
+     * Prints the names of the group members separated by dashes.
      */
     public void printNames() {
         String separator = "-";
@@ -17,7 +17,7 @@ class NamePrinter {
         String[] names = {
                 "Dhruv Patel",
                 "Sumanth Billanuka",
-                "Name 3"
+                "Ethan Britt"
         };
 
         System.out.println(String.join(separator, names));

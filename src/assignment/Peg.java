@@ -1,7 +1,7 @@
 package assignment;
 public class Peg{
-	int totalScore;
-	int playerID;
+	private int totalScore;
+	private int playerID;
 	public int getPlayerID() {
 		return playerID;
 	}
@@ -18,4 +18,8 @@ public class Peg{
 		playerID = p;
 		totalScore = 0;
 	}
+	/*
+	 * didn't add a setter for playerID since it does not change.
+	 * Determined at instantiation
+	 */
 }

@@ -11,7 +11,7 @@ public class Table {
 	}
 	
 	//get cards on the table
-	public ArrayList<Card> getTable(){
+	public static ArrayList<Card> getTable(){
 		return table;
 	}
 }

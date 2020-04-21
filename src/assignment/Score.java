@@ -9,6 +9,7 @@ public class Score {
 		return currentTotalPoints;
 	}
 	
+	//checks if sum of played card are 15
 	public int checkFifteen(ArrayList<Card>cards) {
 		ArrayList<Card> check = cards;
 		
@@ -23,7 +24,7 @@ public class Score {
 			
 			return 0;
 			
-		}
+		} 
 		
 		if(true) {//Phase == show
 			

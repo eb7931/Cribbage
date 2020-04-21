@@ -3,35 +3,40 @@ package assignment;
 import java.util.ArrayList;
 
 public class Score {
-	int currentTotalPoints;
-	
-	private int getScore() {
-		return currentTotalPoints;
+	private int getScore(Phase phase, ArrayList<Card> cards) {
+		int pointsEarned = 0;
+		pointsEarned += checkFifteen(phase, cards);
+		return pointsEarned;
 	}
+	
+	
 	
 	//checks if sum of played card are 15
-	public int checkFifteen(ArrayList<Card>cards) {
+	public int checkFifteen(Phase phase, ArrayList<Card> cards) {
+		int score = 0;
 		ArrayList<Card> check = cards;
+		switch(phase) {
+			case DRAW:
+				break;
+			case PEGGING: {
+					int count = 0;
+					for(int i = 0; i< check.size(); i++) {
+						count = count + check.get(i).getValue();
+						if(count == 15) {
+							score = 2;
+						}
+					}
+				} 
+				break;
+			case SHOW:
+				
+				break;
 		
-		if(true) { //Phase == Pegging
-			int count = 0;
-			for(int i = 0; i< check.size(); i++) {
-				count = count + check.get(i).getValue();
-				if(count == 15) {
-					return 2;
-				}
-			}
-			
-			return 0;
-			
-		} 
-		
-		if(true) {//Phase == show
-			
 		}
+		return score;
 	}
 	
-	public int checkGo(ArrayList<Card>cards) {
+	public int checkGo(Phase phase, ArrayList<Card>cards) {
 		ArrayList<Card> check = cards;
 		
 			int count = 0;
@@ -50,6 +55,7 @@ public class Score {
 	}	
 	
 	public int checkPair() {
+		int score = 0;
 		if(false) {//Phase == Pegging
 			ArrayList<Card> table = new ArrayList<Card>();
 			table = Table.getTable();
@@ -73,17 +79,24 @@ public class Score {
 	
 			//pair coring for show
 		}
+		return score;
 	}
 	
 	public int checkNob() {
-		
+		int score = 0;
+
+		return score;
 	}
 	
 	public int checkFlush() {
-		
+		int score = 0;
+
+		return score;
 	}
 	
 	public int checkRun() {
-		
+		int score = 0;
+
+		return score;
 	}
 }

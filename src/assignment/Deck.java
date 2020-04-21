@@ -14,6 +14,13 @@ public class Deck{
 		initialized = true;
 	}
 	/*
+	 * the top card of the deck will be considered the cut, any draws will start from
+	 * the next card
+	 */
+	public static Card getCut() {
+		return deck.get(0);
+	}
+	/*
 	 * makes a list of potential positions for the cards, then randomly choses
 	 * a position for each card from the remaining open spots
 	 * n denotes the position in the list of open spots
@@ -40,7 +47,7 @@ public class Deck{
 	public static Card Draw() {
 		if(!initialized)
 			new Deck();
-		Card drawn = deck.get(0);
+		Card drawn = deck.get(1);
 		deck.remove(drawn); 
 		return drawn;
 	}

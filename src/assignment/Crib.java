@@ -5,26 +5,37 @@ import java.util.Arrays;
 import java.util.stream.*;
 
 public class Crib {
-	static Card[] crib;
-	int playerID;
+	static ArrayList<Card> crib;
+	static int playerID = 0;
 	
 	//merges given array of cards from player hand to the cribs card array
 	public static void addCards(Card[] cards){
-		crib = Stream.concat(Arrays.stream(crib), Arrays.stream(cards)).toArray(Card[]::new);
+		for(int i = 0; i < cards.length; i++) {
+			if(cards[i] != null) {
+				crib.add(cards[i]);
+			}
+		}
+	}
+	public static void addCards(ArrayList<Card> cards){
+		for(int i = 0; i < cards.size(); i++) {
+			if(cards.get(i) != null) {
+				crib.add(cards.get(i));
+			}
+		}
 	}
 	
 	//return cards in crib
-	public Card[] getCrib() {
+	public static ArrayList<Card> getCrib() {
 		return crib;
 	}
 	
 	//set playerID
-	public void setPlayerID(int id) {
+	public static void setPlayerID(int id) {
 		playerID = id;
 	}
 	
 	//gets PlayerID
-	public int getPlayerID() {
+	public static int getPlayerID() {
 		return playerID;
 	}
 

@@ -7,7 +7,7 @@ public class Hand {
 	int numberOfCards;
 	
 	//returns cards in hand
-	public static ArrayList<Card> getHand() {
+	public ArrayList<Card> getHand() {
 		return hand;
 	}
 	

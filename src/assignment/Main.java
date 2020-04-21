@@ -1,5 +1,7 @@
 package assignment;
-
+enum Phase{
+	DRAW, PEGGING, SHOW;
+}
 public class Main {
 
     public static void main(String[] args) {

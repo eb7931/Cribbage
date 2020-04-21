@@ -3,16 +3,24 @@ package assignment;
 import java.util.ArrayList;
 
 public class Score {
-	private int getScore(Phase phase, ArrayList<Card> cards) {
+	private static Player lastPlayer;
+	private static int getScore(Phase phase, ArrayList<Card> cards, Player player) {
 		int pointsEarned = 0;
+		
 		pointsEarned += checkFifteen(phase, cards);
+		pointsEarned += checkGo(phase, cards, player);
+		pointsEarned += checkPair(phase, cards);
+		pointsEarned += checkNob(phase, player);
+		pointsEarned += checkFlush(phase, cards);
+		pointsEarned += checkRun(phase, cards);
+		
 		return pointsEarned;
 	}
 	
 	
 	
 	//checks if sum of played card are 15
-	public int checkFifteen(Phase phase, ArrayList<Card> cards) {
+	public static int checkFifteen(Phase phase, ArrayList<Card> cards) {
 		int score = 0;
 		ArrayList<Card> check = cards;
 		switch(phase) {
@@ -36,27 +44,28 @@ public class Score {
 		return score;
 	}
 	
-	public int checkGo(Phase phase, ArrayList<Card>cards) {
-		ArrayList<Card> check = cards;
-		
-			int count = 0;
-		for(int i = 0; i< check.size(); i++) {
-			count = count + check.get(i).getValue();
+	public static int checkGo(Phase phase, ArrayList<Card> cards, Player player) {
+		int score = 0;
+		int count = 0;
+		if(player == lastPlayer) {
+			for(int i = 0; i< cards.size(); i++) {
+				count = count + cards.get(i).getValue();
+			}
+			if(count == 31) {
+				score = 2;
+			}
+			else {
+				score = 1;
+			}
 		}
-		
-		if(count == 31) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
-		
-	
+		return score;
 	}	
 	
-	public int checkPair() {
+	public static int checkPair(Phase phase, ArrayList<Card> cards) {
 		int score = 0;
-		if(false) {//Phase == Pegging
+		
+		switch(phase) {
+		case DRAW:
 			ArrayList<Card> table = new ArrayList<Card>();
 			table = Table.getTable();
 			int length = table.size();
@@ -64,39 +73,47 @@ public class Score {
 			if(table.get(length).getRank() == table.get(length-1).getRank()) { //checks pair
 				if(table.get(length-1).getRank() == table.get(length-2).getRank()) { //check triple
 					if(table.get(length-2).getRank() == table.get(length-3).getRank()) { //checks quad
-						return 12;
+						score = 12;
 					}
-					return 6;
+					score = 6;
 				}
-				return 2;
+				score = 2;
 			}
-			else { //no pairs
-				return 0;
-			}
+			
+			break;
+		case PEGGING:
+			
+			break;
+		case SHOW:
+			
+			break;
 		}
 		
-		if(true) { //Phase == Show
+		return score;
+	}
 	
-			//pair coring for show
+	public static int checkNob(Phase phase, Player player) {
+		int score = 0;
+		if(Deck.getCut().getRank() == 11 && phase == Phase.DRAW && player.isDealer()) {
+			score = 2;
 		}
+			
 		return score;
 	}
 	
-	public int checkNob() {
+	public static int checkFlush(Phase phase, ArrayList<Card> cards) {
 		int score = 0;
 
 		return score;
 	}
 	
-	public int checkFlush() {
+	public static int checkRun(Phase phase, ArrayList<Card> cards) {
 		int score = 0;
 
 		return score;
 	}
 	
-	public int checkRun() {
-		int score = 0;
-
-		return score;
+	public static void setLastPlayer(Player p) {
+		lastPlayer = p;
 	}
 }

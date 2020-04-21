@@ -33,7 +33,7 @@ public class Card{
 		return suitName;
 	}
 	public int getValue() {
-		int value = getRank() + 1;
+		int value = getRank();
 		if(value > 10)
 			value = 10;
 		return value;
@@ -43,7 +43,7 @@ public class Card{
 	 * as opposed to value, where the value of a face card is 10
 	 */
 	public int getRank() {
-		return id % 13;
+		return id % 13 + 1;
 	}
 	public Card(int i) {
 		id = i;

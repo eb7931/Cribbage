@@ -13,9 +13,16 @@ public class Player{
 	// card per move, not multiple
 	public void addToTable(Card card) {
 		Table.addToPile(card);
+		Score.setLastPlayer(this);
 	}
 	
-	
+	public boolean isDealer() {
+		if(this == Game.getGame().getDealer()) {
+			return true;
+		}
+		else
+			return false;
+	}
 	
 	
 	/*

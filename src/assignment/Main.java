@@ -1,14 +1,17 @@
 package assignment;
 
+import java.awt.EventQueue;
+
 enum Phase{
 	DRAW, PEGGING, SHOW;
 }
 
 public class Main {
 
-    public static void main(String[] args) {
-        new NamePrinter().printNames();
-    }
+	// Starts the game
+	public static void main(String[] args) {
+		Deck.shuffle();
+	}
 }
 
 class NamePrinter {

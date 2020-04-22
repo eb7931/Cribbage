@@ -6,10 +6,8 @@ public class Deck{
 	private static ArrayList<Card> deck = new ArrayList<Card>();
 	private static boolean initialized = false;
 	public Deck() {
-		if(deck != null) {
-			for(int i = 0; i < 52; i++) {
-				deck.add(new Card(i));
-			}
+		for(int i = 0; i < 52; i++) {
+			deck.add(new Card(i));
 		}
 		initialized = true;
 	}
@@ -32,10 +30,9 @@ public class Deck{
 		ArrayList<Card> temp = new ArrayList<Card>();
 		Random rand = new Random(System.currentTimeMillis());
 		for(int i = 0; i < 52; i++) {
-			int n = rand.nextInt() % deck.size();
-			System.out.println(deck.size());
+			int n = Math.abs(rand.nextInt() % deck.size());
 			temp.add(deck.get(n));
-			deck.remove(deck.get(n));
+			deck.remove(temp.get(i));
 		}
 		for(int i = 0; i < 52; i++) {
 			deck.add(temp.get(0));

@@ -5,6 +5,7 @@ import java.util.*;
 
 public class Score {
 	private static Player lastPlayer;
+	
 	private static int getScore(Phase phase, ArrayList<Card> cards, Player player) {
 		int pointsEarned = 0;
 		

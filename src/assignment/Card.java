@@ -1,6 +1,9 @@
 package assignment;
+import javax.swing.ImageIcon;
+
 public class Card{
 	int id;
+	ImageIcon image;
 	/*
 	 * id for card follows the pattern 
 	 * club, diamond, heart, spade, club, diamond.... and so on. 
@@ -47,6 +50,39 @@ public class Card{
 	}
 	public Card(int i) {
 		id = i;
+		assignImage();
+	}
+	
+	//Assign image to the card
+	private void assignImage() {
+		String fileName = ""; //Generate correct filename of card image
+		
+		//Find the correct rank (letter or number) and add to fileName
+		if(getRank() == 1)
+			fileName += "A";
+		else if(getRank() == 11)
+			fileName += "J";
+		else if(getRank() == 12)
+			fileName += "Q";
+		else if(getRank() == 13)
+			fileName += "K";
+		else
+			fileName += Integer.toString(getRank());
+		
+		//Find the correct suit and add to fileName
+		if(getSuit().equalsIgnoreCase("club"))
+			fileName += "C";
+		else if(getSuit().equalsIgnoreCase("diamond"))
+			fileName += "D";
+		else if(getSuit().equalsIgnoreCase("heart"))
+			fileName += "H";
+		else
+			fileName += "S";
+		
+		//Now that fileName has the correct file, add .jpg to the end and assign it to attribute image
+		fileName += ".jpg";
+		
+		image = new ImageIcon("src\\cardImages\\" + fileName);
 	}
 			
 }

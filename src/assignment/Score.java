@@ -226,11 +226,14 @@ public class Score {
 	private static int checkFlush(Phase phase, ArrayList<Card> cards) {
 		int flushScore = 0;
 		int score = 0;
+		
 		switch(phase) {
 		case DRAW:
 			break;
+			
 		case PEGGING:
 			break;
+			
 		case SHOW:
 			//flush in crib: checks if suit in crib is equal to start card
 			if(cards.equals(Crib.getCrib()) && (Deck.getCut().getSuit() == cards.get(1).getSuit())) {

@@ -177,7 +177,7 @@ public class Score {
 		case PEGGING:
 			longestRun = 0;
 			isRun = false;
-			for(int i = cards.size() - 1; i > 0; i--) {//take an increasing chunk from the top of the pile and check for run
+			for(int i = cards.size() - 1; i > 0; i--) { //take an increasing chunk from the top of the pile and check for run
 				int[] lastCards = new int[cards.size() - 1 - i];
 				for(int j = cards.size() - 1; j > i; j--) { // move the recently played to an array to sort to make checking easier
 					lastCards[cards.size() - 1 - j] = cards.get(j).getRank();
@@ -224,7 +224,56 @@ public class Score {
 	}
 	
 	private static int checkFlush(Phase phase, ArrayList<Card> cards) {
+		int flushScore = 0;
 		int score = 0;
+		switch(phase) {
+		case DRAW:
+			break;
+		case PEGGING:
+			break;
+		case SHOW:
+			//flush in crib: checks if suit in crib is equal to start card
+			if(cards.equals(Crib.getCrib()) && (Deck.getCut().getSuit() == cards.get(1).getSuit())) {
+				String[] newCards = new String[cards.size() + 1];
+				for(int i = 0; i < cards.size(); i++) {
+					newCards[i] = cards.get(i).getSuit();
+				}
+				Arrays.sort(newCards);
+				for(int i = 0; i < newCards.length -1; i++) {
+					if(newCards[i] == newCards[i+1]) {
+						flushScore++;
+					}
+				}
+				if(flushScore >= 4) {
+					score = 5;
+				}
+				else {
+					score = 0;
+				}
+			}
+		
+			//Flush in hand
+			String[] newCards = new String[cards.size() + 1];
+			for(int i = 0; i < cards.size(); i++) {
+				newCards[i] = cards.get(i).getSuit();
+			}
+			Arrays.sort(newCards);
+			for(int i = 0; i < newCards.length -1; i++) {
+				if(newCards[i] == newCards[i+1]) {
+					flushScore++;
+				}	
+			}
+			if(flushScore >= 4 && Deck.getCut().getSuit() == newCards[1]) {
+				score = 5;
+			}
+			else if(flushScore >= 4 ) {
+				score = 4;
+			}
+			else {
+				score = 0;
+			}
+			break;
+		}
 
 		return score;
 	}

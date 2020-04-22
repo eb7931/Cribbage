@@ -1,42 +1,13 @@
 package assignment;
 public class Round{
-	
-	private enum GamePhase {draw, pegging, show};
-	Score score; //Static class
-	Crib crib; //Static class
-	Card cut;
-	
+	private Phase phase;
 	public Round() {
-		score = new Score();
-		crib = new Crib();
-		cut = Deck.getCut();
+		phase = Phase.DRAW;
 	}
-	
-	//Returns the cut card
-	public Card getCut() {
-		return cut;
-	}
-	
-	//Assigns a new cut card
-	public void setCut(Card card) {
-		cut = card;
-	}
-	
 	//Will assign the hands to a player
 	public void setHand(Deck deck, Player player) {
-		for(int i = 0; i < 4; i++)
-			player.getHand().getHand().add(deck.Draw()); //This will add a card to a players hand by drawing a card our of the deck
-	}
-	
-	//Returns a players score(probably redundent)
-	public int getScore(Player player) {
-		return player.getPoints();
-	}
-	
-	//Calculates points using Score and adds them to Player
-	public void addPoints(Player player) {
-		int calculatedScore = getScore(player);
-		player.setPoints(calculatedScore);
+		for(int i = 0; i < 6; i++)
+			player.getHand().getCards().add(deck.Draw()); //This will add a card to a players hand by drawing a card our of the deck
 	}
 	
 	//Not sure on what this does yet

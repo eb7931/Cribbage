@@ -3,12 +3,12 @@ package assignment;
 import java.util.ArrayList;
 
 public class Hand {
-	ArrayList<Card> hand =new ArrayList<Card>();
+	ArrayList<Card> cards =new ArrayList<Card>();
 	int numberOfCards;
 	
 	//returns cards in hand
-	public ArrayList<Card> getHand() {
-		return hand;
+	public ArrayList<Card> getCards() {
+		return cards;
 	}
 	
 	//Honestly not sure why these are needed
@@ -20,7 +20,7 @@ public class Hand {
 	
 	//get num of cards in player hand
 	public int getNumberofCards() {
-		return hand.size();
+		return cards.size();
 	}
 	
 }

@@ -16,7 +16,7 @@ public class Game {
 		players.add(0, new Player(1));
 		players.add(1, new Player(2));
 		Random rand = new Random();
-		dealer = players.get(rand.nextInt() % players.size());
+		dealer = players.get(Math.abs(rand.nextInt() % players.size()));
 		
 		initializeGUI();
 		System.out.println(gui);

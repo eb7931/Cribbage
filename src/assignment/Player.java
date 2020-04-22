@@ -6,6 +6,13 @@ public class Player{
 	private Peg peg;
 	private int id;
 	
+	public Player(int id) {
+		hand = new Hand();
+		points = 0;
+		peg = null;
+		this.id = id;
+	}
+	
 	public void addToCrib(Card arr[]) {
 		Crib.addCards(arr);
 	}

@@ -1,43 +1,28 @@
 package assignment;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Icon;
 
 public class GUI {
 
-	private JFrame frame;
-	JPanel card1 = new JPanel();
-	JPanel card2 = new JPanel();
-	JPanel card3 = new JPanel();
-	JPanel card4 = new JPanel();
+	public JFrame frame;
+	public ArrayList<JPanel> p1Cards;
+	public ArrayList<JPanel> p2Cards;
+	public ArrayList<JPanel> crib;
+	public JPanel cut;
 
 	mouseListener listen = new mouseListener();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI window = new GUI();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
 	public GUI() {
+		
 		initialize();
 	}
 
@@ -45,45 +30,84 @@ public class GUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		//Initialize JFrame
+		// Initialize JFrame
 		frame = new JFrame();
 		frame.setBounds(100, 100, 2500, 1700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		//Initialize card1
-		card1.setBounds(31, 1118, 300, 490);
-		frame.getContentPane().add(card1);
-		card1.add(new JLabel(new ImageIcon("src\\cardImages\\2C.jpg")));
-		
-		card2.setBounds(386, 1118, 300, 490);
-		frame.getContentPane().add(card2);
-		card2.add(new JLabel(new ImageIcon("src\\cardImages\\2C.jpg")));
-		card2.addMouseListener(listen);
 
-		
-		JLabel label = new JLabel((Icon) null);
-		card2.add(label);
-		
-		card3.setBounds(730, 1118, 300, 490);
-		frame.getContentPane().add(card3);
-		card3.add(new JLabel(new ImageIcon("src\\cardImages\\2C.jpg")));
-		card3.addMouseListener(listen);
+		/*
+		 * Initialize all panels
+		 */
 
-		
-		JLabel label_1 = new JLabel((Icon) null);
-		card3.add(label_1);
-		
-		card4.setBounds(1082, 1118, 300, 490);
-		frame.getContentPane().add(card4);
-		card4.add(new JLabel(new ImageIcon("src\\cardImages\\2C.jpg")));
-		card4.addMouseListener(listen);
+		// Initialize Player 1 cards
+		int spacer = 0;
+		p1Cards = new ArrayList<>();
+		for (int i = 0; i < 6; i++) {
+			JPanel panel = new JPanel();
+			panel.setBounds(210 + spacer, 182, 300, 490);
+			frame.getContentPane().add(panel);
+			panel.addMouseListener(listen);
 
+			p1Cards.add(panel);
 
-		
-		JLabel label_1_1 = new JLabel((Icon) null);
-		card4.add(label_1_1);
-		card1.addMouseListener(listen);
+			spacer += 300;
+		}
+
+		// Initialize Player 2 cards
+		spacer = 0;
+		p2Cards = new ArrayList<>();
+		for (int i = 0; i < 6; i++) {
+			JPanel panel = new JPanel();
+			panel.setBounds(1100 + spacer, 182, 300, 490);
+			frame.getContentPane().add(panel);
+
+			panel.addMouseListener(listen);
+
+			p2Cards.add(panel);
+
+			spacer += 300;
+		}
+
+		// Initialize Crib
+		/*
+		spacer = 0;
+		crib = new ArrayList<>();
+		for (JPanel panel : crib) {
+			panel = new JPanel();
+			panel.setBounds(210 + spacer, 182, 163, 205);
+			frame.getContentPane().add(panel);
+			panel.addMouseListener(listen);
+			spacer += 300;
+		}
+		*/
+
+		// Initialize cut card
+		cut = new JPanel();
+
+		JPanel test = new JPanel();
+		test.setBounds(1082, 1118, 300, 490);
+		frame.getContentPane().add(test);
+		test.add(new JLabel(new ImageIcon("src\\cardImages\\AC.jpg")));
+		test.addMouseListener(listen);
+	}
+
+	public void displayCards(ArrayList<Player> players) {
+		// Access each player
+		int cnt = 1;
+		for (Player player : players) {
+			// Access each card
+			cnt++;
+			for (int i = 0; i < player.getHand().getNumberofCards(); i++) {
+				System.out.println(player.getHand().getCards().get(i).image);
+				if (cnt == 1) 
+					p1Cards.get(i).add(new JLabel(new ImageIcon(player.getHand().getCards().get(i).image)));
+				else if (cnt == 2)
+					p2Cards.get(i).add(new JLabel(new ImageIcon(player.getHand().getCards().get(i).image)));
+			}
+			
+
+		}
 	}
 
 }

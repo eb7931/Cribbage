@@ -3,7 +3,7 @@ import javax.swing.ImageIcon;
 
 public class Card{
 	int id;
-	ImageIcon image;
+	String image;
 	/*
 	 * id for card follows the pattern 
 	 * club, diamond, heart, spade, club, diamond.... and so on. 
@@ -82,7 +82,7 @@ public class Card{
 		//Now that fileName has the correct file, add .jpg to the end and assign it to attribute image
 		fileName += ".jpg";
 		
-		image = new ImageIcon("src\\cardImages\\" + fileName);
+		image = "src\\cardImages\\" + fileName;
 	}
 			
 }

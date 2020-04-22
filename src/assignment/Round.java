@@ -1,8 +1,17 @@
 package assignment;
+
+import java.util.*;
+
 public class Round{
 	private Phase phase;
 	public Round() {
+	}
+	public void startRound() {
 		phase = Phase.DRAW;
+		Iterator i = Game.getGame().getPlayers().iterator();
+		while(i.hasNext()) {
+			
+		}
 	}
 	//Will assign the hands to a player
 	public void setHand(Deck deck, Player player) {

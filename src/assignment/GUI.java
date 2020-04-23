@@ -170,9 +170,31 @@ public class GUI implements ActionListener{
 				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
 			}	
 		}
+	
+		for (int i = 0; i < Crib.getCrib().size(); i++) {
+			if(i < Crib.getCrib().size()) {
+				Card cribCard = Crib.getCrib().get(i);
+				System.out.println(cribCard.toString());
+				ImageIcon icon = new ImageIcon(cribCard.getImage());
+				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
+				crib.get(i).removeAll();
+				
+				System.out.println(hand.get(i).getComponents().length);
+				crib.get(i).add(new JLabel(new ImageIcon(scaled)));
+				crib.get(i).revalidate();
+			}
+			else {
+				ImageIcon icon = new ImageIcon("");
+				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
+				crib.get(i).removeAll();
+				crib.get(i).add(new JLabel(new ImageIcon(scaled)));
+			}	
+		}
+		
+		
 	}
 	
-	private void test() {
+	private void test(){
 		for (int i = 0; i < 7; i++) {
 			ImageIcon card = new ImageIcon(cardBack);
 			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);

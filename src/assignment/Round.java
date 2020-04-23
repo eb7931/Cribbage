@@ -15,6 +15,7 @@ public class Round{
 	}
 	
 	private void drawPhase() {
+		Deck.shuffle();
 		ArrayList<Player> players = Game.getGame().getPlayers();
 		GUI gui = Game.getGame().getGUI();
 		//Set hand for both playes

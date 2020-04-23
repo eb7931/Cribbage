@@ -11,6 +11,7 @@ import javax.swing.*;
 
 public class GUI implements ActionListener{
 
+	private String cardBack = "src\\cardImages\\blue_back.jpg";
 	public JFrame frame;
 	JButton drawButton, endTurnButton;
 	public ArrayList<JPanel> hand;
@@ -138,7 +139,7 @@ public class GUI implements ActionListener{
 		frame.getContentPane().add(deck);
 		frame.getContentPane().add(cut);
 		
-		ImageIcon card = new ImageIcon("src\\cardImages\\blue_back.jpg");
+		ImageIcon card = new ImageIcon(cardBack);
 		Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 		deck.add(new JLabel(new ImageIcon(scaled)));
 		
@@ -149,35 +150,42 @@ public class GUI implements ActionListener{
 		//update hand
 		int length = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
 		System.out.println(length);
-		for (int i = 0; i < length; i++) {
-			Card card = Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i);
-			System.out.println(card.toString());
-			ImageIcon icon = new ImageIcon(card.getImage());
-			Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
-			hand.get(i).removeAll();
-			hand.get(i).add(new JLabel(new ImageIcon(scaled)));
+		for (int i = 0; i < 6; i++) {
+			if(i < length) {
+				Card card = Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i);
+				System.out.println(card.toString());
+				ImageIcon icon = new ImageIcon(card.getImage());
+				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
+				hand.get(i).removeAll();
+				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
+			}
+			else {
+				ImageIcon icon = new ImageIcon(cardBack);
+				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
+				hand.get(i).removeAll();
+				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
+			}	
 		}
-		
 	}
 	
 	private void test() {
 		for (int i = 0; i < 7; i++) {
-			ImageIcon card = new ImageIcon("src\\cardImages\\blue_back.jpg");
+			ImageIcon card = new ImageIcon(cardBack);
 			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 			table.get(i).add(new JLabel(new ImageIcon(scaled)));
 		}
 
 		for (int i = 0; i < 6; i++) {
-			ImageIcon card = new ImageIcon("src\\cardImages\\blue_back.jpg");
+			ImageIcon card = new ImageIcon(cardBack);
 			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 			hand.get(i).add(new JLabel(new ImageIcon(scaled)));
 		}
 		for (int i = 0; i < 4; i++) {
-			ImageIcon card = new ImageIcon("src\\cardImages\\blue_back.jpg");
+			ImageIcon card = new ImageIcon(cardBack);
 			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 			crib.get(i).add(new JLabel(new ImageIcon(scaled)));
 		}
-		ImageIcon card = new ImageIcon("src\\cardImages\\blue_back.jpg");
+		ImageIcon card = new ImageIcon(cardBack);
 		Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 		cut.add(new JLabel(new ImageIcon(scaled)));
 	}
@@ -186,7 +194,7 @@ public class GUI implements ActionListener{
 		int handSize = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
 		for (int i = 0; i < 6; i++) {
 			if(i < handSize) {
-				ImageIcon card = new ImageIcon("src\\cardImages\\blue_back.jpg");
+				ImageIcon card = new ImageIcon(cardBack);
 				Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
 			}

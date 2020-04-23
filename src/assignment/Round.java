@@ -5,7 +5,7 @@ import java.util.*;
 public class Round{
 	private Player currentPlayer;
 	public Round() {
-		startRound();
+		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
 	}
 	public void startRound() {
 		Game.setPhase(Phase.DRAW);
@@ -17,7 +17,6 @@ public class Round{
 	private void drawPhase() {
 		ArrayList<Player> players = Game.getGame().getPlayers();
 		GUI gui = Game.getGame().getGUI();
-		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
 		//Set hand for both playes
 		for(int i = 0; i < players.size(); i++) {
 			setHand(players.get(i));

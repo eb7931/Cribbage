@@ -29,6 +29,7 @@ public class Game {
 		System.out.println(gui);
 		initializeGUI();
 		round = new Round();
+		round.startRound();
 		
 	}
 	

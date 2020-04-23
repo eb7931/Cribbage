@@ -9,6 +9,9 @@ public class Round{
 	}
 	public void startRound() {
 		phase = Phase.DRAW;
+		drawPhase();
+		peggingPhase();
+		showPhase();
 		Iterator i = Game.getGame().getPlayers().iterator();
 		while(i.hasNext()) {
 			
@@ -29,9 +32,6 @@ public class Round{
 	
 	//Not sure on what this does yet
 	public void promptPlay(ArrayList<Player> players, GUI gui) {
-		drawPhase(players, gui);
-		peggingPhase();
-		showPhase();
 	}
 	
 	//Not sure how to implement in Round
@@ -40,7 +40,9 @@ public class Round{
 	}
 	
 	//Initiates draw phase by 1) adding cards to hand 2) representing these cards in the GUI
-	private void drawPhase(ArrayList<Player> players, GUI gui) {
+	private void drawPhase() {
+		ArrayList<Player> players = Game.getGame().getPlayers();
+		GUI gui = Game.getGame().getGUI();
 		//Set hand for both playes
 		for(int i = 0; i < players.size(); i++) {
 			setHand(players.get(i));

@@ -19,6 +19,7 @@ public class Game {
 		dealer = players.get(Math.abs(rand.nextInt() % players.size()));
 		System.out.println(gui);
 		round = new Round();
+		initializeGUI();
 	}
 	public ArrayList<Player> getPlayers() {
 		return players;
@@ -42,7 +43,9 @@ public class Game {
 			}
 		});
 	}
-
+	public GUI getGUI() {
+		return gui;
+	}
 	// Starts the game
 	public static void main(String[] args) {
 		Game game = new Game();

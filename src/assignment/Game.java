@@ -17,8 +17,6 @@ public class Game {
 		players.add(1, new Player(2));
 		Random rand = new Random();
 		dealer = players.get(Math.abs(rand.nextInt() % players.size()));
-		
-		initializeGUI();
 		System.out.println(gui);
 		round = new Round();
 	}
@@ -51,16 +49,12 @@ public class Game {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
 					gui = new GUI();
 					gui.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+					game.round.promptPlay(players, gui);
 			}
 		});
 
-		game.round.promptPlay(players, gui);
 	}
 
 }

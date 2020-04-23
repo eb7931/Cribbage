@@ -18,6 +18,7 @@ public class Round{
 		Deck.shuffle();
 		ArrayList<Player> players = Game.getGame().getPlayers();
 		GUI gui = Game.getGame().getGUI();
+		Deck.shuffle();
 		//Set hand for both playes
 		for(int i = 0; i < players.size(); i++) {
 			setHand(players.get(i));

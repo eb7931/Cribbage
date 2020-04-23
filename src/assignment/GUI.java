@@ -175,9 +175,9 @@ public class GUI implements ActionListener{
 			}	
 		}
 	
-		for (int i = 0; i < Crib.getCrib().size(); i++) {
-			if(i < Crib.getCrib().size()) {
-				Card cribCard = Crib.getCrib().get(i);
+		for (int i = 0; i < Crib.getCards().size(); i++) {
+			if(i < Crib.getCards().size()) {
+				Card cribCard = Crib.getCards().get(i);
 				System.out.println(cribCard.toString());
 				ImageIcon icon = new ImageIcon(cribCard.getImage());
 				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);

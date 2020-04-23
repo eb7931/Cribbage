@@ -123,6 +123,8 @@ public class Score {
 			break;
 		case PEGGING:
 			int length = cards.size();
+			if(length == 1)
+				break;
 			if(cards.get(length - 1).getRank() == cards.get(length - 2).getRank()) { //checks pair
 				if(cards.get(length - 2).getRank() == cards.get(length - 3).getRank()) { //check triple
 					if(cards.get(length - 3).getRank() == cards.get(length - 4).getRank()) { //checks quad

@@ -35,6 +35,8 @@ public class Round {
 			Player player = Game.getGame().getRound().getCurrentPlayer();
 			if (i < player.getNumOfCards()) {
 				player.addToTable(i);
+				player.addPoints(Score.getScore(Table.getCards()));
+				System.out.println(player.getID() + "'s points: " + player.getPoints());
 				Game.getGame().getRound().endTurn();
 			}
 		}

@@ -107,7 +107,7 @@ public class GUI implements ActionListener {
 	
 	public void displayHand(Player player) {
 		for (int i = 0; i < player.getHand().getNumberofCards(); i++) {
-			System.out.println(player.getHand().getCards().get(i).image);
+			//System.out.println(player.getHand().getCards().get(i).image);
 			ImageIcon card = new ImageIcon(player.getHand().getCards().get(i).image);
 			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 			hand.get(i).add(new JLabel(new ImageIcon(scaled)));
@@ -189,16 +189,16 @@ public class GUI implements ActionListener {
 
 		// hand update
 		int length = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
-		System.out.println("length: " + length);
+		//System.out.println("length: " + length);
 		for (int i = 0; i < 6; i++) {
 			if (i < length) {
 				Card card = Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i);
-				System.out.println(card.toString());
+				//System.out.println(card.toString());
 				ImageIcon icon = new ImageIcon(card.getImage());
 				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
 				hand.get(i).removeAll();
 
-				System.out.println(hand.get(i).getComponents().length);
+				//System.out.println(hand.get(i).getComponents().length);
 				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
 
 				hand.get(i).revalidate();
@@ -215,12 +215,12 @@ public class GUI implements ActionListener {
 			for (int i = 0; i < Crib.getCards().size(); i++) {
 				if (i < Crib.getCards().size()) {
 					Card cribCard = Crib.getCards().get(i);
-					System.out.println(cribCard.toString());
+					//System.out.println(cribCard.toString());
 					ImageIcon icon = new ImageIcon(cribCard.getImage());
 					Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
 					crib.get(i).removeAll();
 
-					System.out.println(hand.get(i).getComponents().length);
+					//System.out.println(hand.get(i).getComponents().length);
 					crib.get(i).add(new JLabel(new ImageIcon(scaled)));
 					crib.get(i).revalidate();
 				}
@@ -238,7 +238,7 @@ public class GUI implements ActionListener {
 		for (int i = 0; i < Table.getCards().size(); i++) {
 			if (i < Table.getCards().size()) {
 				Card TableCard = Table.getCards().get(i);
-				System.out.println(TableCard.toString());
+				//System.out.println(TableCard.toString());
 				ImageIcon icon = new ImageIcon(TableCard.getImage());
 				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
 				table.get(i).removeAll();

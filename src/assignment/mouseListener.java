@@ -7,8 +7,7 @@ import javax.swing.JPanel;
 public class mouseListener implements MouseListener {
 
 	@Override
-	public void mouseClicked(MouseEvent e) {		
-<<<<<<< HEAD
+	public void mouseClicked(MouseEvent e) {	
 		JPanel card = (JPanel) e.getSource();
 		switch(Game.getPhase()){
 		case DRAW:
@@ -25,8 +24,6 @@ public class mouseListener implements MouseListener {
 			Player player = Game.getGame().getRound().getCurrentPlayer();
 			player.addToTable(i);
 		}
-=======
->>>>>>> branch 'master' of https://github.com/CS-SE6356-2/git-team-01-1.git
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package assignment;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.*;
+import java.util.concurrent.*;
 
 import javax.swing.*;
 
@@ -16,18 +17,18 @@ public class GUI {
 	public JPanel deck;
 	private int cardHeight = 100;
 	private int cardWidth = 60;
-	private final int windowHeight = 720;
-	private final int windowWidth = 1280;
-	private final int handX = 10;
-	private final int handY = 720 - (10 + cardHeight);
+	private final int windowHeight = 500;
+	private final int windowWidth = 1000;
+	private final int handX = cardWidth;
+	private final int handY = windowHeight - (50 + cardHeight);
 	private final int cribX = windowWidth - 5 * cardWidth;
 	private final int cribY = 10;
 	private final int deckX = cardWidth;
 	private final int deckY = 10;
 	private final int cutX = cardWidth*2 + 10;
 	private final int cutY = 10;
-	private final int tableX = cardWidth;
-	private final int tableY = windowHeight - cardHeight/2;
+	private final int tableX = (windowWidth - 7*cardWidth)/2;
+	private final int tableY = windowHeight/2 - cardHeight/2;
 	
 
 	mouseListener listen = new mouseListener();
@@ -56,6 +57,7 @@ public class GUI {
 		addTable();
 		addCrib();
 		addDeck();
+		test();
 	}
 	
 	public void displayHand(Player player) {
@@ -97,8 +99,6 @@ public class GUI {
 			panel.setBounds(cribX + i*cardWidth, cribY, cardWidth, cardHeight);
 			frame.getContentPane().add(panel);
 
-			panel.addMouseListener(listen);
-
 			crib.add(panel);
 		}
 	}
@@ -110,8 +110,6 @@ public class GUI {
 			panel.setBounds(tableX + i*cardWidth, tableY, cardWidth, cardHeight);
 			frame.getContentPane().add(panel);
 
-			panel.addMouseListener(listen);
-
 			table.add(panel);
 		}
 		
@@ -121,10 +119,55 @@ public class GUI {
 		cut = new JPanel();
 		deck.setBounds(deckX, deckY, cardWidth, cardHeight);
 		cut.setBounds(cutX, cutY, cardWidth, cardHeight);
+		frame.getContentPane().add(deck);
+		frame.getContentPane().add(cut);
+		
 		ImageIcon card = new ImageIcon("src\\cardImages\\blue_back.jpg");
 		Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 		deck.add(new JLabel(new ImageIcon(scaled)));
 		
 		
+	}
+	
+	private void test() {
+		for (int i = 0; i < 7; i++) {
+			ImageIcon card = new ImageIcon("src\\cardImages\\blue_back.jpg");
+			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
+			table.get(i).add(new JLabel(new ImageIcon(scaled)));
+		}
+
+		for (int i = 0; i < 6; i++) {
+			ImageIcon card = new ImageIcon("src\\cardImages\\blue_back.jpg");
+			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
+			hand.get(i).add(new JLabel(new ImageIcon(scaled)));
+		}
+		for (int i = 0; i < 4; i++) {
+			ImageIcon card = new ImageIcon("src\\cardImages\\blue_back.jpg");
+			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
+			crib.get(i).add(new JLabel(new ImageIcon(scaled)));
+		}
+		ImageIcon card = new ImageIcon("src\\cardImages\\blue_back.jpg");
+		Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
+		cut.add(new JLabel(new ImageIcon(scaled)));
+	}
+	private void clear() {
+		for (int i = 0; i < 7; i++) {
+			ImageIcon card = new ImageIcon("");
+			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
+			table.get(i).add(new JLabel(new ImageIcon(scaled)));
+		}
+		for (int i = 0; i < 6; i++) {
+			ImageIcon card = new ImageIcon("");
+			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
+			hand.get(i).add(new JLabel(new ImageIcon(scaled)));
+		}
+		for (int i = 0; i < 4; i++) {
+			ImageIcon card = new ImageIcon("");
+			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
+			crib.get(i).add(new JLabel(new ImageIcon(scaled)));
+		}
+		ImageIcon card = new ImageIcon("");
+		Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
+		cut.add(new JLabel(new ImageIcon(scaled)));
 	}
 }

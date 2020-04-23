@@ -29,7 +29,7 @@ public class Crib {
 	}
 	
 	//return cards in crib
-	public static ArrayList<Card> getCrib() {
+	public static ArrayList<Card> getCards() {
 		return crib;
 	}
 	

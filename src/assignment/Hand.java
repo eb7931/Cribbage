@@ -9,7 +9,7 @@ public class Hand {
 		cards.add(card);
 	}	
 	public void removeCard(Card card) {
-		cards.remove(card);
+		cards.remove(cards.indexOf(card));
 	}
 	//returns cards in hand
 	public ArrayList<Card> getCards() {

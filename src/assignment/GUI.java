@@ -9,7 +9,7 @@ import java.util.concurrent.*;
 
 import javax.swing.*;
 
-public class GUI {
+public class GUI implements ActionListener{
 
 	public JFrame frame;
 	JButton drawButton, endTurnButton;
@@ -87,10 +87,10 @@ public class GUI {
 	
 	private void addButton() {
 		drawButton = new JButton("Draw");
-		drawButton.addMouseListener(this);
+		drawButton.addActionListener(this);
 		drawButton.setBounds(70, 120, 75, 50);
 		endTurnButton = new JButton("End Turn");
-		endTurnButton.addMouseListener(this);
+		endTurnButton.addActionListener(this);
 		endTurnButton.setBounds(750, 400, 100, 50);
 		frame.add(drawButton);
 		frame.add(endTurnButton);
@@ -189,11 +189,11 @@ public class GUI {
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == drawButton) {
-			Deck.draw();
+			Game.getRound();
 			
 		}
 		else if(e.getSource() == endTurnButton) {
-			//does something with prompt play
+			Round.getNextPlayer();
 		}
 	}
 }

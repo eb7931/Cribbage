@@ -1,6 +1,7 @@
 package assignment;
 public class Player{
 	private Hand hand;
+	private Hand startingHand;
 	private boolean hasCrib; //I believe this needs to be removed
 	private int points;
 	private Peg peg;
@@ -54,6 +55,16 @@ public class Player{
 			return false;
 	}
 	
+	public Hand getStartingHand() {
+		return startingHand;
+	}
+	
+	public void setStartingHand() {
+		startingHand.getCards().clear();
+		for(int i = 0; i < hand.getCards().size(); i++) {
+			startingHand.addCard(hand.getCards().get(i));
+		}
+	}
 	
 	/*
 	 * getters and setters past this line

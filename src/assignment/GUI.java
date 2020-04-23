@@ -65,7 +65,7 @@ public class GUI implements ActionListener{
 		addTable();
 		addCrib();
 		addDeck();
-		test();
+		//test();
 	}
 	
 	public void displayHand(Player player) {
@@ -151,7 +151,7 @@ public class GUI implements ActionListener{
 	public void update() {
 		//update hand
 		int length = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
-		System.out.println(length);
+		System.out.println("length: " + length);
 		for (int i = 0; i < 6; i++) {
 			if(i < length) {
 				Card card = Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i);
@@ -160,8 +160,12 @@ public class GUI implements ActionListener{
 				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
 				hand.get(i).removeAll();
 				
+
+							
+				System.out.println(hand.get(i).getComponents().length);
 				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
 				
+				hand.get(i).revalidate();
 			}
 			else {
 				ImageIcon icon = new ImageIcon("");

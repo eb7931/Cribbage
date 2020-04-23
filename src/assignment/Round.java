@@ -47,7 +47,7 @@ public class Round{
 		}
 		System.out.println(gui);
 		System.out.println(players);
-		gui.displayCards(players);
+		gui.displayHand(players.get(0));
 
 		
 	}

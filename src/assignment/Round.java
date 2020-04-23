@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Round{
 	private Player currentPlayer;
+	
 	public Round() {
 		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
 	}
@@ -50,6 +51,7 @@ public class Round{
 		for(int i = 0; i < 6; i++) {
 			player.drawCard();//This will add a card to a players hand by drawing a card out of the deck
 		}
+		player.setStartingHand();
 	}
 	
 	private void setCurrentPlayer(Player p) {

@@ -237,7 +237,7 @@ public class Score {
 			
 		case SHOW:
 			//flush in crib: checks if suit in crib is equal to start card
-			if(cards.equals(Crib.getCrib()) && (Deck.getCut().getSuit() == cards.get(1).getSuit())) {
+			if(cards.equals(Crib.getCards()) && (Deck.getCut().getSuit() == cards.get(1).getSuit())) {
 				String[] newCards = new String[cards.size() + 1];
 				for(int i = 0; i < cards.size(); i++) {
 					newCards[i] = cards.get(i).getSuit();

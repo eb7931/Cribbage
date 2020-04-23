@@ -3,25 +3,42 @@ package assignment;
 import java.util.*;
 
 public class Round{
-	private Phase phase;
+	private Player currentPlayer;
 	public Round() {
 		
 	}
 	public void startRound() {
-		phase = Phase.DRAW;
+		Game.setPhase(Phase.DRAW);
 		drawPhase();
 		peggingPhase();
 		showPhase();
-		Iterator i = Game.getGame().getPlayers().iterator();
-		while(i.hasNext()) {
-			
-		}
 	}
 	//Will assign the hands to a player
 	public void setHand(Player player) {
 		for(int i = 0; i < 6; i++) {
 			player.drawCard();//This will add a card to a players hand by drawing a card out of the deck
 		}
+	}
+	
+	private void setCurrentPlayer(Player p) {
+		currentPlayer = p;
+	}
+	
+	private Player getNextPlayer() {
+		return getNextPlayer(currentPlayer);
+	}
+	
+	private Player getNextPlayer(Player p) {
+		int i = Game.getGame().getPlayers().indexOf(p) + 1;
+		if(i >= Game.getGame().getPlayers().size())
+			return Game.getGame().getPlayers().get(0);
+		else
+
+			return Game.getGame().getPlayers().get(i);
+	}
+	
+	public Player getCurrentPlayer() {
+		return currentPlayer;
 	}
 	
 	public void clearHand(Player player) {
@@ -43,6 +60,7 @@ public class Round{
 	private void drawPhase() {
 		ArrayList<Player> players = Game.getGame().getPlayers();
 		GUI gui = Game.getGame().getGUI();
+		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
 		//Set hand for both playes
 		for(int i = 0; i < players.size(); i++) {
 			setHand(players.get(i));

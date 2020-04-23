@@ -24,6 +24,10 @@ public class Crib {
 		}
 	}
 	
+	public static void addCard(Card card) {
+		crib.add(card);
+	}
+	
 	//return cards in crib
 	public static ArrayList<Card> getCrib() {
 		return crib;

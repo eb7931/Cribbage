@@ -12,22 +12,31 @@ public class Player{
 		peg = null;
 		this.id = id;
 	}
-	
-	public void addToCrib(Card arr[]) {
-		Crib.addCards(arr);
+	public void addToCrib(Card card){
+		Crib.addCard(card);
+		Score.setLastPlayer(this);
+		discard(card);
 	}
 	// changed addToTable to use a single card since the game only takes one 
 	// card per move, not multiple
 	public void addToTable(Card card) {
-		Table.addToPile(card);
+		Table.addCard(card);
 		Score.setLastPlayer(this);
+		discard(card);
 	}
+	
+	public void addToTable(int cardIndex) {
+		addToTable(hand.getCards().get(cardIndex));		
+	}
+	
 	public void drawCard() {
 		hand.addCard(Deck.draw());
 	}
+	
 	public void discard() {
 		discard(getHand().getCards().get(0));
 	}
+	
 	public void discard(Card card) {
 		hand.removeCard(card);
 		Deck.addCard(card);

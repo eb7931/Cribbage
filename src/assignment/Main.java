@@ -2,9 +2,7 @@ package assignment;
 
 import java.awt.EventQueue;
 
-enum Phase{
-	DRAW, PEGGING, SHOW;
-}
+
 
 public class Main {
 

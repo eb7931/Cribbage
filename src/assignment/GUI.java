@@ -15,8 +15,8 @@ public class GUI {
 	public ArrayList<JPanel> crib;
 	public JPanel cut;
 	public JPanel deck;
-	private int cardHeight = 100;
-	private int cardWidth = 60;
+	public int cardHeight = 100;
+	public int cardWidth = 60;
 	private final int windowHeight = 500;
 	private final int windowWidth = 1000;
 	private final int handX = cardWidth;

@@ -177,7 +177,24 @@ public class GUI implements ActionListener{
 		Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 		cut.add(new JLabel(new ImageIcon(scaled)));
 	}
-	
+
+	private void hideHand() {		
+		int handSize = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
+		for (int i = 0; i < 6; i++) {
+			if(i < handSize) {
+				ImageIcon card = new ImageIcon("src\\cardImages\\blue_back.jpg");
+				Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
+				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
+			}
+			else {
+				ImageIcon card = new ImageIcon("");
+				Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
+				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
+			}
+		}
+		
+	}
+
 	private void clear() {
 		for (int i = 0; i < 7; i++) {
 			ImageIcon card = new ImageIcon("");

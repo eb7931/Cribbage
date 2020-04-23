@@ -7,8 +7,9 @@ import java.awt.EventQueue;
 public class Main {
 
 	// Starts the game
+	// Starts the game
 	public static void main(String[] args) {
-		Deck.shuffle();
+		Game game = Game.getGame();
 	}
 }
 

@@ -8,6 +8,7 @@ public class mouseListener implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {		
+<<<<<<< HEAD
 		JPanel card = (JPanel) e.getSource();
 		switch(Game.getPhase()){
 		case DRAW:
@@ -24,12 +25,15 @@ public class mouseListener implements MouseListener {
 			Player player = Game.getGame().getRound().getCurrentPlayer();
 			player.addToTable(i);
 		}
+=======
+>>>>>>> branch 'master' of https://github.com/CS-SE6356-2/git-team-01-1.git
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
+		JPanel card = (JPanel) e.getSource();
+		card.remove(card);
 	}
 
 	@Override

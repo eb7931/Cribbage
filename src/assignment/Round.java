@@ -28,6 +28,10 @@ public class Round{
 		return getNextPlayer(currentPlayer);
 	}
 	
+	public void endTurn() {
+		
+	}
+	
 	private Player getNextPlayer(Player p) {
 		int i = Game.getGame().getPlayers().indexOf(p) + 1;
 		if(i >= Game.getGame().getPlayers().size())

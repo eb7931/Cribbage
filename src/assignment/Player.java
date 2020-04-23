@@ -22,7 +22,16 @@ public class Player{
 		Table.addToPile(card);
 		Score.setLastPlayer(this);
 	}
-	
+	public void drawCard() {
+		hand.addCard(Deck.draw());
+	}
+	public void discard() {
+		discard(getHand().getCards().get(0));
+	}
+	public void discard(Card card) {
+		hand.removeCard(card);
+		Deck.addCard(card);
+	}
 	public boolean isDealer() {
 		if(this == Game.getGame().getDealer()) {
 			return true;

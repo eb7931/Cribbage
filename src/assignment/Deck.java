@@ -5,7 +5,7 @@ import java.util.*;
 public class Deck{
 	private static ArrayList<Card> deck = new ArrayList<Card>();
 	private static boolean initialized = false;
-	public Deck() {
+	private Deck() {
 		for(int i = 0; i < 52; i++) {
 			deck.add(new Card(i));
 		}
@@ -42,14 +42,14 @@ public class Deck{
 	/*
 	 * returns the first available card then increments the placeholder for last available card
 	 */
-	public static Card Draw() {
+	public static Card draw() {
 		if(!initialized)
 			new Deck();
 		Card drawn = deck.get(1);
 		deck.remove(drawn); 
 		return drawn;
 	}
-	public static void Discard(Card card) {
+	public static void addCard(Card card) {
 		if(!initialized)
 			new Deck();
 		deck.add(card);

@@ -22,11 +22,9 @@ public class Game {
 		System.out.println(gui);
 		round = new Round();
 	}
-
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
-
 	public static Game getGame() {
 		if (instance == null) {
 			instance = new Game();

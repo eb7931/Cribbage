@@ -5,7 +5,7 @@ import java.util.*;
 public class Round{
 	private Phase phase;
 	public Round() {
-		Deck deck = new Deck();
+		
 	}
 	public void startRound() {
 		phase = Phase.DRAW;
@@ -17,16 +17,21 @@ public class Round{
 	//Will assign the hands to a player
 	public void setHand(Player player) {
 		for(int i = 0; i < 6; i++) {
-			Card card = Deck.Draw();
-			Hand hand = player.getHand();
-			ArrayList<Card> cards = hand.getCards(); //This will add a card to a players hand by drawing a card our of the deck
-			cards.add(card);
+			player.drawCard();//This will add a card to a players hand by drawing a card out of the deck
+		}
+	}
+	
+	public void clearHand(Player player) {
+		for(int i = 0; i < player.getHand().getNumberofCards(); i++) {
+			player.discard();
 		}
 	}
 	
 	//Not sure on what this does yet
 	public void promptPlay(ArrayList<Player> players, GUI gui) {
 		drawPhase(players, gui);
+		peggingPhase();
+		showPhase();
 	}
 	
 	//Not sure how to implement in Round
@@ -46,7 +51,16 @@ public class Round{
 
 		
 	}
-	
+	private void peggingPhase() {
+		
+		
+	}
+	private void showPhase() {
+		
+		for(int i = 0; i < Game.getGame().getPlayers().size(); i++) {
+			clearHand(Game.getGame().getPlayers().get(i));
+		}
+	}
 	
 	
 	

@@ -89,5 +89,18 @@ public class Game {
 		return round;
 	}
 	
+	// Starts the game
+	public static void main(String[] args) {
+		Game game = new Game();
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+					//gui = new GUI();
+					gui.frame.setVisible(true);
+					game.round.promptPlay(players, gui);
+			}
+		});
+
+	}
 
 }

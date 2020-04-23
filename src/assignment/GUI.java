@@ -147,8 +147,9 @@ public class GUI implements ActionListener{
 	
 	public void update() {
 		//update hand
-		for (int i = 0; i < Player.getNumOfCards(); i++) {
-			ImageIcon card = new ImageIcon();
+		int length = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
+		for (int i = 0; i < length; i++) {
+			ImageIcon card = new ImageIcon(Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i).getImage());
 			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 			hand.get(i).add(new JLabel(new ImageIcon(scaled)));
 		}
@@ -176,7 +177,7 @@ public class GUI implements ActionListener{
 		Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 		cut.add(new JLabel(new ImageIcon(scaled)));
 	}
-	
+
 	private void hideHand() {		
 		int handSize = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
 		for (int i = 0; i < 6; i++) {
@@ -193,7 +194,7 @@ public class GUI implements ActionListener{
 		}
 		
 	}
-	
+
 	private void clear() {
 		for (int i = 0; i < 7; i++) {
 			ImageIcon card = new ImageIcon("");
@@ -218,6 +219,7 @@ public class GUI implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == drawButton) {
 			Game.getGame().getRound();
+			update();
 		}
 		else if(e.getSource() == endTurnButton) {
 			Game.getGame().getRound().endTurn();

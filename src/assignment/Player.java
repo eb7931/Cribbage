@@ -58,7 +58,7 @@ public class Player{
 		return hand;
 	}
 	
-	public static int getNumOfCards() {
+	public int getNumOfCards() {
 		return Hand.getNumberofCards();
 	}
 	public void setHand(Hand h) {

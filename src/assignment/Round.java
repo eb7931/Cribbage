@@ -59,6 +59,14 @@ public class Round{
 	private Player getNextPlayer() {
 		return getNextPlayer(currentPlayer);
 	}
+
+	public void addedToCrib() {
+		
+		setCurrentPlayer(getNextPlayer());
+		if(Crib.getCards().size() == 4) {
+			peggingPhase();
+		}
+	}
 	
 	public void endTurn() {
 		currentPlayer.addPoints(Score.getScore(Table.getCards()));
@@ -66,6 +74,10 @@ public class Round{
 		
 		
 		setCurrentPlayer(getNextPlayer());
+		if(Game.getGame().getPlayers().get(0).getNumOfCards() == 0 &&
+				Game.getGame().getPlayers().get(1).getNumOfCards() == 0)
+			showPhase();
+			
 	}
 	
 	private Player getNextPlayer(Player p) {

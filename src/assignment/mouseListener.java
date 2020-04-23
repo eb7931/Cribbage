@@ -16,7 +16,7 @@ public class mouseListener implements MouseListener {
 				Player player = Game.getGame().getRound().getCurrentPlayer();
 				if (i < player.getNumOfCards()) {
 					player.addToCrib(i);
-					Game.getGame().getRound().endTurn();
+					Game.getGame().getRound().addedToCrib();
 				}
 			}
 
@@ -51,6 +51,8 @@ public class mouseListener implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		JPanel card = (JPanel) e.getSource();
+		card.setLocation(card.getX(), card.getY() - Game.getGame().getGUI().cardHeight/5);
+		//Game.getGame().getGUI().update();
 		card.setLocation(card.getX(), card.getY() - Game.getGame().getGUI().cardHeight / 5);
 		// TODO Auto-generated method stub
 
@@ -59,6 +61,9 @@ public class mouseListener implements MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 		JPanel card = (JPanel) e.getSource();
+		card.setLocation(card.getX(), card.getY() + Game.getGame().getGUI().cardHeight/5);
+		//Game.getGame().getGUI().update();
+		
 		card.setLocation(card.getX(), card.getY() + Game.getGame().getGUI().cardHeight / 5);
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub

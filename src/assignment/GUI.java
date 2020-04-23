@@ -4,9 +4,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.*;
 import java.util.concurrent.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class GUI implements ActionListener{
@@ -158,9 +160,11 @@ public class GUI implements ActionListener{
 				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
 				hand.get(i).removeAll();
 				
+
 							
 				System.out.println(hand.get(i).getComponents().length);
 				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
+				
 				hand.get(i).revalidate();
 			}
 			else {

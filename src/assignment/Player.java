@@ -15,7 +15,6 @@ public class Player{
 	
 	public void addToCrib(Card card){
 		Crib.addCard(card);
-		Score.setLastPlayer(this);
 		discard(card);
 	}
 

@@ -84,7 +84,7 @@ public class Game {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-					gui = new GUI();
+					//gui = new GUI();
 					gui.frame.setVisible(true);
 					game.round.promptPlay(players, gui);
 			}

@@ -7,25 +7,25 @@ import javax.swing.JPanel;
 public class mouseListener implements MouseListener {
 
 	@Override
-	public void mouseClicked(MouseEvent e) {	
+	public void mouseClicked(MouseEvent e) {
 		JPanel card = (JPanel) e.getSource();
-		switch(Game.getPhase()){
+		switch (Game.getPhase()) {
 		case DRAW:
-			if(Game.getGame().getGUI().hand.contains(card)) {
+			if (Game.getGame().getGUI().hand.contains(card)) {
 				int i = Game.getGame().getGUI().hand.indexOf(card);
 				Player player = Game.getGame().getRound().getCurrentPlayer();
-				if(i < player.getNumOfCards()) {
+				if (i < player.getNumOfCards()) {
 					player.addToCrib(i);
 					Game.getGame().getRound().endTurn();
 				}
 			}
-			
+
 			break;
 		case PEGGING:
-			if(Game.getGame().getGUI().hand.contains(card)) {
+			if (Game.getGame().getGUI().hand.contains(card)) {
 				int i = Game.getGame().getGUI().hand.indexOf(card);
 				Player player = Game.getGame().getRound().getCurrentPlayer();
-				if(i < player.getNumOfCards()) {
+				if (i < player.getNumOfCards()) {
 					player.addToTable(i);
 					Game.getGame().getRound().endTurn();
 				}
@@ -39,32 +39,30 @@ public class mouseListener implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
-		JPanel card = (JPanel) e.getSource();
-		card.remove(card);
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		JPanel card = (JPanel) e.getSource();
-		card.setLocation(card.getX(), card.getY() - Game.getGame().getGUI().cardHeight/5);
+		card.setLocation(card.getX(), card.getY() - Game.getGame().getGUI().cardHeight / 5);
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		JPanel card = (JPanel) e.getSource();
-		card.setLocation(card.getX(), card.getY() + Game.getGame().getGUI().cardHeight/5);
+		card.setLocation(card.getX(), card.getY() + Game.getGame().getGUI().cardHeight / 5);
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

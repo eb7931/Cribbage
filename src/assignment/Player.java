@@ -48,6 +48,10 @@ public class Player{
 	public Hand getHand() {
 		return hand;
 	}
+	
+	public static int getNumOfCards() {
+		return Hand.getNumberofCards();
+	}
 	public void setHand(Hand h) {
 		hand = h;
 	}

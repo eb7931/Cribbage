@@ -145,6 +145,16 @@ public class GUI implements ActionListener{
 		
 	}
 	
+	public void update() {
+		//update hand
+		for (int i = 0; i < Player.getNumOfCards(); i++) {
+			ImageIcon card = new ImageIcon();
+			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
+			hand.get(i).add(new JLabel(new ImageIcon(scaled)));
+		}
+		
+	}
+	
 	private void test() {
 		for (int i = 0; i < 7; i++) {
 			ImageIcon card = new ImageIcon("src\\cardImages\\blue_back.jpg");
@@ -190,7 +200,6 @@ public class GUI implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == drawButton) {
 			Game.getRound();
-			
 		}
 		else if(e.getSource() == endTurnButton) {
 			Round.getNextPlayer();

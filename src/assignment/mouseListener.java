@@ -23,14 +23,7 @@ public class mouseListener implements MouseListener {
 
 			break;
 		case PEGGING:
-			if (Game.getGame().getGUI().hand.contains(card)) {
-				int i = Game.getGame().getGUI().hand.indexOf(card);
-				Player player = Game.getGame().getRound().getCurrentPlayer();
-				if (i < player.getNumOfCards()) {
-					player.addToTable(i);
-					Game.getGame().getRound().endTurn();
-				}
-			}
+			Game.getGame().getRound().peggingPhase(card);
 			break;
 		case SHOW:
 			break;

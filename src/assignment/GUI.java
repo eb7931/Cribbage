@@ -46,7 +46,7 @@ public class GUI implements ActionListener {
 	private final int deckY = 10;
 	private final int cutX = cardWidth * 2 + 10;
 	private final int cutY = 10;
-	private final int tableX = (windowWidth - 7 * cardWidth) / 2;
+	private final int tableX = (windowWidth - 8 * cardWidth) / 2;
 	private final int tableY = windowHeight / 2 - cardHeight / 2;
 
 	mouseListener listen = new mouseListener();
@@ -161,7 +161,7 @@ public class GUI implements ActionListener {
 
 	private void addTable() {
 		table = new ArrayList<>();
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 8; i++) {
 			JPanel panel = new JPanel();
 			panel.setBounds(tableX + i * cardWidth, tableY, cardWidth, cardHeight);
 			frame.getContentPane().add(panel);
@@ -243,7 +243,6 @@ public class GUI implements ActionListener {
 				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
 				table.get(i).removeAll();
 
-				System.out.println(hand.get(i).getComponents().length);
 				table.get(i).add(new JLabel(new ImageIcon(scaled)));
 				table.get(i).revalidate();
 			} else {
@@ -256,6 +255,7 @@ public class GUI implements ActionListener {
 		
 		updatePlayerTurnLabel();
 		updatePhaseLabel();
+		
 
 	}
 	
@@ -275,7 +275,7 @@ public class GUI implements ActionListener {
 	}
 
 	private void test() {
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 8; i++) {
 			ImageIcon card = new ImageIcon(cardBack);
 			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 			table.get(i).add(new JLabel(new ImageIcon(scaled)));

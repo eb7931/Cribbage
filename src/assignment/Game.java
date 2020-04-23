@@ -12,7 +12,7 @@ public class Game {
 	private static Game instance = null;
 	private static ArrayList<Player> players;
 	private Player dealer;
-	public Round round;
+	public static Round round;
 	public static GUI gui;
 	private static Phase phase = Phase.DRAW;
 
@@ -22,13 +22,28 @@ public class Game {
 		players.add(1, new Player(2));
 		Random rand = new Random();
 		dealer = players.get(Math.abs(rand.nextInt() % players.size()));
-		System.out.println(gui);
-		round = new Round();
-		initializeGUI();
 	}
+	
+	public static void startGame(){
+		getGame();
+		System.out.println(gui);
+		initializeGUI();
+		round = new Round();
+		
+	}
+	
+	public void startRound() {
+		round = new Round();
+	}
+	
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
+	
+	public Player getCurrentPlayer() {
+		return round.getCurrentPlayer();
+	}
+	
 	public static Game getGame() {
 		if (instance == null) {
 			instance = new Game();

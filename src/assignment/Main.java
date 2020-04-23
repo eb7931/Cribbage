@@ -9,7 +9,8 @@ public class Main {
 	// Starts the game
 	// Starts the game
 	public static void main(String[] args) {
-		Game game = Game.getGame();
+		Game.startGame();
+		
 	}
 }
 

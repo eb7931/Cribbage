@@ -5,7 +5,7 @@ import java.util.*;
 public class Round{
 	private Player currentPlayer;
 	public Round() {
-		
+		startRound();
 	}
 	public void startRound() {
 		Game.setPhase(Phase.DRAW);
@@ -13,6 +13,37 @@ public class Round{
 		peggingPhase();
 		showPhase();
 	}
+	
+	private void drawPhase() {
+		ArrayList<Player> players = Game.getGame().getPlayers();
+		GUI gui = Game.getGame().getGUI();
+		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
+		//Set hand for both playes
+		for(int i = 0; i < players.size(); i++) {
+			setHand(players.get(i));
+		}
+		System.out.println(gui);
+		System.out.println(players);
+		gui.update();
+
+		
+	}
+	
+	private void peggingPhase() {
+		
+		
+	}
+	
+	private void showPhase() {
+		
+		for(int i = 0; i < Game.getGame().getPlayers().size(); i++) {
+			clearHand(Game.getGame().getPlayers().get(i));
+		}
+	}
+	
+	
+	
+	
 	//Will assign the hands to a player
 	public void setHand(Player player) {
 		for(int i = 0; i < 6; i++) {
@@ -61,30 +92,7 @@ public class Round{
 	}
 	
 	//Initiates draw phase by 1) adding cards to hand 2) representing these cards in the GUI
-	private void drawPhase() {
-		ArrayList<Player> players = Game.getGame().getPlayers();
-		GUI gui = Game.getGame().getGUI();
-		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
-		//Set hand for both playes
-		for(int i = 0; i < players.size(); i++) {
-			setHand(players.get(i));
-		}
-		System.out.println(gui);
-		System.out.println(players);
-		gui.displayHand(players.get(0));
 
-		
-	}
-	private void peggingPhase() {
-		
-		
-	}
-	private void showPhase() {
-		
-		for(int i = 0; i < Game.getGame().getPlayers().size(); i++) {
-			clearHand(Game.getGame().getPlayers().get(i));
-		}
-	}
 	
 	
 	

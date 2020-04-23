@@ -1,6 +1,8 @@
 package assignment;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.concurrent.*;
@@ -10,6 +12,7 @@ import javax.swing.*;
 public class GUI {
 
 	public JFrame frame;
+	JButton drawButton, endTurnButton;
 	public ArrayList<JPanel> hand;
 	public ArrayList<JPanel> table;
 	public ArrayList<JPanel> crib;
@@ -49,10 +52,12 @@ public class GUI {
 		frame.setBounds(0, 0, windowWidth, windowHeight);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
 
 		/*
 		 * Initialize all panels
 		 */
+		addButton();
 		addHand();
 		addTable();
 		addCrib();
@@ -78,6 +83,17 @@ public class GUI {
 	    g2.dispose();
 
 	    return resizedImg;
+	}
+	
+	private void addButton() {
+		drawButton = new JButton("Draw");
+		drawButton.addMouseListener(this);
+		drawButton.setBounds(70, 120, 75, 50);
+		endTurnButton = new JButton("End Turn");
+		endTurnButton.addMouseListener(this);
+		endTurnButton.setBounds(750, 400, 100, 50);
+		frame.add(drawButton);
+		frame.add(endTurnButton);
 	}
 	
 	private void addHand() {
@@ -169,5 +185,15 @@ public class GUI {
 		ImageIcon card = new ImageIcon("");
 		Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 		cut.add(new JLabel(new ImageIcon(scaled)));
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == drawButton) {
+			Deck.draw();
+			
+		}
+		else if(e.getSource() == endTurnButton) {
+			//does something with prompt play
+		}
 	}
 }

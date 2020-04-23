@@ -8,15 +8,13 @@ public class mouseListener implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {		
-		JPanel card = (JPanel) e.getSource();
-		card.setLocation(card.getX(), card.getY()- 500);
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
+		JPanel card = (JPanel) e.getSource();
+		card.remove(card);
 	}
 
 	@Override

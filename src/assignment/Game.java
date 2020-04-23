@@ -26,7 +26,6 @@ public class Game {
 	
 	public static void startGame(){
 		getGame();
-		System.out.println(gui);
 		initializeGUI();
 		round = new Round();
 		round.startRound();

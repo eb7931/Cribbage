@@ -1,21 +1,28 @@
 package assignment;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
-public class GUI implements ActionListener{
+public class GUI implements ActionListener {
 
 	private String cardBack = "src\\cardImages\\blue_back.jpg";
 	public JFrame frame;
 	JButton drawButton, endTurnButton;
+	public JLabel playerLabel;
+	public JPanel playerPanel;
+	public JPanel test;
 	public ArrayList<JPanel> hand;
 	public ArrayList<JPanel> table;
 	public ArrayList<JPanel> crib;
@@ -25,17 +32,18 @@ public class GUI implements ActionListener{
 	public int cardWidth = 60;
 	private final int windowHeight = 500;
 	private final int windowWidth = 1000;
+	private final int playerTurnX = windowWidth/2 - 100;
+	private final int playerTurnY = 20;
 	private final int handX = cardWidth;
 	private final int handY = windowHeight - (50 + cardHeight);
 	private final int cribX = windowWidth - 5 * cardWidth;
 	private final int cribY = 10;
 	private final int deckX = cardWidth;
 	private final int deckY = 10;
-	private final int cutX = cardWidth*2 + 10;
+	private final int cutX = cardWidth * 2 + 10;
 	private final int cutY = 10;
-	private final int tableX = (windowWidth - 7*cardWidth)/2;
-	private final int tableY = windowHeight/2 - cardHeight/2;
-	
+	private final int tableX = (windowWidth - 7 * cardWidth) / 2;
+	private final int tableY = windowHeight / 2 - cardHeight / 2;
 
 	mouseListener listen = new mouseListener();
 
@@ -55,7 +63,6 @@ public class GUI implements ActionListener{
 		frame.setBounds(0, 0, windowWidth, windowHeight);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
 
 		/*
 		 * Initialize all panels
@@ -65,7 +72,22 @@ public class GUI implements ActionListener{
 		addTable();
 		addCrib();
 		addDeck();
+		addPlayerTurn();
 		test();
+
+
+
+	}
+
+	public void addPlayerTurn() {
+		playerLabel = new JLabel();
+		playerLabel.setText("test");
+		playerLabel.setHorizontalTextPosition(SwingConstants.LEFT);
+		playerPanel = new JPanel();
+		playerPanel.setBounds(playerTurnX, playerTurnY, 200, 100);
+		playerPanel.add(playerLabel);
+		frame.add(playerPanel);
+		
 	}
 	
 	public void displayHand(Player player) {
@@ -76,18 +98,18 @@ public class GUI implements ActionListener{
 			hand.get(i).add(new JLabel(new ImageIcon(scaled)));
 		}
 	}
-	
-	private Image getScaledImage(Image srcImg, int w, int h){
-	    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-	    Graphics2D g2 = resizedImg.createGraphics();
 
-	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-	    g2.drawImage(srcImg, 0, 0, w, h, null);
-	    g2.dispose();
+	private Image getScaledImage(Image srcImg, int w, int h) {
+		BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = resizedImg.createGraphics();
 
-	    return resizedImg;
+		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g2.drawImage(srcImg, 0, 0, w, h, null);
+		g2.dispose();
+
+		return resizedImg;
 	}
-	
+
 	private void addButton() {
 		drawButton = new JButton("Draw");
 		drawButton.addActionListener(this);
@@ -98,41 +120,42 @@ public class GUI implements ActionListener{
 		frame.add(drawButton);
 		frame.add(endTurnButton);
 	}
-	
+
 	private void addHand() {
 		hand = new ArrayList<>();
 		for (int i = 0; i < 6; i++) {
 			JPanel panel = new JPanel();
-			panel.setBounds(handX + i*cardWidth, handY, cardWidth, cardHeight);
+			panel.setBounds(handX + i * cardWidth, handY, cardWidth, cardHeight);
 			frame.getContentPane().add(panel);
 			panel.addMouseListener(listen);
 
 			hand.add(panel);
 		}
 	}
-	
+
 	private void addCrib() {
 		crib = new ArrayList<>();
 		for (int i = 0; i < 4; i++) {
 			JPanel panel = new JPanel();
-			panel.setBounds(cribX + i*cardWidth, cribY, cardWidth, cardHeight);
+			panel.setBounds(cribX + i * cardWidth, cribY, cardWidth, cardHeight);
 			frame.getContentPane().add(panel);
 
 			crib.add(panel);
 		}
 	}
-	
+
 	private void addTable() {
 		table = new ArrayList<>();
 		for (int i = 0; i < 7; i++) {
 			JPanel panel = new JPanel();
-			panel.setBounds(tableX + i*cardWidth, tableY, cardWidth, cardHeight);
+			panel.setBounds(tableX + i * cardWidth, tableY, cardWidth, cardHeight);
 			frame.getContentPane().add(panel);
 
 			table.add(panel);
 		}
-		
+
 	}
+
 	private void addDeck() {
 		deck = new JPanel();
 		cut = new JPanel();
@@ -140,92 +163,98 @@ public class GUI implements ActionListener{
 		cut.setBounds(cutX, cutY, cardWidth, cardHeight);
 		frame.getContentPane().add(deck);
 		frame.getContentPane().add(cut);
-		
+
 		ImageIcon card = new ImageIcon(cardBack);
 		Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 		deck.add(new JLabel(new ImageIcon(scaled)));
-		
-		
+
 	}
-	
+
 	public void update() {
-		
-		//hand update
+
+		// hand update
 		int length = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
 		System.out.println("length: " + length);
 		for (int i = 0; i < 6; i++) {
-			if(i < length) {
+			if (i < length) {
 				Card card = Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i);
 				System.out.println(card.toString());
 				ImageIcon icon = new ImageIcon(card.getImage());
 				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
 				hand.get(i).removeAll();
-				
 
-							
 				System.out.println(hand.get(i).getComponents().length);
 				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
-				
+
 				hand.get(i).revalidate();
-			}
-			else {
+			} else {
 				ImageIcon icon = new ImageIcon("");
 				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
 				hand.get(i).removeAll();
 				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
-			}	
+			}
 		}
-	
-		//crib update
-		if(Game.getPhase() == Phase.SHOW) {
+
+		// crib update
+		if (Game.getPhase() == Phase.SHOW) {
 			for (int i = 0; i < Crib.getCards().size(); i++) {
-				if(i < Crib.getCards().size()) {
+				if (i < Crib.getCards().size()) {
 					Card cribCard = Crib.getCards().get(i);
 					System.out.println(cribCard.toString());
 					ImageIcon icon = new ImageIcon(cribCard.getImage());
 					Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
 					crib.get(i).removeAll();
-					
+
 					System.out.println(hand.get(i).getComponents().length);
 					crib.get(i).add(new JLabel(new ImageIcon(scaled)));
 					crib.get(i).revalidate();
 				}
 			}
-		}
-		else {
+		} else {
 			for (int i = 0; i < Crib.getCards().size(); i++) {
 				ImageIcon icon = new ImageIcon(cardBack);
 				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
 				crib.get(i).removeAll();
 				crib.get(i).add(new JLabel(new ImageIcon(scaled)));
 			}
-		}	
-		
-		//update table
+		}
+
+		// update table
 		for (int i = 0; i < Table.getCards().size(); i++) {
-			if(i < Table.getCards().size()) {
+			if (i < Table.getCards().size()) {
 				Card TableCard = Table.getCards().get(i);
 				System.out.println(TableCard.toString());
 				ImageIcon icon = new ImageIcon(TableCard.getImage());
 				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
 				table.get(i).removeAll();
-				
+
 				System.out.println(hand.get(i).getComponents().length);
 				table.get(i).add(new JLabel(new ImageIcon(scaled)));
 				table.get(i).revalidate();
-			}
-			else {
+			} else {
 				ImageIcon icon = new ImageIcon("");
 				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
 				table.get(i).removeAll();
 				table.get(i).add(new JLabel(new ImageIcon(scaled)));
-			}	
+			}
 		}
 		
+		updateText();
 		
+
 	}
 	
-	private void test(){
+	private void updateText() {
+		String text;
+		if(Game.getGame().getCurrentPlayer().isDealer()) {
+			text = "Currently Dealer's Turn";
+		}
+		else
+			text = "Currently Non-Dealer's Turn";
+		playerLabel.setText(text);
+	}
+
+	private void test() {
 		for (int i = 0; i < 7; i++) {
 			ImageIcon card = new ImageIcon(cardBack);
 			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
@@ -243,21 +272,20 @@ public class GUI implements ActionListener{
 		cut.add(new JLabel(new ImageIcon(scaled)));
 	}
 
-	private void hideHand() {		
+	private void hideHand() {
 		int handSize = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
 		for (int i = 0; i < 6; i++) {
-			if(i < handSize) {
+			if (i < handSize) {
 				ImageIcon card = new ImageIcon(cardBack);
 				Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
-			}
-			else {
+			} else {
 				ImageIcon card = new ImageIcon("");
 				Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
 			}
 		}
-		
+
 	}
 
 	private void clear() {
@@ -280,13 +308,12 @@ public class GUI implements ActionListener{
 		Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
 		cut.add(new JLabel(new ImageIcon(scaled)));
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == drawButton) {
+		if (e.getSource() == drawButton) {
 			Game.getGame().getRound();
 			update();
-		}
-		else if(e.getSource() == endTurnButton) {
+		} else if (e.getSource() == endTurnButton) {
 			Game.getGame().getRound().endTurn();
 		}
 	}

@@ -22,8 +22,6 @@ public class Round{
 		for(int i = 0; i < players.size(); i++) {
 			setHand(players.get(i));
 		}
-		System.out.println(gui);
-		System.out.println(players);
 		gui.update();
 
 		

@@ -14,7 +14,7 @@ public class mouseListener implements MouseListener {
 			if (Game.getGame().getGUI().hand.contains(card)) {
 				int i = Game.getGame().getGUI().hand.indexOf(card);
 				Player player = Game.getGame().getRound().getCurrentPlayer();
-				if (i < player.getNumOfCards()) {
+				if (Crib.getCards().size() < 4 && i < player.getNumOfCards()) {
 					player.addToCrib(i);
 					Game.getGame().getRound().addedToCrib();
 				}

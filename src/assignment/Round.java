@@ -11,8 +11,6 @@ public class Round{
 	public void startRound() {
 		Game.setPhase(Phase.DRAW);
 		drawPhase();
-		peggingPhase();
-		//showPhase();
 	}
 	
 	private void drawPhase() {
@@ -32,12 +30,12 @@ public class Round{
 	}
 	
 	private void peggingPhase() {
-		
+		Game.getGame().nextPhase();
 		
 	}
 	
 	private void showPhase() {
-		
+		Game.getGame().nextPhase();
 		for(int i = 0; i < Game.getGame().getPlayers().size(); i++) {
 			clearHand(Game.getGame().getPlayers().get(i));
 		}
@@ -71,7 +69,7 @@ public class Round{
 	}
 	
 	public void endTurn() {
-		currentPlayer.addPoints(Score.getScore(Table.getCards()));
+		//currentPlayer.addPoints(Score.getScore(Table.getCards()));
 		
 		
 		

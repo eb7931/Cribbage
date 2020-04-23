@@ -1,7 +1,7 @@
 package assignment;
 public class Player{
 	private Hand hand;
-	private Hand startingHand;
+	private Hand startingHand = new Hand();
 	private boolean hasCrib; //I believe this needs to be removed
 	private int points;
 	private Peg peg;

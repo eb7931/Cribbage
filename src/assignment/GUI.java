@@ -149,7 +149,8 @@ public class GUI implements ActionListener{
 	}
 	
 	public void update() {
-		//update hand
+		
+		//hand update
 		int length = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
 		System.out.println("length: " + length);
 		for (int i = 0; i < 6; i++) {
@@ -175,6 +176,7 @@ public class GUI implements ActionListener{
 			}	
 		}
 	
+		//crib update
 		for (int i = 0; i < Crib.getCards().size(); i++) {
 			if(i < Crib.getCards().size()) {
 				Card cribCard = Crib.getCards().get(i);
@@ -192,6 +194,26 @@ public class GUI implements ActionListener{
 				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
 				crib.get(i).removeAll();
 				crib.get(i).add(new JLabel(new ImageIcon(scaled)));
+			}	
+		}
+		//update table
+		for (int i = 0; i < Table.getCards().size(); i++) {
+			if(i < Table.getCards().size()) {
+				Card TableCard = Table.getCards().get(i);
+				System.out.println(TableCard.toString());
+				ImageIcon icon = new ImageIcon(TableCard.getImage());
+				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
+				table.get(i).removeAll();
+				
+				System.out.println(hand.get(i).getComponents().length);
+				table.get(i).add(new JLabel(new ImageIcon(scaled)));
+				table.get(i).revalidate();
+			}
+			else {
+				ImageIcon icon = new ImageIcon("");
+				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
+				table.get(i).removeAll();
+				table.get(i).add(new JLabel(new ImageIcon(scaled)));
 			}	
 		}
 		

@@ -22,6 +22,8 @@ public class GUI implements ActionListener {
 	JButton drawButton, endTurnButton;
 	public JLabel playerLabel;
 	public JPanel playerPanel;
+	public JLabel phaseLabel;
+	public JPanel phasePanel;
 	public JPanel test;
 	public ArrayList<JPanel> hand;
 	public ArrayList<JPanel> table;
@@ -34,6 +36,8 @@ public class GUI implements ActionListener {
 	private final int windowWidth = 1000;
 	private final int playerTurnX = windowWidth/2 - 100;
 	private final int playerTurnY = 20;
+	private final int phaseX = playerTurnX;
+	private final int phaseY = playerTurnY + 30;
 	private final int handX = cardWidth;
 	private final int handY = windowHeight - (50 + cardHeight);
 	private final int cribX = windowWidth - 5 * cardWidth;
@@ -73,6 +77,7 @@ public class GUI implements ActionListener {
 		addCrib();
 		addDeck();
 		addPlayerTurn();
+		addPhaseLabel();
 		test();
 
 
@@ -84,9 +89,19 @@ public class GUI implements ActionListener {
 		playerLabel.setText("test");
 		playerLabel.setHorizontalTextPosition(SwingConstants.LEFT);
 		playerPanel = new JPanel();
-		playerPanel.setBounds(playerTurnX, playerTurnY, 200, 100);
+		playerPanel.setBounds(playerTurnX, playerTurnY, 200, 20);
 		playerPanel.add(playerLabel);
 		frame.add(playerPanel);
+	}
+	
+	public void addPhaseLabel() {
+		phaseLabel = new JLabel();
+		phaseLabel.setText("Phase label");
+		phaseLabel.setHorizontalTextPosition(SwingConstants.LEFT);
+		phasePanel = new JPanel();
+		phasePanel.setBounds(phaseX, phaseY, 200, 20);
+		phasePanel.add(phaseLabel);
+		frame.add(phasePanel);
 		
 	}
 	
@@ -239,12 +254,17 @@ public class GUI implements ActionListener {
 			}
 		}
 		
-		updateText();
-		
+		updatePlayerTurnLabel();
+		updatePhaseLabel();
 
 	}
 	
-	private void updateText() {
+	private void updatePhaseLabel() {
+		Phase phase = Game.getPhase();
+		phaseLabel.setText("Current Phase: " + phase.toString());
+	}
+	
+	private void updatePlayerTurnLabel() {
 		String text;
 		if(Game.getGame().getCurrentPlayer().isDealer()) {
 			text = "Currently Dealer's Turn";

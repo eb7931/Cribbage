@@ -26,7 +26,7 @@ public class mouseListener implements MouseListener {
 				int i = Game.getGame().getGUI().hand.indexOf(card);
 				Player player = Game.getGame().getRound().getCurrentPlayer();
 				if(i < player.getNumOfCards()) {
-					player.addToCrib(i);
+					player.addToTable(i);
 					Game.getGame().getRound().endTurn();
 				}
 			}

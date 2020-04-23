@@ -150,8 +150,11 @@ public class GUI implements ActionListener{
 		int length = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
 		System.out.println(length);
 		for (int i = 0; i < length; i++) {
-			ImageIcon card = new ImageIcon(Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i).getImage());
-			Image scaled = getScaledImage(card.getImage(), cardWidth, cardHeight);
+			Card card = Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i);
+			System.out.println(card.toString());
+			ImageIcon icon = new ImageIcon(card.getImage());
+			Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
+			hand.get(i).removeAll();
 			hand.get(i).add(new JLabel(new ImageIcon(scaled)));
 		}
 		

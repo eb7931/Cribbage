@@ -6,9 +6,10 @@ import java.util.*;
 public class Score {
 	private static Player lastPlayer;
 	
-	public static int getScore(Phase phase, ArrayList<Card> cards, Player player) {
+	public static int getScore(ArrayList<Card> cards) {
 		int pointsEarned = 0;
-		
+		Phase phase = Game.getPhase();
+		Player player = Game.getGame().getCurrentPlayer();
 		pointsEarned += checkFifteen(phase, cards, player);
 		pointsEarned += checkGo(phase, cards, player);
 		pointsEarned += checkPair(phase, cards);

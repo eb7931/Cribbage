@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.stream.*;
 
 public class Crib {
-	static ArrayList<Card> crib;
+	static ArrayList<Card> crib = new ArrayList<Card>();
 	static int playerID = 0;
 	
 	//merges given array of cards from player hand to the cribs card array

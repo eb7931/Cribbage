@@ -3,14 +3,21 @@ package assignment;
 import java.util.ArrayList;
 
 public class Table {
-	static ArrayList<Card> table =new ArrayList<Card>();
+	static ArrayList<Card> cards =new ArrayList<Card>();
 	//plays card onto table
 	public static void addCard(Card card){
-		table.add(card);
+		cards.add(card);
 	}
 	
 	//get cards on the table
-	public static ArrayList<Card> getTable(){
-		return table;
+	public static ArrayList<Card> getCards(){
+		return cards;
+	}
+	
+	public static void clear() {
+		for(int i = 0; i < cards.size(); i++) {
+			Deck.addCard(cards.get(i));
+		}
+		cards.clear();
 	}
 }

@@ -59,7 +59,11 @@ public class Round{
 	}
 	
 	public void endTurn() {
+		currentPlayer.addPoints(Score.getScore(Table.getCards()));
 		
+		
+		
+		setCurrentPlayer(getNextPlayer());
 	}
 	
 	private Player getNextPlayer(Player p) {

@@ -51,12 +51,9 @@ public class mouseListener implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		JPanel card = (JPanel) e.getSource();
-<<<<<<< HEAD
 		card.setLocation(card.getX(), card.getY() - Game.getGame().getGUI().cardHeight/5);
 		//Game.getGame().getGUI().update();
-=======
 		card.setLocation(card.getX(), card.getY() - Game.getGame().getGUI().cardHeight / 5);
->>>>>>> branch 'master' of https://github.com/CS-SE6356-2/git-team-01-1.git
 		// TODO Auto-generated method stub
 
 	}
@@ -64,16 +61,13 @@ public class mouseListener implements MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 		JPanel card = (JPanel) e.getSource();
-<<<<<<< HEAD
 		card.setLocation(card.getX(), card.getY() + Game.getGame().getGUI().cardHeight/5);
 		//Game.getGame().getGUI().update();
 		
-=======
 		card.setLocation(card.getX(), card.getY() + Game.getGame().getGUI().cardHeight / 5);
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 
->>>>>>> branch 'master' of https://github.com/CS-SE6356-2/git-team-01-1.git
 	}
 
 }

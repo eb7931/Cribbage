@@ -11,7 +11,7 @@ public class Round{
 		Game.setPhase(Phase.DRAW);
 		drawPhase();
 		peggingPhase();
-		showPhase();
+		//showPhase();
 	}
 	
 	private void drawPhase() {

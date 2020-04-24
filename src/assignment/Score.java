@@ -208,29 +208,33 @@ public class Score {
 			for (Card card : cards)
 				copy.add(card.getRank());
 
-			Collections.sort(copy); // Sort the list
-			// Start from every point in the list and see if there is a run. Find the
-			// largest run in the list
+			Collections.reverse(copy); // In order of latest card played to oldest
+			ArrayList<Integer> temp = new ArrayList<>(); // Holds the array of cards currently being looked at for a run
 			int run = 0;
-			int largestRun = 0;
+			boolean runBroken = false;
 			for (int i = 0; i < copy.size(); i++) {
-
-				if (largestRun < run)
-					largestRun = run;
-
-				for (int j = i; j < copy.size() - 1; j++) {
-					if ((copy.get(j) + 1) != copy.get(j + 1))
+				run = 0;
+				temp.clear();
+				runBroken = false;
+				// Add cards that are being looked at
+				for (int j = 0; j < i+1; j++)
+					temp.add(copy.get(j));
+				// Sort temp
+				Collections.sort(temp);
+				// Check if temp is only incrementing by 1
+				for (int k = 0; k < temp.size() - 1; k++) {
+					if ((temp.get(k) + 1) != temp.get(k + 1)) {
+						runBroken = true;
 						break;
-					else
+					} else
 						run++;
 				}
+				if (runBroken && (temp.size() >=3))
+					break;
 			}
 
-			// If largest run is greater than or equal to 2 (reason its not 3 is because
-			// largestRun will always be one less than the actual largest run, return score
-			// with length of largest run
-			if (largestRun >= 2)
-				score = largestRun;
+			if (run >= 2)
+				score = run+1;
 			else
 				score = 0;
 

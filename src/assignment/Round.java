@@ -36,11 +36,11 @@ public class Round {
 			int i = Game.getGame().getGUI().hand.indexOf(card);
 			Player player = Game.getGame().getRound().getCurrentPlayer();
 			if (i < player.getNumOfCards() && checkPlayable(Game.getGame().getRound().getCurrentPlayer().getHand().getCards())) {
+				tableScore += player.getHand().getCards().get(i).getValue();
 				player.addToTable(i);
 				player.addPoints(Score.getScore(Table.getCards()));
 				System.out.println(player.getID() + "'s points: " + player.getPoints());
 				Game.getGame().getRound().endTurn();
-				tableScore += Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i).getValue();
 				System.out.println(tableScore);
 			}
 		}
@@ -111,7 +111,7 @@ public class Round {
 		for(int i = 0; i < hand.size(); i++){
 			if(hand.isEmpty())
 				return false;
-			if(tableScore + Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i).getValue() <= 31)
+			if(tableScore <= 31)
 				return true;
 		}
 		return false;

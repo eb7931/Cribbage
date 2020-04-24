@@ -29,6 +29,7 @@ public class Player{
 		Table.addCard(card);
 		Score.setLastPlayer(this);
 		discard(card);
+		
 	}
 	
 	public void addToTable(int cardIndex) {

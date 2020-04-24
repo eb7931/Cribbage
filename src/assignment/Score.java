@@ -124,7 +124,7 @@ public class Score {
 																											// pair
 					if (length > 2) {
 						if (cards.get(length - 2).getRank() == cards.get(length - 3).getRank()) { // check triple
-							
+
 							if (length > 3) {
 								if ((cards.get(length - 3).getRank() == cards.get(length - 4).getRank())) { // checks
 																											// quad
@@ -154,7 +154,7 @@ public class Score {
 			break;
 		}
 
-	return score;
+		return score;
 
 	}
 
@@ -182,30 +182,70 @@ public class Score {
 		case DRAW:
 			break;
 		case PEGGING:
-			longestRun = 0;
-			isRun = false;
-			for (int i = cards.size() - 2; i > 0; i--) { // take an increasing chunk from the top of the pile and check
-															// for run
-				int[] lastCards = new int[cards.size() - i];
-				for (int j = cards.size() - 1; j > i; j--) { // move the recently played to an array to sort to make
-																// checking easier
-					lastCards[cards.size() - 1 - j] = cards.get(j).getRank();
-				}
-				Arrays.sort(lastCards);
-				isRun = true;
-				/*
-				 * checking the order of the last j cards
-				 */
-				for (int k = 0; k < i - 1; k++) {
-					if (lastCards[k] != lastCards[k + 1] - 1)
-						isRun = false;
-				}
-				if (isRun) {
-					longestRun = cards.size() - 1 - i;
+			// I commented this logic out because I was trying to debug it, however I
+			// believe I found a simpler way to calculate pegging run
+			// longestRun = 0;
+			// isRun = false;
+			// for (int i = cards.size() - 2; i > 0; i--) { // take an increasing chunk from
+			// the top of the pile and check
+			// for run
+			// int[] lastCards = new int[cards.size() - i];
+			// for (int j = cards.size() - 1; j > i; j--) { // move the recently played to
+			// an array to sort to make
+			// checking easier
+			// lastCards[cards.size() - 1 - j] = cards.get(j).getRank();
+			// }
+			// Arrays.sort(lastCards);
+			// isRun = true;
+			/*
+			 * checking the order of the last j cards
+			 */
+			// for (int k = 0; k < i - 1; k++) {
+			// if (lastCards[k] != lastCards[k + 1] - 1)
+			// isRun = false;
+			// }
+			// if (isRun) {
+			// longestRun = cards.size() - 1 - i;
+			// }
+			// }
+			// score = longestRun;
+
+			// Here is my(sumanth's) logic. Please let me know you see any logical errors
+			// with this.
+
+			// Make arraylist of all the card ranks
+			ArrayList<Integer> copy = new ArrayList<>();
+			for (Card card : cards)
+				copy.add(card.getRank());
+
+			Collections.sort(copy); // Sort the list
+			// Start from every point in the list and see if there is a run. Find the
+			// largest run in the list
+			int run = 0;
+			int largestRun = 0;
+			for (int i = 0; i < copy.size(); i++) {
+
+				if (largestRun < run)
+					largestRun = run;
+
+				for (int j = i; j < copy.size() - 1; j++) {
+					if ((copy.get(j) + 1) != copy.get(j + 1))
+						break;
+					else
+						run++;
 				}
 			}
-			score = longestRun;
+
+			// If largest run is greater than or equal to 2 (reason its not 3 is because
+			// largestRun will always be one less than the actual largest run, return score
+			// with length of largest run
+			if (largestRun >= 2)
+				score = largestRun;
+			else
+				score = 0;
+
 			break;
+
 		case SHOW:
 			longestRun = 0;
 			isRun = false;

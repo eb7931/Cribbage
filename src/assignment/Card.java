@@ -2,7 +2,7 @@ package assignment;
 import javax.swing.ImageIcon;
 
 public class Card{
-	int id;
+	public int id;
 	public String image;
 	/*
 	 * id for card follows the pattern 

@@ -30,6 +30,10 @@ public class GUI implements ActionListener {
 	public ArrayList<JPanel> crib;
 	public JPanel cut;
 	public JPanel deck;
+	public JLabel player1ScoreLabel;
+	public JPanel player1ScorePanel;
+	public JLabel player2ScoreLabel;
+	public JPanel player2ScorePanel;
 	public int cardHeight = 100;
 	public int cardWidth = 60;
 	private final int windowHeight = 500;
@@ -48,6 +52,8 @@ public class GUI implements ActionListener {
 	private final int cutY = 10;
 	private final int tableX = (windowWidth - 8 * cardWidth) / 2;
 	private final int tableY = windowHeight / 2 - cardHeight / 2;
+	private final int player1ScoreX = handX;
+	private final int player1ScoreY = handY - 150;
 
 	mouseListener listen = new mouseListener();
 
@@ -78,10 +84,27 @@ public class GUI implements ActionListener {
 		addDeck();
 		addPlayerTurn();
 		addPhaseLabel();
+		addPlayerScoreLabels();
 		test();
 
 
 
+	}
+	
+	public void addPlayerScoreLabels() {
+		player1ScoreLabel = new JLabel();
+		player2ScoreLabel = new JLabel();
+		player1ScoreLabel.setText("test");
+		player2ScoreLabel.setText("test");
+		player1ScorePanel = new JPanel();
+		player2ScorePanel = new JPanel();
+		player1ScorePanel.setBounds(player1ScoreX, player1ScoreY, 200, 20);
+		player2ScorePanel.setBounds(player1ScoreX, player1ScoreY+40, 200, 20);
+
+		player1ScorePanel.add(player1ScoreLabel);
+		player2ScorePanel.add(player2ScoreLabel);
+		frame.add(player1ScorePanel);
+		frame.add(player2ScorePanel);
 	}
 
 	public void addPlayerTurn() {
@@ -255,7 +278,14 @@ public class GUI implements ActionListener {
 		
 		updatePlayerTurnLabel();
 		updatePhaseLabel();
+		updateScoreLabels();
 		
+
+	}
+	
+	private void updateScoreLabels() {
+		player1ScoreLabel.setText("Player 1's score: " + Game.getGame().getPlayers().get(0).getPoints());
+		player2ScoreLabel.setText("Player 2's score: " + Game.getGame().getPlayers().get(1).getPoints());
 
 	}
 	
@@ -265,13 +295,7 @@ public class GUI implements ActionListener {
 	}
 	
 	private void updatePlayerTurnLabel() {
-		String text;
-		if(Game.getGame().getCurrentPlayer().isDealer()) {
-			text = "Currently Dealer's Turn";
-		}
-		else
-			text = "Currently Non-Dealer's Turn";
-		playerLabel.setText(text);
+		playerLabel.setText("Current Player " + Game.getGame().getCurrentPlayer().getID() + "'s turn");
 	}
 
 	private void test() {

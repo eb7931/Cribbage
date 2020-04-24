@@ -204,6 +204,7 @@ public class Score {
 			// with this.
 
 			// Make arraylist of all the card ranks
+			/*
 			ArrayList<Integer> copy = new ArrayList<>();
 			for (Card card : cards)
 				copy.add(card.getRank());
@@ -237,7 +238,103 @@ public class Score {
 				score = run+1;
 			else
 				score = 0;
-
+*/
+			
+			//One last try jesus i hope this works <- it do be lookin like it works but its jank af
+			ArrayList<Integer> copy = new ArrayList<>();
+			ArrayList<Integer> temp = new ArrayList<>();
+			boolean runBroken = false;
+			boolean run3 = false;
+			boolean run4 = false;
+			int pointsToAdd = 0;
+			//Make copy of cards
+			for(Card card : cards)
+				copy.add(card.getRank());
+			//Reverse so latest cards are first
+			Collections.reverse(copy);
+			
+			//Check last 3 cards played
+			if(copy.size() >= 3) {
+				runBroken = false;
+				//add last 3 cards played
+				for(int i = 0; i < 3; i++)
+					temp.add(copy.get(i));
+				Collections.sort(temp); //sort cards 
+				
+				//Check if temp is sequentally increasing
+				for(int i = 0; i < temp.size()-1; i++) {
+					if((temp.get(i) + 1) != temp.get(i+1)) {
+						runBroken = true;
+						break;
+					}
+				}
+				
+				if(runBroken)
+					pointsToAdd = 0;
+				else {
+					pointsToAdd = 3;
+					run3 = true;
+				}
+			}
+			
+			//Check last 4 cards played
+			if(copy.size() >= 4) {
+				runBroken = false;
+				//add last 5 cards played
+				for(int i = 0; i < 4; i++)
+					temp.add(copy.get(i));
+				Collections.sort(temp); //sort cards 
+				
+				//Check if temp is sequentally increasing
+				for(int i = 0; i < temp.size()-1; i++) {
+					if((temp.get(i) + 1) != temp.get(i+1)) {
+						runBroken = true;
+						break;
+					}
+				}
+				
+				if(runBroken) {
+					if(run3)
+						pointsToAdd = 3;
+					else
+						pointsToAdd = 0;
+				}
+				else
+					pointsToAdd = 4;
+			}
+			
+			//Check last 5 cards played
+			if(copy.size() >= 5) {
+				runBroken = false;
+				//add last 5 cards played
+				for(int i = 0; i < 5; i++)
+					temp.add(copy.get(i));
+				Collections.sort(temp); //sort cards 
+				
+				//Check if temp is sequentally increasing
+				for(int i = 0; i < temp.size()-1; i++) {
+					if((temp.get(i) + 1) != temp.get(i+1)) {
+						runBroken = true;
+						break;
+					}
+				}
+				
+				if(runBroken) {
+					if(run3)
+						pointsToAdd = 3;
+					else
+						pointsToAdd = 0;
+					if(run4)
+						pointsToAdd = 4;
+					else
+						pointsToAdd = 0;
+				}
+				else
+					pointsToAdd = 5;
+			}
+			
+			score = pointsToAdd;
+			
 			break;
 
 		case SHOW:

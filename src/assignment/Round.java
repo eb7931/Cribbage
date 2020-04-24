@@ -35,7 +35,7 @@ public class Round {
 		if (Game.getGame().getGUI().hand.contains(card)) {
 			int i = Game.getGame().getGUI().hand.indexOf(card);
 			Player player = Game.getGame().getRound().getCurrentPlayer();
-			if (i < player.getNumOfCards() && checkPlayable(Game.getGame().getRound().getCurrentPlayer().getHand().getCards())) {
+			if (i < player.getNumOfCards() && checkPlayable(Game.getGame().getRound().getCurrentPlayer().getHand().getCards(), player.getHand().getCards().get(i).getValue())) {
 				tableScore += player.getHand().getCards().get(i).getValue();
 				player.addToTable(i);
 				player.addPoints(Score.getScore(Table.getCards()));
@@ -107,11 +107,11 @@ public class Round {
 		}
 	}
 	//needed to implement go
-	public boolean checkPlayable(ArrayList<Card> hand){
+	public boolean checkPlayable(ArrayList<Card> hand, int valueAdded){
 		for(int i = 0; i < hand.size(); i++){
 			if(hand.isEmpty())
 				return false;
-			if(tableScore <= 31)
+			if((tableScore + valueAdded)  <= 31)
 				return true;
 		}
 		return false;

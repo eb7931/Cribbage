@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 
 public class Round {
 	private Player currentPlayer;
+	private int tableScore;
 
 	public Round() {
 		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
@@ -18,6 +19,7 @@ public class Round {
 
 	private void drawPhase() {
 		Deck.shuffle();
+		tableScore = 0;
 		ArrayList<Player> players = Game.getGame().getPlayers();
 		GUI gui = Game.getGame().getGUI();
 		Deck.shuffle();
@@ -33,11 +35,13 @@ public class Round {
 		if (Game.getGame().getGUI().hand.contains(card)) {
 			int i = Game.getGame().getGUI().hand.indexOf(card);
 			Player player = Game.getGame().getRound().getCurrentPlayer();
-			if (i < player.getNumOfCards()) {
+			if (i < player.getNumOfCards() && checkPlayable(Game.getGame().getRound().getCurrentPlayer().getHand().getCards())) {
 				player.addToTable(i);
 				player.addPoints(Score.getScore(Table.getCards()));
 				System.out.println(player.getID() + "'s points: " + player.getPoints());
 				Game.getGame().getRound().endTurn();
+				tableScore += Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i).getValue();
+				System.out.println(tableScore);
 			}
 		}
 
@@ -102,7 +106,17 @@ public class Round {
 			player.discard();
 		}
 	}
-
+	//needed to implement go
+	public boolean checkPlayable(ArrayList<Card> hand){
+		for(int i = 0; i < hand.size(); i++){
+			if(hand.isEmpty())
+				return false;
+			if(tableScore + Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i).getValue() <= 31)
+				return true;
+		}
+		return false;
+	}
+	
 	// Not sure on what this does yet
 	public void promptPlay(ArrayList<Player> players, GUI gui) {
 	}

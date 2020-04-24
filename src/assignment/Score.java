@@ -91,17 +91,7 @@ public class Score {
 		case DRAW:
 			break;
 		case PEGGING:
-			if (player == lastPlayer) {
-				int count = 0;
-				for (int i = 0; i < cards.size(); i++) {
-					count = count + cards.get(i).getValue();
-				}
-				if (count == 31) {
-					score = 2;
-				} else {
-					score = 1;
-				}
-			}
+	
 			break;
 		case SHOW:
 			break;

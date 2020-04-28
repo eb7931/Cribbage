@@ -26,6 +26,8 @@ public class GUI extends JFrame implements ActionListener {
 	public boolean hidden = true;
 	public JLabel handLabel;
 	public JPanel handPanel;
+	public JLabel cribLabel;
+	public JPanel cribPanel;
 	public JLabel hand2Label;
 	public JPanel hand2Panel;
 	public JLabel player1ScoreLabel;
@@ -70,6 +72,7 @@ public class GUI extends JFrame implements ActionListener {
 		 */
 		addAlert();
 		addButton();
+		addCribLabel();
 		addHand();
 		addHand2();
 		addHandLabel();
@@ -183,6 +186,27 @@ public class GUI extends JFrame implements ActionListener {
 		}
 	}
 
+	private void addCribLabel() {
+		cribLabel = new JLabel();
+		cribLabel.setText("");
+		cribLabel.setHorizontalTextPosition(SwingConstants.LEFT);
+		cribPanel = new JPanel();
+		cribPanel.setBounds(d.cribLabelX(), d.cribLabelY(), d.textWidth(), d.textHeight());
+		cribPanel.add(cribLabel);
+		this.add(cribPanel);
+	}
+	
+	private void updateCribLabel() {
+		
+		cribPanel.setBounds(d.cribLabelX(), d.cribLabelY(), d.textWidth(), d.textHeight());
+		Round round = Game.getGame().getRound();
+		Phase phase = Game.getPhase();
+		if(phase == Phase.SHOW)
+			cribLabel.setText("The Crib earned " + round.cribPoints() + " points.");
+		else
+			cribLabel.setText("");		
+	}
+	
 	/*
 	 * methods altering cut
 	 */
@@ -420,9 +444,11 @@ public class GUI extends JFrame implements ActionListener {
 	
 	private void updateHandLabel() {
 		handPanel.setBounds(d.handLabelX(), d.handLabelY(), d.textWidth(), d.textHeight());
+		Round round = Game.getGame().getRound();
 		Phase phase = Game.getPhase();
-		if(phase == Phase.SHOW)
-			handLabel.setText("Player 1's hand:");
+		if(phase == Phase.SHOW) {
+			handLabel.setText("Player 1's hand earned " + round.hand1Points() + " points.");
+		}
 		else
 			handLabel.setText("Player " + Game.getGame().getCurrentPlayer().getID() + "'s hand");
 		
@@ -440,11 +466,11 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	private void updateHand2Label() {
-
+		Round round = Game.getGame().getRound();
 		hand2Panel.setBounds(d.hand2LabelX(), d.hand2LabelY(), d.textWidth(), d.textHeight());
 		Phase phase = Game.getPhase();
 		if(phase == Phase.SHOW)
-			hand2Label.setText("Player 2's hand:");
+			hand2Label.setText("Player 2's hand earned " + round.hand2Points() + " points.");
 		else
 			hand2Label.setText("");
 		
@@ -584,6 +610,7 @@ public class GUI extends JFrame implements ActionListener {
 		updateAlert();
 		updateButtons();
 		updateCrib();
+		updateCribLabel();
 		updateCut();
 		updateDeck();
 		updateHandLabel();
@@ -771,6 +798,10 @@ public class GUI extends JFrame implements ActionListener {
 		public int hand2LabelX() {return 48*baseUnit();}
 		
 		public int hand2LabelY() {return 32*baseUnit();}
+		
+		public int cribLabelX() {return 70*baseUnit();}
+		
+		public int cribLabelY() {return 12*baseUnit();}
 		
 		
 		}

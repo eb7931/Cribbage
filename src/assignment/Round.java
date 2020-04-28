@@ -13,6 +13,7 @@ public class Round {
 	private int hand2Points;
 	private int cribPoints;
 	
+	
 
 	public Round() {
 		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
@@ -204,15 +205,15 @@ public class Round {
 		return 0;
 	}
 	
-	public int getHand1Points() {
+	public int hand1Points() {
 		return hand1Points;
 	}
 	
-	public int getHand2Points() {
+	public int hand2Points() {
 		return hand2Points;
 	}
 	
-	public int getCribPoints() {
+	public int cribPoints() {
 		return cribPoints;
 	}
 	

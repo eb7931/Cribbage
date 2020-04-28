@@ -32,28 +32,30 @@ public class Round {
 		for (int i = 0; i < players.size(); i++) {
 			setHand(players.get(i));
 		}
-
+		Game.setAlert("Round started, card dealt.");
 		gui.update();
 
 	}
-
+	
+	
+	
+	/*
+	 * Called from mouseListener, called when a card is clicked and is valid
+	 * during the pegging phase. 
+	 * NOTE: In order to make the GUI aware of whether or
+	 * not this is called, conditions for playable are checked in mouseListener
+	 */
 	public void peggingPhase(JPanel card) {
-
-		if (Game.getGame().getGUI().hand.contains(card)) {
 			int cardIndex = Game.getGame().getGUI().hand.indexOf(card);
 			Player player = Game.getGame().getRound().getCurrentPlayer();
-			ArrayList<Card> hand = player.getHand().getCards();
-			if (cardIndex < player.getNumOfCards() && checkPlayable(hand, hand.get(cardIndex).getValue())) {
-				player.addToTable(cardIndex);
-				player.addPoints(Score.getScore(Table.getCards()));
-				System.out.println(player.getID() + "'s points: " + player.getPoints());
-				// Game.getGame().getRound().endTurn();
-				endTurn(); // pretty sure the above line points to the instance this method executes from
-				System.out.println(Table.tableScore());
-			} else {
-				endTurn();
-			}
-		}
+			System.out.println("\n" + "Table total before playing: " + Table.tableScore());
+			player.addToTable(cardIndex);
+			int pointsEarned = Score.getScore(Table.getCards());
+			player.addPoints(pointsEarned);
+			System.out.println("Table total is now: " + Table.tableScore());
+			System.out.println("Player " + player.getID() + " earned " + pointsEarned + ". Total: " + player.getPoints());
+			endTurn(); // checks the conditions for next player and table clearing
+			System.out.println("Table total after ending turn: " + Table.tableScore());
 	}
 
 	private void showPhase() {
@@ -68,14 +70,29 @@ public class Round {
 		player.setStartingHand();
 	}
 
-	private void setCurrentPlayer(Player p) {
-		currentPlayer = p;
-	}
+	private void setCurrentPlayer(Player p) {currentPlayer = p;}
 
-	public Player getNextPlayer() {
-		return getNextPlayer(currentPlayer);
-	}
+	public Player getNextPlayer() {return getNextPlayer(currentPlayer);}
 
+	/*
+	 * called by mouselistener when a player clicks a card from their hand
+	 * during the draw phase
+	 */
+	public void addToCrib(JPanel card) {
+		if (Game.getGame().getGUI().hand.contains(card)) {
+			int i = Game.getGame().getGUI().hand.indexOf(card);
+			Player player = Game.getGame().getRound().getCurrentPlayer();
+			if (Crib.getCards().size() < 4 && i < player.getNumOfCards()) {
+				player.addToCrib(i);
+				Game.getGame().getRound().addedToCrib();
+			}
+		}
+	}
+	
+	/*
+	 * called by addToCrib only if the player clicks a card and 
+	 * it is successfully added to the crib. Checks for end of draw phase
+	 */
 	public void addedToCrib() {
 		setCurrentPlayer(getNextPlayer());
 		if (Crib.getCards().size() == 4) {
@@ -88,21 +105,24 @@ public class Round {
 			}
 			Game.getGame().nextPhase();//moves from draw to pegging
 		}
-		
-		
 	}
 
+	/*
+	 * Called by peggingPhase() if 
+	 */
 	public void endTurn() {
-		// currentPlayer.addPoints(Score.getScore(Table.getCards()));
 		int currentHand = currentPlayer.getHand().getCards().size();
 		int nextHand = getNextPlayer().getHand().getCards().size();
 		//first condition indicates next player can't play
 		if(nextHand == 0 || Table.tableScore() + getNextPlayer().getHand().getLowest().getValue() > 31) {
 			//second indicates current player also can't
 			if(currentHand == 0 || Table.tableScore() + currentPlayer.getHand().getLowest().getValue() > 31) {
+				Game.setAlert("Table score reached " + Table.tableScore() + " and was cleared.");
 				Table.clear();//if this happens we clear the table and move to next player
 				setCurrentPlayer(getNextPlayer());
 			} else {
+
+				Game.setAlert("Other player can't play, pick next card.");
 				// we will not clear if current player can player, we will just skip next player
 			}
 		} else {
@@ -154,17 +174,6 @@ public class Round {
 		return 0;
 	}
 	
-	public void addToCrib(JPanel card) {
-		if (Game.getGame().getGUI().hand.contains(card)) {
-			int i = Game.getGame().getGUI().hand.indexOf(card);
-			Player player = Game.getGame().getRound().getCurrentPlayer();
-			if (Crib.getCards().size() < 4 && i < player.getNumOfCards()) {
-				player.addToCrib(i);
-				Game.getGame().getRound().addedToCrib();
-			}
-		}
-	}
-
 	// Initiates draw phase by 1) adding cards to hand 2) representing these cards
 	// in the GUI
 

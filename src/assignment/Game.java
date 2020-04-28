@@ -80,9 +80,21 @@ public class Game {
 		}
 	}
 	
+	public static void setAlert(String s) {
+		if(instance!= null) {
+			gui.setAlert(s);
+		}
+	}
+	
+	public static void clearAlert() {
+		if(instance!= null) {
+			gui.setAlert("");
+		}
+	}
+	
 	public static void initializeGUI() {
 		gui = new GUI();
-		gui.frame.setVisible(true);
+		gui.setVisible(true);
 	}
 	public GUI getGUI() {
 		return gui;

@@ -8,6 +8,11 @@ public class Round {
 	private Player currentPlayer;
 	//public ArrayList<Integer> showScores;
 	public ArrayList<Hand> hands;
+	
+	private int hand1Points;
+	private int hand2Points;
+	private int cribPoints;
+	
 
 	public Round() {
 		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
@@ -73,9 +78,17 @@ public class Round {
 					players.get(i).getHand().addCard(hands.get(i).getCards().get(j));
 				}
 			}
-		int cribPoints = Score.getScore(Crib.getCards());
+		cribPoints = Score.getScore(Crib.getCards());
+		
+		hand1Points = Score.getScore(players.get(0).getHand().getCards());
+		hand2Points = Score.getScore(players.get(1).getHand().getCards());
+		
+
 		System.out.println("Player " + Game.getGame().getDealer().getID() + " crib points earned " + cribPoints + ". Total: " + Game.getGame().getDealer().getPoints());
+		//Add points to player
 		Game.getGame().getDealer().addPoints(cribPoints);
+		players.get(0).addPoints(hand1Points);
+		players.get(1).addPoints(hand2Points);
 	}
 
 	// Will assign the hands to a player
@@ -189,6 +202,18 @@ public class Round {
 	// Not sure how to implement in Round
 	public int checkWin() {
 		return 0;
+	}
+	
+	public int getHand1Points() {
+		return hand1Points;
+	}
+	
+	public int getHand2Points() {
+		return hand2Points;
+	}
+	
+	public int getCribPoints() {
+		return cribPoints;
 	}
 	
 	// Initiates draw phase by 1) adding cards to hand 2) representing these cards

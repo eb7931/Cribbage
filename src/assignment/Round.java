@@ -61,14 +61,6 @@ public class Round {
 		
 		
 		
-		
-		
-		
-		for (int i = 0; i < Game.getGame().getPlayers().size(); i++) {
-			clearHand(Game.getGame().getPlayers().get(i));
-		}
-		Game.getGame().nextPhase();
-		
 	}
 
 	// Will assign the hands to a player

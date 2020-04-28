@@ -15,6 +15,7 @@ public class Game {
 	public static Round round;
 	public static GUI gui;
 	private static Phase phase = Phase.DRAW;
+	private final int WINSCORE = 4;
 
 	private Game() {
 		players = new ArrayList<>();
@@ -102,6 +103,19 @@ public class Game {
 	
 	public Round getRound() {
 		return round;
+	}
+	
+	public void checkWin(int points) {
+		//Get current player
+		Player player = getCurrentPlayer();
+		
+		//Check if this addition of points gets him to win
+		if((player.getPoints() + points) >= WINSCORE) {
+			gui.setAlert("Player " + player.getID() + " Wins!" );
+			player.addPoints(points);
+		}
+		
+		
 	}
 	
 

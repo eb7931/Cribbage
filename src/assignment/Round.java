@@ -39,10 +39,11 @@ public class Round {
 			if (cardIndex < player.getNumOfCards() && checkPlayable(hand, hand.get(cardIndex).getValue())) {
 				tableScore += hand.get(cardIndex).getValue();
 				player.addToTable(cardIndex);
+				Game.getGame().getGUI().hideHand();
 				player.addPoints(Score.getScore(Table.getCards()));
 				System.out.println(player.getID() + "'s points: " + player.getPoints());
 				//Game.getGame().getRound().endTurn();
-				endTurn(); // pretty sure the above line points to the instance this method executes from
+				//endTurn(); // pretty sure the above line points to the instance this method executes from
 				System.out.println(tableScore);
 			}
 			else {
@@ -86,6 +87,7 @@ public class Round {
 		// currentPlayer.addPoints(Score.getScore(Table.getCards()));
 		int currentHand = currentPlayer.getHand().getCards().size();
 		int nextHand = getNextPlayer().getHand().getCards().size();
+		
 		//first condition indicates next player can't play
 		if(nextHand == 0 || tableScore + getNextPlayer().getHand().getLowest().getValue() > 31) {
 			//second indicates current player also can't

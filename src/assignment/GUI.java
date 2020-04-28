@@ -1,5 +1,6 @@
 package assignment;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -30,6 +31,7 @@ public class GUI implements ActionListener {
 	public ArrayList<JPanel> crib;
 	public JPanel cut;
 	public JPanel deck;
+	public JPanel hide;
 	public JLabel player1ScoreLabel;
 	public JPanel player1ScorePanel;
 	public JLabel player2ScoreLabel;
@@ -77,6 +79,7 @@ public class GUI implements ActionListener {
 		/*
 		 * Initialize all panels
 		 */
+		Hide();
 		addButton();
 		addHand();
 		addTable();
@@ -86,8 +89,6 @@ public class GUI implements ActionListener {
 		addPhaseLabel();
 		addPlayerScoreLabels();
 		test();
-
-
 
 	}
 	
@@ -156,7 +157,7 @@ public class GUI implements ActionListener {
 		drawButton.setBounds(70, 120, 75, 50);
 		endTurnButton = new JButton("End Turn");
 		endTurnButton.addActionListener(this);
-		endTurnButton.setBounds(750, 400, 100, 50);
+		endTurnButton.setBounds(875, 400, 100, 50);
 		frame.add(drawButton);
 		frame.add(endTurnButton);
 	}
@@ -217,6 +218,7 @@ public class GUI implements ActionListener {
 		updatePlayerTurnLabel();
 		updatePhaseLabel();
 		updateScoreLabels();
+		
 	}
 	
 	private void updateHand() {
@@ -290,6 +292,14 @@ public class GUI implements ActionListener {
 		}
 	}
 	
+	private void Hide() {
+		hide = new JPanel();
+		hide.setBackground(Color.BLACK);
+		hide.setBounds(handX, handY, cardWidth*6, cardHeight);
+		frame.add(hide);
+		hide.setVisible(false);
+	}
+	
 	private void updateScoreLabels() {
 		player1ScoreLabel.setText("Player 1's score: " + Game.getGame().getPlayers().get(0).getPoints());
 		player2ScoreLabel.setText("Player 2's score: " + Game.getGame().getPlayers().get(1).getPoints());
@@ -323,7 +333,7 @@ public class GUI implements ActionListener {
 		cut.add(new JLabel(new ImageIcon(scaled)));
 	}
 
-	private void hideHand() {
+	public void hideHand() {
 		int handSize = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
 		for (int i = 0; i < 6; i++) {
 			if (i < handSize) {
@@ -362,10 +372,11 @@ public class GUI implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == drawButton) {
-			Game.getGame().getRound();
+			Game.getGame().startRound();
 			update();
 		} else if (e.getSource() == endTurnButton) {
 			Game.getGame().getRound().endTurn();
+			update();
 		}
 	}
 }

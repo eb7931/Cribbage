@@ -6,8 +6,12 @@ public class Score {
 	private static Player lastPlayer;
 
 	public static int getScore(ArrayList<Card> cards) {
-		int pointsEarned = 0;
 		Phase phase = Game.getPhase();
+		return getScore(cards, phase);
+	}
+	
+	public static int getScore(ArrayList<Card> cards, Phase phase) {
+		int pointsEarned = 0;
 		Player player = Game.getGame().getCurrentPlayer();
 		pointsEarned += checkFifteen(phase, cards, player);
 		pointsEarned += checkGo(phase, cards, player);
@@ -27,13 +31,8 @@ public class Score {
 		case DRAW:
 			break;
 		case PEGGING:
-			count = 0;
-			for (int i = 0; i < cards.size(); i++) {
-				count = count + cards.get(i).getValue();
-				if (count == 15) {
-					score = 2;
-				}
-			}
+			if(Table.tableScore() == 15) 
+				score = 2;
 			break;
 		case SHOW:
 			ArrayList<Card> newCards = new ArrayList<Card>();
@@ -86,12 +85,22 @@ public class Score {
 
 	private static int checkGo(Phase phase, ArrayList<Card> cards, Player player) {
 		int score = 0;
+		Round round = Game.getGame().getRound();
+		Player nextPlayer = round.getNextPlayer();
 
 		switch (phase) {
 		case DRAW:
 			break;
 		case PEGGING:
-	
+			int nextHand = nextPlayer.getHand().getCards().size();
+			//first condition indicates next player can't play
+			if(nextHand == 0 || Table.tableScore() + nextPlayer.getHand().getLowest().getValue() > 31) {
+				score += 1;
+			}
+			if(Table.tableScore() == 31) {
+				score += 1;
+			}
+			
 			break;
 		case SHOW:
 			break;

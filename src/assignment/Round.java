@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 
 public class Round {
 	private Player currentPlayer;
-	private int tableScore;
 
 	public Round() {
 		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
@@ -19,7 +18,6 @@ public class Round {
 
 	private void drawPhase() {
 		Deck.shuffle();
-		tableScore = 0;
 		ArrayList<Player> players = Game.getGame().getPlayers();
 		GUI gui = Game.getGame().getGUI();
 		Deck.shuffle();
@@ -37,13 +35,12 @@ public class Round {
 			Player player = Game.getGame().getRound().getCurrentPlayer();
 			ArrayList<Card> hand = player.getHand().getCards();
 			if (cardIndex < player.getNumOfCards() && checkPlayable(hand, hand.get(cardIndex).getValue())) {
-				tableScore += hand.get(cardIndex).getValue();
 				player.addToTable(cardIndex);
 				player.addPoints(Score.getScore(Table.getCards()));
 				System.out.println(player.getID() + "'s points: " + player.getPoints());
 				//Game.getGame().getRound().endTurn();
 				endTurn(); // pretty sure the above line points to the instance this method executes from
-				System.out.println(tableScore);
+				System.out.println(Table.tableScore());
 			}
 			else {
 				endTurn();
@@ -70,7 +67,7 @@ public class Round {
 		currentPlayer = p;
 	}
 
-	private Player getNextPlayer() {
+	public Player getNextPlayer() {
 		return getNextPlayer(currentPlayer);
 	}
 
@@ -87,11 +84,10 @@ public class Round {
 		int currentHand = currentPlayer.getHand().getCards().size();
 		int nextHand = getNextPlayer().getHand().getCards().size();
 		//first condition indicates next player can't play
-		if(nextHand == 0 || tableScore + getNextPlayer().getHand().getLowest().getValue() > 31) {
+		if(nextHand == 0 || Table.tableScore() + getNextPlayer().getHand().getLowest().getValue() > 31) {
 			//second indicates current player also can't
-			if(currentHand == 0 || tableScore + currentPlayer.getHand().getLowest().getValue() > 31) {
-				tableScore = 0; //if this happens we clear the table and move to next player
-				Table.clear();
+			if(currentHand == 0 || Table.tableScore() + currentPlayer.getHand().getLowest().getValue() > 31) {
+				Table.clear();//if this happens we clear the table and move to next player
 				setCurrentPlayer(getNextPlayer());
 			}
 			else {
@@ -128,12 +124,11 @@ public class Round {
 	}
 	//needed to implement go
 	public boolean checkPlayable(ArrayList<Card> hand, int valueAdded){
-		for(int i = 0; i < hand.size(); i++){
-			if(hand.isEmpty())
-				return false;
-			if((tableScore + valueAdded)  <= 31)
-				return true;
-		}
+		if(hand.isEmpty())
+			return false;
+		if((Table.tableScore() + valueAdded)  <= 31)
+			return true;
+		
 		return false;
 	}
 	

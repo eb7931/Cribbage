@@ -20,7 +20,7 @@ public class GUI implements ActionListener {
 
 	private String cardBack = "src\\cardImages\\blue_back.jpg";
 	public JFrame frame;
-	JButton drawButton, endTurnButton;
+	public JButton drawButton, endTurnButton;
 	public JLabel playerLabel;
 	public JPanel playerPanel;
 	public JLabel phaseLabel;

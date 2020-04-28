@@ -36,6 +36,7 @@ public class Game {
 	
 	public void startRound() {
 		round = new Round();
+		round.startRound();
 	}
 	
 	public ArrayList<Player> getPlayers() {

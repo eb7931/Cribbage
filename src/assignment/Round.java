@@ -6,7 +6,8 @@ import javax.swing.JPanel;
 
 public class Round {
 	private Player currentPlayer;
-	private int tableScore;
+	//public ArrayList<Integer> showScores;
+	public ArrayList<Card> hands;
 
 	public Round() {
 		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
@@ -15,11 +16,16 @@ public class Round {
 	public void startRound() {
 		Game.setPhase(Phase.DRAW);
 		drawPhase();
+		hands = new ArrayList<Card>();
 	}
 
 	private void drawPhase() {
 		Deck.shuffle();
 		ArrayList<Player> players = Game.getGame().getPlayers();
+		players.get(0).getHand().clear();
+		players.get(1).getHand().clear();
+		Crib.clear();
+		Table.clear();
 		GUI gui = Game.getGame().getGUI();
 		Deck.shuffle();
 		// Set hand for both playes
@@ -42,7 +48,7 @@ public class Round {
 				player.addPoints(Score.getScore(Table.getCards()));
 				System.out.println(player.getID() + "'s points: " + player.getPoints());
 				// Game.getGame().getRound().endTurn();
-				//endTurn(); // pretty sure the above line points to the instance this method executes from
+				endTurn(); // pretty sure the above line points to the instance this method executes from
 				System.out.println(Table.tableScore());
 			} else {
 				endTurn();
@@ -52,9 +58,17 @@ public class Round {
 
 	private void showPhase() {
 		Game.getGame().nextPhase();
+		
+		
+		
+		
+		
+		
 		for (int i = 0; i < Game.getGame().getPlayers().size(); i++) {
 			clearHand(Game.getGame().getPlayers().get(i));
 		}
+		Game.getGame().nextPhase();
+		
 	}
 
 	// Will assign the hands to a player
@@ -74,19 +88,16 @@ public class Round {
 	}
 
 	public void addedToCrib() {
-
 		setCurrentPlayer(getNextPlayer());
 		if (Crib.getCards().size() == 4) {
-			
 			ArrayList<Player> players = Game.getGame().getPlayers();
 			
 			// Calculate Show score instantly and store for later
 			for (int i = 0; i < players.size(); i++) {
-				showScores.add(Score.getScore(players.get(i).getHand().getCards(), Phase.SHOW));
-				System.out.println("SHOW " + Score.getScore(players.get(i).getHand().getCards(), Phase.SHOW));
+				hands.add(players.get(i).getHand().getCards().get(i));
+				//System.out.println("SHOW " + Score.getScore(players.get(i).getHand().getCards(), Phase.SHOW));
 			}
-			
-			Game.getGame().nextPhase();
+			Game.getGame().nextPhase();//moves from draw to pegging
 		}
 		
 		
@@ -152,6 +163,17 @@ public class Round {
 	// Not sure how to implement in Round
 	public int checkWin() {
 		return 0;
+	}
+	
+	public void addToCrib(JPanel card) {
+		if (Game.getGame().getGUI().hand.contains(card)) {
+			int i = Game.getGame().getGUI().hand.indexOf(card);
+			Player player = Game.getGame().getRound().getCurrentPlayer();
+			if (Crib.getCards().size() < 4 && i < player.getNumOfCards()) {
+				player.addToCrib(i);
+				Game.getGame().getRound().addedToCrib();
+			}
+		}
 	}
 
 	// Initiates draw phase by 1) adding cards to hand 2) representing these cards

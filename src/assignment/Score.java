@@ -183,6 +183,14 @@ public class Score {
 		case DRAW:
 			break;
 		case PEGGING:
+			longestRun = 0;
+			for(int i = 0; i < 7; i++) {
+				if(i < cards.size())
+				for(int j = 0; j < i; j++) {
+					
+				}
+				
+			}
 			// I commented this logic out because I was trying to debug it, however I
 			// believe I found a simpler way to calculate pegging run
 			// longestRun = 0;

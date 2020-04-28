@@ -55,7 +55,6 @@ public class Deck {
 		deck.remove(drawn);
 		return drawn;
 	}
-
 	public static void addCard(Card card) {
 		if (!initialized)
 			new Deck();

@@ -9,11 +9,19 @@ public class Hand {
 		cards.add(card);
 	}	
 	public void removeCard(Card card) {
+		Deck.addCard(card);
 		cards.remove(cards.indexOf(card));
 	}
 	//returns cards in hand
 	public ArrayList<Card> getCards() {
 		return cards;
+	}
+	
+	public void clear() {
+		while(!cards.isEmpty()) {
+			Deck.addCard(cards.get(0));
+			removeCard(cards.get(0));
+		}
 	}
 	
 	//Honestly not sure why these are needed

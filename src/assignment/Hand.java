@@ -1,6 +1,6 @@
 package assignment;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Hand {
 	ArrayList<Card> cards = new ArrayList<Card>();
@@ -21,6 +21,15 @@ public class Hand {
 	//get num of cards in player hand
 	public int getNumberofCards() {
 		return cards.size();
+	}
+	
+	public Card getLowest() throws NoSuchElementException{
+		ArrayList<Integer> values = new ArrayList<Integer>();
+		for(int i = 0; i < cards.size(); i++) {
+			values.add(cards.get(i).getValue());
+		}
+		int minValueIndex = values.indexOf(Collections.min(values));
+		return cards.get(minValueIndex);
 	}
 	
 }

@@ -33,18 +33,22 @@ public class Round {
 
 	public void peggingPhase(JPanel card) {
 		if (Game.getGame().getGUI().hand.contains(card)) {
-			int i = Game.getGame().getGUI().hand.indexOf(card);
+			int cardIndex = Game.getGame().getGUI().hand.indexOf(card);
 			Player player = Game.getGame().getRound().getCurrentPlayer();
-			if (i < player.getNumOfCards() && checkPlayable(Game.getGame().getRound().getCurrentPlayer().getHand().getCards(), player.getHand().getCards().get(i).getValue())) {
-				tableScore += player.getHand().getCards().get(i).getValue();
-				player.addToTable(i);
+			ArrayList<Card> hand = player.getHand().getCards();
+			if (cardIndex < player.getNumOfCards() && checkPlayable(hand, hand.get(cardIndex).getValue())) {
+				tableScore += hand.get(cardIndex).getValue();
+				player.addToTable(cardIndex);
 				player.addPoints(Score.getScore(Table.getCards()));
 				System.out.println(player.getID() + "'s points: " + player.getPoints());
-				Game.getGame().getRound().endTurn();
+				//Game.getGame().getRound().endTurn();
+				endTurn(); // pretty sure the above line points to the instance this method executes from
 				System.out.println(tableScore);
 			}
+			else {
+				endTurn();
+			}
 		}
-
 	}
 
 	private void showPhase() {
@@ -80,8 +84,24 @@ public class Round {
 
 	public void endTurn() {
 		// currentPlayer.addPoints(Score.getScore(Table.getCards()));
-
-		setCurrentPlayer(getNextPlayer());
+		int currentHand = currentPlayer.getHand().getCards().size();
+		int nextHand = getNextPlayer().getHand().getCards().size();
+		//first condition indicates next player can't play
+		if(nextHand == 0 || tableScore + getNextPlayer().getHand().getLowest().getValue() > 31) {
+			//second indicates current player also can't
+			if(currentHand == 0 || tableScore + currentPlayer.getHand().getLowest().getValue() > 31) {
+				tableScore = 0; //if this happens we clear the table and move to next player
+				Table.clear();
+				setCurrentPlayer(getNextPlayer());
+			}
+			else {
+				//we will not clear if current player can player, we will just skip next player
+			}
+		}
+		else {
+			//in the case next player can play it's biz as usual
+			setCurrentPlayer(getNextPlayer());
+		}
 		if (Game.getGame().getPlayers().get(0).getNumOfCards() == 0
 				&& Game.getGame().getPlayers().get(1).getNumOfCards() == 0)
 			showPhase();

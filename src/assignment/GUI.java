@@ -38,7 +38,7 @@ public class GUI implements ActionListener {
 	public int cardWidth = 60;
 	private final int windowHeight = 500;
 	private final int windowWidth = 1000;
-	private final int playerTurnX = windowWidth/2 - 100;
+	private final int playerTurnX = windowWidth/2 - 130;
 	private final int playerTurnY = 20;
 	private final int phaseX = playerTurnX;
 	private final int phaseY = playerTurnY + 30;
@@ -112,7 +112,7 @@ public class GUI implements ActionListener {
 		playerLabel.setText("test");
 		playerLabel.setHorizontalTextPosition(SwingConstants.LEFT);
 		playerPanel = new JPanel();
-		playerPanel.setBounds(playerTurnX, playerTurnY, 200, 20);
+		playerPanel.setBounds(playerTurnX, playerTurnY, 250, 20);
 		playerPanel.add(playerLabel);
 		frame.add(playerPanel);
 	}
@@ -122,12 +122,13 @@ public class GUI implements ActionListener {
 		phaseLabel.setText("Phase label");
 		phaseLabel.setHorizontalTextPosition(SwingConstants.LEFT);
 		phasePanel = new JPanel();
-		phasePanel.setBounds(phaseX, phaseY, 200, 20);
+		phasePanel.setBounds(phaseX, phaseY, 250, 20);
 		phasePanel.add(phaseLabel);
 		frame.add(phasePanel);
 		
 	}
 	
+	/* At time of commenting, this function was never used. May remove if not needed later
 	public void displayHand(Player player) {
 		for (int i = 0; i < player.getHand().getNumberofCards(); i++) {
 			//System.out.println(player.getHand().getCards().get(i).image);
@@ -136,7 +137,8 @@ public class GUI implements ActionListener {
 			hand.get(i).add(new JLabel(new ImageIcon(scaled)));
 		}
 	}
-
+	 */
+	
 	private Image getScaledImage(Image srcImg, int w, int h) {
 		BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = resizedImg.createGraphics();
@@ -209,8 +211,15 @@ public class GUI implements ActionListener {
 	}
 
 	public void update() {
-
-		// hand update
+		updateHand();
+		updateCrib();
+		updateTable();
+		updatePlayerTurnLabel();
+		updatePhaseLabel();
+		updateScoreLabels();
+	}
+	
+	private void updateHand() {
 		int length = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
 		//System.out.println("length: " + length);
 		for (int i = 0; i < 6; i++) {
@@ -232,8 +241,10 @@ public class GUI implements ActionListener {
 				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
 			}
 		}
-
-		// crib update
+		
+	}
+	
+	private void updateCrib() {
 		if (Game.getPhase() == Phase.SHOW) {
 			for (int i = 0; i < Crib.getCards().size(); i++) {
 				if (i < Crib.getCards().size()) {
@@ -256,9 +267,11 @@ public class GUI implements ActionListener {
 				crib.get(i).add(new JLabel(new ImageIcon(scaled)));
 			}
 		}
-
-		// update table
-		for (int i = 0; i < Table.getCards().size(); i++) {
+		
+	}
+	
+	private void updateTable() {
+		for (int i = 0; i < table.size(); i++) {
 			if (i < Table.getCards().size()) {
 				Card TableCard = Table.getCards().get(i);
 				//System.out.println(TableCard.toString());
@@ -275,12 +288,6 @@ public class GUI implements ActionListener {
 				table.get(i).add(new JLabel(new ImageIcon(scaled)));
 			}
 		}
-		
-		updatePlayerTurnLabel();
-		updatePhaseLabel();
-		updateScoreLabels();
-		
-
 	}
 	
 	private void updateScoreLabels() {
@@ -295,7 +302,7 @@ public class GUI implements ActionListener {
 	}
 	
 	private void updatePlayerTurnLabel() {
-		playerLabel.setText("Current Player " + Game.getGame().getCurrentPlayer().getID() + "'s turn");
+		playerLabel.setText("Player " + Game.getGame().getCurrentPlayer().getID() + "'s turn");
 	}
 
 	private void test() {

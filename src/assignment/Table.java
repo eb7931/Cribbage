@@ -14,6 +14,14 @@ public class Table {
 		return cards;
 	}
 	
+	public static int tableScore() {
+		int total = 0;
+		for(int i = 0; i < cards.size(); i++) {
+			total += cards.get(i).getValue();
+		}
+		return total;
+	}
+	
 	public static void clear() {
 		for(int i = 0; i < cards.size(); i++) {
 			Deck.addCard(cards.get(i));

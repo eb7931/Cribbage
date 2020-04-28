@@ -270,11 +270,14 @@ public class Score {
 						flushScore++;
 					}
 				}
-				if (flushScore >= 4) {
+				if (flushScore >= 4 && Deck.getCut().getSuit() == newCards[1]) {
 					score = 5;
+				} else if (flushScore >= 4) {
+					score = 4;
 				} else {
 					score = 0;
 				}
+				
 			}
 
 			// Flush in hand

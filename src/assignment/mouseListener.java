@@ -12,10 +12,12 @@ public class mouseListener implements MouseListener {
 		switch (Game.getPhase()) {
 		case DRAW:
 			Game.getGame().getRound().addToCrib(card);
-
+			Game.getGame().getGUI().hide();
+			
 			break;
 		case PEGGING:
 			Game.getGame().getRound().peggingPhase(card);
+			Game.getGame().getGUI().hide();
 			break;
 		case SHOW:
 			break;

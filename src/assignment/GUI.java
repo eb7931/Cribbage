@@ -22,8 +22,7 @@ public class GUI extends JFrame implements ActionListener {
 	public JPanel cut;
 	public JPanel deck;
 	public JPanel hide;
-	public boolean hidden = false;
-
+	public boolean hidden = true;
 	public JLabel player1ScoreLabel;
 	public JPanel player1ScorePanel;
 	public JLabel player2ScoreLabel;

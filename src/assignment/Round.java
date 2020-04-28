@@ -15,6 +15,8 @@ public class Round {
 
 	public void startRound() {
 		Game.setPhase(Phase.DRAW);
+		Game.getGame().dealer = getNextPlayer(Game.getGame().getDealer());
+		System.out.println(Game.getGame().dealer.getID());
 		drawPhase();
 		hands = new ArrayList<Card>();
 	}
@@ -60,6 +62,9 @@ public class Round {
 
 	private void showPhase() {
 		Game.getGame().nextPhase();
+		int cribPoints = Score.getScore(Crib.getCards());
+		System.out.println("Player " + Game.getGame().getDealer().getID() + " crib points earned " + cribPoints + ". Total: " + Game.getGame().getDealer().getPoints());
+		Game.getGame().getDealer().addPoints(cribPoints);
 	}
 
 	// Will assign the hands to a player

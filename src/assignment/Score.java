@@ -261,6 +261,9 @@ public class Score {
 				for (int i = 0; i < cards.size(); i++) {
 					newCards[i] = cards.get(i).getSuit();
 				}
+				
+				newCards[4] = Deck.getCut().getSuit();
+				
 				Arrays.sort(newCards);
 				for (int i = 0; i < newCards.length - 1; i++) {
 					if (newCards[i] == newCards[i + 1]) {

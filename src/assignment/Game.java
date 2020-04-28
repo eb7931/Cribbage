@@ -11,7 +11,7 @@ enum Phase{
 public class Game {
 	private static Game instance = null;
 	private static ArrayList<Player> players;
-	private Player dealer;
+	public Player dealer;
 	public static Round round;
 	public static GUI gui;
 	private static Phase phase = Phase.DRAW;
@@ -66,7 +66,7 @@ public class Game {
 		return phase;
 	}
 	
-	public static void nextPhase() {
+	public  void nextPhase() {
 		switch(phase) {
 		case DRAW:
 			phase = Phase.PEGGING;

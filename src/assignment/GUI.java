@@ -17,13 +17,18 @@ public class GUI extends JFrame implements ActionListener {
 	public JPanel phasePanel;
 	public JPanel test;
 	public ArrayList<JPanel> hand;
+	public ArrayList<JPanel> hand2;
 	public ArrayList<JPanel> table;
 	public ArrayList<JPanel> crib;
 	public JPanel cut;
 	public JPanel deck;
 	public JPanel hide;
-	public boolean hidden = false;
+	public boolean hidden = true;
 
+	public JLabel handLabel;
+	public JPanel handPanel;
+	public JLabel hand2Label;
+	public JPanel hand2Panel;
 	public JLabel player1ScoreLabel;
 	public JPanel player1ScorePanel;
 	public JLabel player2ScoreLabel;
@@ -44,17 +49,11 @@ public class GUI extends JFrame implements ActionListener {
 	/**
 	 * Create the application.
 	 */
-	public GUI() {
-		initialize();
-	}
+	public GUI() {initialize();}
 
-	public void setAlert(String s) {
-		alertLabel.setText(s);
-	}
+	public void setAlert(String s) {alertLabel.setText(s);}
 	
-	public void clearAlert() {
-		alertLabel.setText("");
-	}
+	public void clearAlert() {alertLabel.setText("");}
 	
 	public Dims dims() {return d;}
 	
@@ -73,6 +72,9 @@ public class GUI extends JFrame implements ActionListener {
 		addAlert();
 		addButton();
 		addHand();
+		addHand2();
+		addHandLabel();
+		addHand2Label();
 		addTable();
 		addCrib();
 		addDeck();
@@ -243,7 +245,14 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	private void updateHand() {
-		int length = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
+		Player player;
+		if(Game.getPhase() == Phase.SHOW) {
+			player = Game.getGame().getPlayers().get(0);
+		}
+		else {
+			player = Game.getGame().getRound().getCurrentPlayer();
+		}
+		int length = player.getNumOfCards();
 		// System.out.println("length: " + length);
 
 		//This part should resize the panels and position with resizing
@@ -254,7 +263,7 @@ public class GUI extends JFrame implements ActionListener {
 		
 		for (int i = 0; i < 6; i++) {
 			if (i < length) {
-				Card card = Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i);
+				Card card = player.getHand().getCards().get(i);
 				// System.out.println(card.toString());
 				ImageIcon icon = new ImageIcon(card.getImage());
 				Image scaled = getScaledImage(icon.getImage(), d.cardWidth(), d.cardHeight());
@@ -315,9 +324,130 @@ public class GUI extends JFrame implements ActionListener {
 
 	}
 	
-	private void updateLabels() {
-		tableScorePanel.setBounds(d.tableScoreX(), d.tableScoreY(), d.textWidth(), d.textHeight());
-		playerPanel.setBounds(d.playerTurnX(), d.playerTurnY(), d.textWidth(), d.textHeight());
+	private void addHand2() {
+		if(hand2 == null)
+			hand2 = new ArrayList<>();
+		for (int i = 0; i < 6; i++) {
+			JPanel panel = new JPanel();
+			panel.setBounds(d.hand2X() + i * d.cardWidth(), d.hand2Y(), d.cardWidth(), d.cardHeight());
+			this.getContentPane().add(panel);
+
+			hand2.add(panel);
+		}
+	}
+	
+	private void updateHand2() {
+		Player player2 = Game.getGame().getPlayers().get(1);
+		int length = player2.getNumOfCards();
+		// System.out.println("length: " + length);
+
+		//This part should resize the panels and position with resizing
+		for (int i = 0; i < 6; i++) {
+			JPanel panel = hand2.get(i);
+			panel.setBounds(d.hand2X() + i * d.cardWidth(), d.hand2Y(), d.cardWidth(), d.cardHeight());
+		}
+		
+		for (int i = 0; i < 6; i++) {
+			if (i < length) {
+				Card card = player2.getHand().getCards().get(i);
+				// System.out.println(card.toString());
+				ImageIcon icon = new ImageIcon(card.getImage());
+				Image scaled = getScaledImage(icon.getImage(), d.cardWidth(), d.cardHeight());
+				hand2.get(i).removeAll();
+
+				// System.out.println(hand.get(i).getComponents().length);
+				hand2.get(i).add(new JLabel(new ImageIcon(scaled)));
+
+				hand2.get(i).revalidate();
+			} else {
+				ImageIcon icon = new ImageIcon("");
+				Image scaled = getScaledImage(icon.getImage(), d.cardWidth(), d.cardHeight());
+				hand2.get(i).removeAll();
+				hand2.get(i).add(new JLabel(new ImageIcon(scaled)));
+			}
+		}
+
+	}
+
+	public void hideHand2() {
+		/*
+		 * int handSize = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
+		 * for (int i = 0; i < 6; i++) { if (i < handSize) { ImageIcon card = new
+		 * ImageIcon(cardBack); Image scaled = getScaledImage(card.getImage(),
+		 * cardWidth, cardHeight); hand.get(i).add(new JLabel(new ImageIcon(scaled))); }
+		 * else { ImageIcon card = new ImageIcon(""); Image scaled =
+		 * getScaledImage(card.getImage(), cardWidth, cardHeight); hand.get(i).add(new
+		 * JLabel(new ImageIcon(scaled))); } }
+		 */
+
+		int length = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
+		
+		//This part should resize the panels and position with resizing
+		for (int i = 0; i < 6; i++) {
+			JPanel panel = hand2.get(i);
+			panel.setBounds(d.hand2X() + i * d.cardWidth(), d.hand2Y(), d.cardWidth(), d.cardHeight());
+		}
+		
+		for (int i = 0; i < 6; i++) {
+			if (i < length) {
+				//Card card = Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i);
+				// System.out.println(card.toString());
+				ImageIcon icon = new ImageIcon("");
+				Image scaled = getScaledImage(icon.getImage(), d.cardWidth(), d.cardHeight());
+				hand2.get(i).removeAll();
+
+				// System.out.println(hand.get(i).getComponents().length);
+				hand2.get(i).add(new JLabel(new ImageIcon(scaled)));
+
+				hand2.get(i).revalidate();
+			} else {
+				ImageIcon icon = new ImageIcon("");
+				Image scaled = getScaledImage(icon.getImage(), d.cardWidth(), d.cardHeight());
+				hand2.get(i).removeAll();
+				hand2.get(i).add(new JLabel(new ImageIcon(scaled)));
+			}
+		}
+	}
+	
+	private void addHandLabel() {
+		handLabel = new JLabel();
+		handLabel.setText("");
+		handLabel.setHorizontalTextPosition(SwingConstants.LEFT);
+		handPanel = new JPanel();
+		handPanel.setBounds(d.handLabelX(), d.handLabelY(), d.textWidth(), d.textHeight());
+		handPanel.add(handLabel);
+		this.add(handPanel);
+	}
+	
+	private void updateHandLabel() {
+		handPanel.setBounds(d.handLabelX(), d.handLabelY(), d.textWidth(), d.textHeight());
+		Phase phase = Game.getPhase();
+		if(phase == Phase.SHOW)
+			handLabel.setText("Player 1's hand:");
+		else
+			handLabel.setText("Player " + Game.getGame().getCurrentPlayer().getID() + "'s hand");
+		
+	}
+
+	private void addHand2Label() {
+		hand2Label = new JLabel();
+		hand2Label.setText("");
+		hand2Label.setHorizontalTextPosition(SwingConstants.LEFT);
+		hand2Panel = new JPanel();
+		hand2Panel.setBounds(d.hand2LabelX(), d.hand2LabelY(), d.textWidth(), d.textHeight());
+		hand2Panel.add(hand2Label);
+		this.add(hand2Panel);
+		
+	}
+	
+	private void updateHand2Label() {
+
+		hand2Panel.setBounds(d.hand2LabelX(), d.hand2LabelY(), d.textWidth(), d.textHeight());
+		Phase phase = Game.getPhase();
+		if(phase == Phase.SHOW)
+			hand2Label.setText("Player 2's hand:");
+		else
+			hand2Label.setText("");
 		
 	}
 	
@@ -434,6 +564,10 @@ public class GUI extends JFrame implements ActionListener {
 	public void hide() {hidden = true;}
 
 	public void update() {
+		if(Game.getPhase() == Phase.SHOW) {
+			hidden = false;
+		}
+		
 		if (hidden) {
 			hideHand();
 		} else {
@@ -442,15 +576,19 @@ public class GUI extends JFrame implements ActionListener {
 		startTurnButton.setEnabled(hidden);
 		if(Game.getPhase() == Phase.SHOW) {
 			drawButton.setEnabled(true);
+			updateHand2();
 		}
 		else {
 			drawButton.setEnabled(false);
+			hideHand2();
 		}
 		updateAlert();
 		updateButtons();
 		updateCrib();
 		updateCut();
 		updateDeck();
+		updateHandLabel();
+		updateHand2Label();
 		updatePhaseLabel();
 		updatePlayerScoreLabels();
 		updatePlayerTurnLabel();
@@ -580,6 +718,11 @@ public class GUI extends JFrame implements ActionListener {
 		
 		public int handY() {return 35*baseUnit();}
 		
+		public int hand2X() {return 48*baseUnit();}
+		
+		public int hand2Y() {return 35*baseUnit();}
+		
+		
 		public int cribX() {return 70*baseUnit();}
 		
 		public int cribY() {return baseUnit();}
@@ -594,11 +737,11 @@ public class GUI extends JFrame implements ActionListener {
 		
 		public int player1ScoreX() {return 6*baseUnit();}
 		
-		public int player1ScoreY() {return 20*baseUnit();}
+		public int player1ScoreY() {return 19*baseUnit();}
 		
 		public int player2ScoreX() {return 6*baseUnit();}
 		
-		public int player2ScoreY() {return 23*baseUnit();}
+		public int player2ScoreY() {return 22*baseUnit();}
 		
 		public int tableX() {return 26*baseUnit();}
 		
@@ -610,7 +753,7 @@ public class GUI extends JFrame implements ActionListener {
 		
 		public int startButtonX() {return 6*baseUnit();}
 		
-		public int startButtonY() {return 29*baseUnit();}
+		public int startButtonY() {return 25*baseUnit();}
 		
 		public int tableScoreX() {return 17*baseUnit();}
 		
@@ -621,6 +764,14 @@ public class GUI extends JFrame implements ActionListener {
 		public int alertY() {return 5*baseUnit();}
 		
 		public int alertWidth() {return 30*baseUnit();}
+		
+		public int handLabelX() {return 6*baseUnit();}
+		
+		public int handLabelY() {return 32*baseUnit();}
+		
+		public int hand2LabelX() {return 48*baseUnit();}
+		
+		public int hand2LabelY() {return 32*baseUnit();}
 		
 		
 		}

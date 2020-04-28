@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 public class Round {
 	private Player currentPlayer;
 	//public ArrayList<Integer> showScores;
-	public ArrayList<Card> hands;
+	public ArrayList<Hand> hands;
 
 	public Round() {
 		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
@@ -16,7 +16,10 @@ public class Round {
 	public void startRound() {
 		Game.setPhase(Phase.DRAW);
 		drawPhase();
-		hands = new ArrayList<Card>();
+		hands = new ArrayList<Hand>();
+		hands.add(new Hand());
+		hands.add(new Hand());
+		
 	}
 
 	private void drawPhase() {
@@ -60,6 +63,14 @@ public class Round {
 
 	private void showPhase() {
 		Game.getGame().nextPhase();
+		ArrayList<Player> players = Game.getGame().getPlayers();
+		if(Game.getPhase() == Phase.SHOW)
+			for(int i = 0; i < 2; i++) {
+				Hand hand = Game.getGame().getPlayers().get(i).getHand();
+				for(int j = 0; j < hands.get(i).getCards().size(); j++) {
+					players.get(i).getHand().addCard(hands.get(i).getCards().get(j));
+				}
+			}
 	}
 
 	// Will assign the hands to a player
@@ -100,7 +111,8 @@ public class Round {
 			
 			// Calculate Show score instantly and store for later
 			for (int i = 0; i < players.size(); i++) {
-				hands.add(players.get(i).getHand().getCards().get(i));
+				for(int j = 0; j < 4; j++)
+					hands.get(i).addCard(players.get(i).getHand().getCards().get(j));
 				//System.out.println("SHOW " + Score.getScore(players.get(i).getHand().getCards(), Phase.SHOW));
 			}
 			Game.getGame().nextPhase();//moves from draw to pegging

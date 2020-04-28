@@ -24,7 +24,6 @@ public class GUI extends JFrame implements ActionListener {
 	public JPanel deck;
 	public JPanel hide;
 	public boolean hidden = true;
-
 	public JLabel handLabel;
 	public JPanel handPanel;
 	public JLabel hand2Label;

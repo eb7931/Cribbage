@@ -29,6 +29,8 @@ public class Game {
 		initializeGUI();
 		round = new Round();
 		round.startRound();
+	
+		
 		
 	}
 	

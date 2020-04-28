@@ -250,7 +250,7 @@ public class Score {
 			else
 				score = 0;
 */
-			
+			/*
 			//One last try jesus i hope this works <- it do be lookin like it works but its jank af
 			ArrayList<Integer> copy = new ArrayList<>();
 			ArrayList<Integer> temp = new ArrayList<>();
@@ -345,7 +345,7 @@ public class Score {
 			}
 			
 			score = pointsToAdd;
-			
+			*/
 			break;
 
 		case SHOW:

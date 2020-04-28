@@ -15,7 +15,6 @@ public class Round {
 	public void startRound() {
 		Game.setPhase(Phase.DRAW);
 		drawPhase();
-		showScores = new ArrayList<>();
 	}
 
 	private void drawPhase() {

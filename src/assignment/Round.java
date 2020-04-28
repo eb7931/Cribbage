@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 
 public class Round {
 	private Player currentPlayer;
+	public ArrayList<Integer> showScores;
 
 	public Round() {
 		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
@@ -14,6 +15,7 @@ public class Round {
 	public void startRound() {
 		Game.setPhase(Phase.DRAW);
 		drawPhase();
+		showScores = new ArrayList<>();
 	}
 
 	private void drawPhase() {
@@ -25,11 +27,13 @@ public class Round {
 		for (int i = 0; i < players.size(); i++) {
 			setHand(players.get(i));
 		}
+
 		gui.update();
 
 	}
 
 	public void peggingPhase(JPanel card) {
+
 		if (Game.getGame().getGUI().hand.contains(card)) {
 			int cardIndex = Game.getGame().getGUI().hand.indexOf(card);
 			Player player = Game.getGame().getRound().getCurrentPlayer();
@@ -38,11 +42,10 @@ public class Round {
 				player.addToTable(cardIndex);
 				player.addPoints(Score.getScore(Table.getCards()));
 				System.out.println(player.getID() + "'s points: " + player.getPoints());
-				//Game.getGame().getRound().endTurn();
+				// Game.getGame().getRound().endTurn();
 				endTurn(); // pretty sure the above line points to the instance this method executes from
 				System.out.println(Table.tableScore());
-			}
-			else {
+			} else {
 				endTurn();
 			}
 		}
@@ -74,9 +77,17 @@ public class Round {
 	public void addedToCrib() {
 		setCurrentPlayer(getNextPlayer());
 		if (Crib.getCards().size() == 4) {
+			ArrayList<Player> players = Game.getGame().getPlayers();
 			
+			// Calculate Show score instantly and store for later
+			for (int i = 0; i < players.size(); i++) {
+				showScores.add(Score.getScore(players.get(i).getHand().getCards(), Phase.SHOW));
+				System.out.println("SHOW " + Score.getScore(players.get(i).getHand().getCards(), Phase.SHOW));
+			}
 			Game.getGame().nextPhase();
 		}
+		
+		
 	}
 
 	public void endTurn() {
@@ -89,13 +100,11 @@ public class Round {
 			if(currentHand == 0 || Table.tableScore() + currentPlayer.getHand().getLowest().getValue() > 31) {
 				Table.clear();//if this happens we clear the table and move to next player
 				setCurrentPlayer(getNextPlayer());
+			} else {
+				// we will not clear if current player can player, we will just skip next player
 			}
-			else {
-				//we will not clear if current player can player, we will just skip next player
-			}
-		}
-		else {
-			//in the case next player can play it's biz as usual
+		} else {
+			// in the case next player can play it's biz as usual
 			setCurrentPlayer(getNextPlayer());
 		}
 		if (Game.getGame().getPlayers().get(0).getNumOfCards() == 0
@@ -122,16 +131,18 @@ public class Round {
 			player.discard();
 		}
 	}
-	//needed to implement go
-	public boolean checkPlayable(ArrayList<Card> hand, int valueAdded){
-		if(hand.isEmpty())
-			return false;
-		if((Table.tableScore() + valueAdded)  <= 31)
-			return true;
-		
+
+	// needed to implement go
+	public boolean checkPlayable(ArrayList<Card> hand, int valueAdded) {
+		for (int i = 0; i < hand.size(); i++) {
+			if (hand.isEmpty())
+				return false;
+			if ((Table.tableScore() + valueAdded) <= 31)
+				return true;
+		}
 		return false;
 	}
-	
+
 	// Not sure on what this does yet
 	public void promptPlay(ArrayList<Player> players, GUI gui) {
 	}

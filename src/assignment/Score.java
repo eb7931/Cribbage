@@ -22,6 +22,9 @@ public class Score {
 
 		return pointsEarned;
 	}
+	
+
+
 
 	// checks if sum of played card are 15
 	private static int checkFifteen(Phase phase, ArrayList<Card> cards, Player player) {
@@ -402,10 +405,15 @@ public class Score {
 			}
 
 			// Flush in hand
+			System.out.println(cards.size());
+
 			String[] newCards = new String[cards.size() + 1];
 			for (int i = 0; i < cards.size(); i++) {
 				newCards[i] = cards.get(i).getSuit();
 			}
+			
+			newCards[4] = Deck.getCut().getSuit();
+			
 			Arrays.sort(newCards);
 			for (int i = 0; i < newCards.length - 1; i++) {
 				if (newCards[i] == newCards[i + 1]) {

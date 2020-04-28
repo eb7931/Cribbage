@@ -13,14 +13,12 @@ public class Round {
 		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
 	}
 
-	
 	public void startRound() {
 		Game.setPhase(Phase.DRAW);
 		drawPhase();
 		hands = new ArrayList<Card>();
 	}
 
-	
 	private void drawPhase() {
 		Deck.shuffle();
 		ArrayList<Player> players = Game.getGame().getPlayers();

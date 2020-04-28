@@ -117,25 +117,24 @@ public class Score {
 			break;
 		case PEGGING:
 			int length = cards.size();
-			if (length > 1) {
 
-				if ((cards.get(length - 1).getRank() == cards.get(length - 2).getRank()) && (length > 1)) { // checks
-																											// pair
-					if (length > 2) {
-						if (cards.get(length - 2).getRank() == cards.get(length - 3).getRank()) { // check triple
-
-							if (length > 3) {
-								if ((cards.get(length - 3).getRank() == cards.get(length - 4).getRank())) { // checks
-																											// quad
+			if(length > 1) {
+				if ((cards.get(length - 1).getRank() == cards.get(length - 2).getRank()) ) {
+					score = 2;
+					if(length > 2) {
+						if (cards.get(length - 2).getRank() == cards.get(length - 3).getRank()) {
+							score = 6;
+							if(length > 3) {
+								if ((cards.get(length - 3).getRank() == cards.get(length - 4).getRank())) {
 									score = 12;
 								}
-								score = 6;
 							}
 						}
 					}
-					score = 2;
-				}
-			}
+				}		
+			}			
+				
+			
 			break;
 		case SHOW:
 			ArrayList<Card> newCards = new ArrayList<Card>();

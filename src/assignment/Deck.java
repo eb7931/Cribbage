@@ -29,12 +29,13 @@ public class Deck{
 			new Deck();
 		ArrayList<Card> temp = new ArrayList<Card>();
 		Random rand = new Random(System.currentTimeMillis());
-		for(int i = 0; i < 52; i++) {
+		int deckSize = deck.size();
+		for(int i = 0; i < deckSize; i++) {
 			int n = Math.abs(rand.nextInt() % deck.size());
 			temp.add(deck.get(n));
 			deck.remove(temp.get(i));
 		}
-		for(int i = 0; i < 52; i++) {
+		for(int i = 0; i < deckSize; i++) {
 			deck.add(temp.get(0));
 			temp.remove(temp.get(0));
 		}
@@ -49,6 +50,7 @@ public class Deck{
 		deck.remove(drawn); 
 		return drawn;
 	}
+	
 	public static void addCard(Card card) {
 		if(!initialized)
 			new Deck();

@@ -6,21 +6,28 @@ import javax.swing.JPanel;
 
 public class Round {
 	private Player currentPlayer;
-	public ArrayList<Integer> showScores;
+	//public ArrayList<Integer> showScores;
+	public ArrayList<Card> hands;
 
 	public Round() {
 		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
 	}
 
+	
 	public void startRound() {
 		Game.setPhase(Phase.DRAW);
 		drawPhase();
-		showScores = new ArrayList<>();
+		hands = new ArrayList<Card>();
 	}
 
+	
 	private void drawPhase() {
 		Deck.shuffle();
 		ArrayList<Player> players = Game.getGame().getPlayers();
+		players.get(0).getHand().clear();
+		players.get(1).getHand().clear();
+		Crib.clear();
+		Table.clear();
 		GUI gui = Game.getGame().getGUI();
 		Deck.shuffle();
 		// Set hand for both playes
@@ -53,9 +60,17 @@ public class Round {
 
 	private void showPhase() {
 		Game.getGame().nextPhase();
+		
+		
+		
+		
+		
+		
 		for (int i = 0; i < Game.getGame().getPlayers().size(); i++) {
 			clearHand(Game.getGame().getPlayers().get(i));
 		}
+		Game.getGame().nextPhase();
+		
 	}
 
 	// Will assign the hands to a player
@@ -81,10 +96,10 @@ public class Round {
 			
 			// Calculate Show score instantly and store for later
 			for (int i = 0; i < players.size(); i++) {
-				showScores.add(Score.getScore(players.get(i).getHand().getCards(), Phase.SHOW));
-				System.out.println("SHOW " + Score.getScore(players.get(i).getHand().getCards(), Phase.SHOW));
+				hands.add(players.get(i).getHand().getCards().get(i));
+				//System.out.println("SHOW " + Score.getScore(players.get(i).getHand().getCards(), Phase.SHOW));
 			}
-			Game.getGame().nextPhase();
+			Game.getGame().nextPhase();//moves from draw to pegging
 		}
 		
 		

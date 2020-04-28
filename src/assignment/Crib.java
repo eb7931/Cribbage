@@ -16,6 +16,7 @@ public class Crib {
 			}
 		}
 	}
+	
 	public static void addCards(ArrayList<Card> cards){
 		for(int i = 0; i < cards.size(); i++) {
 			if(cards.get(i) != null) {
@@ -26,6 +27,13 @@ public class Crib {
 	
 	public static void addCard(Card card) {
 		crib.add(card);
+	}
+	
+	public static void clear() {
+		while(!crib.isEmpty()) {
+			Deck.addCard(crib.get(0));
+			crib.remove(0);
+		}
 	}
 	
 	//return cards in crib

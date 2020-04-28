@@ -11,15 +11,7 @@ public class mouseListener implements MouseListener {
 		JPanel card = (JPanel) e.getSource();
 		switch (Game.getPhase()) {
 		case DRAW:
-			if (Game.getGame().getGUI().hand.contains(card)) {
-				int i = Game.getGame().getGUI().hand.indexOf(card);
-				Player player = Game.getGame().getRound().getCurrentPlayer();
-				if (Crib.getCards().size() < 4 && i < player.getNumOfCards()) {
-					player.addToCrib(i);
-					Game.getGame().getRound().addedToCrib();
-
-				}
-			}
+			Game.getGame().getRound().addToCrib(card);
 
 			break;
 		case PEGGING:

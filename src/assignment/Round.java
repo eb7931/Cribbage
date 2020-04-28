@@ -72,9 +72,9 @@ public class Round {
 	}
 
 	public void addedToCrib() {
-
 		setCurrentPlayer(getNextPlayer());
 		if (Crib.getCards().size() == 4) {
+			
 			Game.getGame().nextPhase();
 		}
 	}
@@ -139,6 +139,17 @@ public class Round {
 	// Not sure how to implement in Round
 	public int checkWin() {
 		return 0;
+	}
+	
+	public void addToCrib(JPanel card) {
+		if (Game.getGame().getGUI().hand.contains(card)) {
+			int i = Game.getGame().getGUI().hand.indexOf(card);
+			Player player = Game.getGame().getRound().getCurrentPlayer();
+			if (Crib.getCards().size() < 4 && i < player.getNumOfCards()) {
+				player.addToCrib(i);
+				Game.getGame().getRound().addedToCrib();
+			}
+		}
 	}
 
 	// Initiates draw phase by 1) adding cards to hand 2) representing these cards

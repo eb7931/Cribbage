@@ -20,7 +20,7 @@ public class GUI implements ActionListener {
 
 	private String cardBack = "src\\cardImages\\blue_back.jpg";
 	public JFrame frame;
-	JButton drawButton, endTurnButton;
+	JButton drawButton, startTurnButton;
 	public JLabel playerLabel;
 	public JPanel playerPanel;
 	public JLabel phaseLabel;
@@ -32,6 +32,8 @@ public class GUI implements ActionListener {
 	public JPanel cut;
 	public JPanel deck;
 	public JPanel hide;
+	public boolean hidden = false;
+	
 	public JLabel player1ScoreLabel;
 	public JPanel player1ScorePanel;
 	public JLabel player2ScoreLabel;
@@ -79,7 +81,6 @@ public class GUI implements ActionListener {
 		/*
 		 * Initialize all panels
 		 */
-		Hide();
 		addButton();
 		addHand();
 		addTable();
@@ -155,11 +156,11 @@ public class GUI implements ActionListener {
 		drawButton = new JButton("Draw");
 		drawButton.addActionListener(this);
 		drawButton.setBounds(70, 120, 75, 50);
-		endTurnButton = new JButton("End Turn");
-		endTurnButton.addActionListener(this);
-		endTurnButton.setBounds(875, 400, 100, 50);
+		startTurnButton = new JButton("Start Turn");
+		startTurnButton.addActionListener(this);
+		startTurnButton.setBounds(875, 400, 100, 50);
 		frame.add(drawButton);
-		frame.add(endTurnButton);
+		frame.add(startTurnButton);
 	}
 
 	private void addHand() {
@@ -212,7 +213,13 @@ public class GUI implements ActionListener {
 	}
 
 	public void update() {
-		updateHand();
+		if(hidden) {
+			hideHand();
+		}
+		else {
+			updateHand();
+		}
+		startTurnButton.setEnabled(hidden);
 		updateCrib();
 		updateTable();
 		updatePlayerTurnLabel();
@@ -292,12 +299,15 @@ public class GUI implements ActionListener {
 		}
 	}
 	
-	private void Hide() {
+	public void hide() {
+		/*
 		hide = new JPanel();
 		hide.setBackground(Color.BLACK);
 		hide.setBounds(handX, handY, cardWidth*6, cardHeight);
 		frame.add(hide);
 		hide.setVisible(false);
+		*/
+		hidden = true;
 	}
 	
 	private void updateScoreLabels() {
@@ -334,6 +344,7 @@ public class GUI implements ActionListener {
 	}
 
 	public void hideHand() {
+		/*
 		int handSize = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
 		for (int i = 0; i < 6; i++) {
 			if (i < handSize) {
@@ -346,6 +357,29 @@ public class GUI implements ActionListener {
 				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
 			}
 		}
+		*/
+
+		int length = Game.getGame().getRound().getCurrentPlayer().getNumOfCards();
+		for (int i = 0; i < 6; i++) {
+			if (i < length) {
+				Card card = Game.getGame().getRound().getCurrentPlayer().getHand().getCards().get(i);
+				//System.out.println(card.toString());
+				ImageIcon icon = new ImageIcon(cardBack);
+				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
+				hand.get(i).removeAll();
+
+				//System.out.println(hand.get(i).getComponents().length);
+				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
+
+				hand.get(i).revalidate();
+			} else {
+				ImageIcon icon = new ImageIcon("");
+				Image scaled = getScaledImage(icon.getImage(), cardWidth, cardHeight);
+				hand.get(i).removeAll();
+				hand.get(i).add(new JLabel(new ImageIcon(scaled)));
+			}
+		}
+		
 
 	}
 
@@ -374,8 +408,9 @@ public class GUI implements ActionListener {
 		if (e.getSource() == drawButton) {
 			Game.getGame().startRound();
 			update();
-		} else if (e.getSource() == endTurnButton) {
-			Game.getGame().getRound().endTurn();
+		} else if (e.getSource() == startTurnButton) {
+			//Game.getGame().getRound().endTurn();
+			hidden = false;
 			update();
 		}
 	}

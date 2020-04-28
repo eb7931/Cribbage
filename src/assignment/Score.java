@@ -9,7 +9,7 @@ public class Score {
 		Phase phase = Game.getPhase();
 		return getScore(cards, phase);
 	}
-	
+
 	public static int getScore(ArrayList<Card> cards, Phase phase) {
 		int pointsEarned = 0;
 		Player player = Game.getGame().getCurrentPlayer();
@@ -22,9 +22,6 @@ public class Score {
 
 		return pointsEarned;
 	}
-	
-
-
 
 	// checks if sum of played card are 15
 	private static int checkFifteen(Phase phase, ArrayList<Card> cards, Player player) {
@@ -34,7 +31,7 @@ public class Score {
 		case DRAW:
 			break;
 		case PEGGING:
-			if(Table.tableScore() == 15) 
+			if (Table.tableScore() == 15)
 				score = 2;
 			break;
 		case SHOW:
@@ -96,14 +93,14 @@ public class Score {
 			break;
 		case PEGGING:
 			int nextHand = nextPlayer.getHand().getCards().size();
-			//first condition indicates next player can't play
-			if(nextHand == 0 || Table.tableScore() + nextPlayer.getHand().getLowest().getValue() > 31) {
+			// first condition indicates next player can't play
+			if (nextHand == 0 || Table.tableScore() + nextPlayer.getHand().getLowest().getValue() > 31) {
 				score += 1;
 			}
-			if(Table.tableScore() == 31) {
+			if (Table.tableScore() == 31) {
 				score += 1;
 			}
-			
+
 			break;
 		case SHOW:
 			break;
@@ -121,23 +118,22 @@ public class Score {
 		case PEGGING:
 			int length = cards.size();
 
-			if(length > 1) {
-				if ((cards.get(length - 1).getRank() == cards.get(length - 2).getRank()) ) {
+			if (length > 1) {
+				if ((cards.get(length - 1).getRank() == cards.get(length - 2).getRank())) {
 					score = 2;
-					if(length > 2) {
+					if (length > 2) {
 						if (cards.get(length - 2).getRank() == cards.get(length - 3).getRank()) {
 							score = 6;
-							if(length > 3) {
+							if (length > 3) {
 								if ((cards.get(length - 3).getRank() == cards.get(length - 4).getRank())) {
 									score = 12;
 								}
 							}
 						}
 					}
-				}		
-			}			
-				
-			
+				}
+			}
+
 			break;
 		case SHOW:
 			ArrayList<Card> newCards = new ArrayList<Card>();
@@ -183,177 +179,43 @@ public class Score {
 		case DRAW:
 			break;
 		case PEGGING:
-			longestRun = 0;
-			for(int i = 0; i < 7; i++) {
-				if(i < cards.size())
-				for(int j = 0; j < i; j++) {
-					
-				}
-				
-			}
-			// I commented this logic out because I was trying to debug it, however I
-			// believe I found a simpler way to calculate pegging run
-			// longestRun = 0;
-			// isRun = false;
-			// for (int i = cards.size() - 2; i > 0; i--) { // take an increasing chunk from
-			// the top of the pile and check
-			// for run
-			// int[] lastCards = new int[cards.size() - i];
-			// for (int j = cards.size() - 1; j > i; j--) { // move the recently played to
-			// an array to sort to make
-			// checking easier
-			// lastCards[cards.size() - 1 - j] = cards.get(j).getRank();
-			// }
-			// Arrays.sort(lastCards);
-			// isRun = true;
-			/*
-			 * checking the order of the last j cards
-			 */
-			// for (int k = 0; k < i - 1; k++) {
-			// if (lastCards[k] != lastCards[k + 1] - 1)
-			// isRun = false;
-			// }
-			// if (isRun) {
-			// longestRun = cards.size() - 1 - i;
-			// }
-			// }
-			// score = longestRun;
-
 			// Here is my(sumanth's) logic. Please let me know you see any logical errors
 			// with this.
-
 			// Make arraylist of all the card ranks
-			/*
 			ArrayList<Integer> copy = new ArrayList<>();
 			for (Card card : cards)
 				copy.add(card.getRank());
 
 			Collections.reverse(copy); // In order of latest card played to oldest
 			ArrayList<Integer> temp = new ArrayList<>(); // Holds the array of cards currently being looked at for a run
-			int run = 0;
-			boolean runBroken = false;
-			for (int i = 0; i < copy.size(); i++) {
-				run = 0;
+
+			// Check if length is atleast greater than 2
+			if (copy.size() < 3)
+				break;
+
+			// Look at cards from begging of array to i
+			for (int i = 3; i < copy.size() + 1; i++) {
+				isRun = true;
 				temp.clear();
-				runBroken = false;
-				// Add cards that are being looked at
-				for (int j = 0; j < i+1; j++)
+				// Add i cards to temp
+				for (int j = 0; j < i; j++)
 					temp.add(copy.get(j));
+
 				// Sort temp
 				Collections.sort(temp);
-				// Check if temp is only incrementing by 1
-				for (int k = 0; k < temp.size() - 1; k++) {
-					if ((temp.get(k) + 1) != temp.get(k + 1)) {
-						runBroken = true;
-						break;
-					} else
-						run++;
+
+				// Check if temp has incrementing values by 1
+				for (int j = 0; j < temp.size() - 1; j++) {
+					if ((temp.get(j) + 1) != temp.get(j + 1))
+						isRun = false;
 				}
-				if (runBroken && (temp.size() >=3))
-					break;
+
+				if (isRun)
+					longestRun = temp.size();
 			}
 
-			if (run >= 2)
-				score = run+1;
-			else
-				score = 0;
-*/
-			/*
-			//One last try jesus i hope this works <- it do be lookin like it works but its jank af
-			ArrayList<Integer> copy = new ArrayList<>();
-			ArrayList<Integer> temp = new ArrayList<>();
-			boolean runBroken = false;
-			boolean run3 = false;
-			boolean run4 = false;
-			int pointsToAdd = 0;
-			//Make copy of cards
-			for(Card card : cards)
-				copy.add(card.getRank());
-			//Reverse so latest cards are first
-			Collections.reverse(copy);
-			
-			//Check last 3 cards played
-			if(copy.size() >= 3) {
-				runBroken = false;
-				//add last 3 cards played
-				for(int i = 0; i < 3; i++)
-					temp.add(copy.get(i));
-				Collections.sort(temp); //sort cards 
-				
-				//Check if temp is sequentally increasing
-				for(int i = 0; i < temp.size()-1; i++) {
-					if((temp.get(i) + 1) != temp.get(i+1)) {
-						runBroken = true;
-						break;
-					}
-				}
-				
-				if(runBroken)
-					pointsToAdd = 0;
-				else {
-					pointsToAdd = 3;
-					run3 = true;
-				}
-			}
-			
-			//Check last 4 cards played
-			if(copy.size() >= 4) {
-				runBroken = false;
-				//add last 5 cards played
-				for(int i = 0; i < 4; i++)
-					temp.add(copy.get(i));
-				Collections.sort(temp); //sort cards 
-				
-				//Check if temp is sequentally increasing
-				for(int i = 0; i < temp.size()-1; i++) {
-					if((temp.get(i) + 1) != temp.get(i+1)) {
-						runBroken = true;
-						break;
-					}
-				}
-				
-				if(runBroken) {
-					if(run3)
-						pointsToAdd = 3;
-					else
-						pointsToAdd = 0;
-				}
-				else
-					pointsToAdd = 4;
-			}
-			
-			//Check last 5 cards played
-			if(copy.size() >= 5) {
-				runBroken = false;
-				//add last 5 cards played
-				for(int i = 0; i < 5; i++)
-					temp.add(copy.get(i));
-				Collections.sort(temp); //sort cards 
-				
-				//Check if temp is sequentally increasing
-				for(int i = 0; i < temp.size()-1; i++) {
-					if((temp.get(i) + 1) != temp.get(i+1)) {
-						runBroken = true;
-						break;
-					}
-				}
-				
-				if(runBroken) {
-					if(run3)
-						pointsToAdd = 3;
-					else
-						pointsToAdd = 0;
-					if(run4)
-						pointsToAdd = 4;
-					else
-						pointsToAdd = 0;
-				}
-				else
-					pointsToAdd = 5;
-			}
-			
-			score = pointsToAdd;
-			*/
+			score = longestRun;
+			System.out.println("Run score: " + score);
 			break;
 
 		case SHOW:
@@ -419,9 +281,9 @@ public class Score {
 			for (int i = 0; i < cards.size(); i++) {
 				newCards[i] = cards.get(i).getSuit();
 			}
-			
+
 			newCards[4] = Deck.getCut().getSuit();
-			
+
 			Arrays.sort(newCards);
 			for (int i = 0; i < newCards.length - 1; i++) {
 				if (newCards[i] == newCards[i + 1]) {

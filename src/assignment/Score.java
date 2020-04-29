@@ -286,7 +286,7 @@ public class Score {
 				}
 				if (flushScore >= 4 && Deck.getCut().getSuit().equals(newCards[1])) {
 					score = 5;
-				} else if (flushScore >= 4) {
+				} else if (flushScore >= 3) {
 					score = 4;
 				} else {
 					score = 0;
@@ -310,11 +310,12 @@ public class Score {
 					flushScore++;
 				}
 			}
-			if (flushScore >= 4) {
-				score = 4;
-			} 
+			
 			if (flushScore >= 4  && Deck.getCut().getSuit().equals(newCards[1])) {
 				score = 5;
+			} 
+			else if (flushScore >= 3) {
+				score = 4;
 			} else {
 				score = 0;
 			}

@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		Game.startGame();
 		
-		ArrayList<Card> cards = new ArrayList<Card>();
+		/*ArrayList<Card> cards = new ArrayList<Card>();
 		
 		cards.add(new Card(4));
 		cards.add(new Card(8));
@@ -17,7 +17,7 @@ public class Main {
 		System.out.println(cards.get(0).getSuit());
 		System.out.println(cards.get(1).getSuit());
 
-		System.out.println("Flush Score: " + Score.checkFlush(Phase.SHOW, cards));
+		System.out.println("Flush Score: " + Score.checkFlush(Phase.SHOW, cards));*/
 		
 	}
 }

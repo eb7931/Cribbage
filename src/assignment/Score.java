@@ -5,7 +5,9 @@ import java.util.*;
 public class Score {
 	private static Player lastPlayer;
 	private static int lastEarned = 0;
-
+	private static boolean debug = false;
+	public static void debug() {debug = true;}
+	
 	public static int lastEarned() {return lastEarned;}
 	
 	public static int getScore(ArrayList<Card> cards) {
@@ -15,13 +17,44 @@ public class Score {
 
 	public static int getScore(ArrayList<Card> cards, Phase phase) {
 		int pointsEarned = 0;
+		int points = 0;
 		Player player = Game.getGame().getCurrentPlayer();
-		pointsEarned += checkFifteen(phase, cards, player);
-		pointsEarned += checkGo(phase, cards, player);
-		pointsEarned += checkPair(phase, cards);
-		pointsEarned += checkNob(phase, player);
-		pointsEarned += checkFlush(phase, cards);
-		pointsEarned += checkRun(phase, cards);
+		points = checkFifteen(phase, cards, player);
+		if(debug)
+			System.out.println("\nPlayer " + player.getID() + " earned " + points
+					+ " for a " + "fifteen");
+		pointsEarned += points;
+		
+		points = checkGo(phase, cards, player);
+		if(debug)
+			System.out.println("Player " + player.getID() + " earned " + points
+					+ " for a " + "go");
+		pointsEarned += points;
+		
+		points = checkPair(phase, cards);
+		if(debug)
+			System.out.println("Player " + player.getID() + " earned " + points
+					+ " for a " + "pair");
+		pointsEarned += 
+		
+		points = checkNob(phase, player);
+		if(debug)
+			System.out.println("Player " + player.getID() + " earned " + points
+					+ " for a " + "nob");
+		pointsEarned += points;
+		
+		points = checkFlush(phase, cards);
+		if(debug)
+			System.out.println("Player " + player.getID() + " earned " + points
+					+ " for a " + "flush");
+		pointsEarned += points;
+		
+		points = checkRun(phase, cards);
+		if(debug)
+			System.out.println("Player " + player.getID() + " earned " + points
+					+ " for a " + "run");
+		pointsEarned += points;
+		
 		
 		lastEarned = pointsEarned;
 		Game.getGame().checkWin(pointsEarned);
@@ -229,7 +262,7 @@ public class Score {
 			}
 
 			score = longestRun;
-			System.out.println("Run score: " + score);
+			//System.out.println("Run score: " + score);
 			break;
 
 		case SHOW:
@@ -241,16 +274,24 @@ public class Score {
 			}
 			newCards[cards.size()] = Deck.getCut().getRank();
 			Arrays.sort(newCards);
-			for (int i = 0; i < cards.size() + 1; i++) {
+			
+			/*
+			 * this checks for longest starting at index k
+			 */
+			for(int k = 0; k < 3 && k < cards.size(); k++)
+			for (int i = k; i < cards.size() + 1; i++) {
 				isRun = true;
-				for (int j = 0; j < i - 1; j++) {
+				for (int j = k; j < i - 1; j++) {
 					if (newCards[j] == newCards[j + 1] - 1 && j + 1 > longestRun && isRun) {
-						longestRun = j + 1;
 					} else {
 						isRun = false;
 					}
 				}
 			}
+			
+			
+			
+			
 			score = longestRun;
 			break;
 		}
@@ -306,7 +347,7 @@ public class Score {
 
 			Arrays.sort(newCards);
 			for (int i = 0; i < newCards.length - 1; i++) {
-				if (newCards[i] == newCards[i + 1]) {
+				if (newCards[i].equals(newCards[i + 1])) {
 					flushScore++;
 				}
 			}

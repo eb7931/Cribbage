@@ -33,8 +33,8 @@ public class Round {
 	private void drawPhase() {
 		Deck.shuffle();
 		ArrayList<Player> players = Game.getGame().getPlayers();
-		players.get(0).getHand().clear();
-		players.get(1).getHand().clear();
+		players.get(0).getHand().deleteHand();
+		players.get(1).getHand().deleteHand();
 		Crib.clear();
 		Table.clear();
 		GUI gui = Game.getGame().getGUI();

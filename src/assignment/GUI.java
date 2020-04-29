@@ -24,6 +24,7 @@ public class GUI extends JFrame implements ActionListener {
 	public JPanel deck;
 	public JPanel hide;
 	public boolean hidden = true;
+	public boolean gameOver = false;
 	public JLabel handLabel;
 	public JPanel handPanel;
 	public JLabel cribLabel;
@@ -38,10 +39,16 @@ public class GUI extends JFrame implements ActionListener {
 	public JPanel tableScorePanel;
 	public JLabel alertLabel;
 	public JPanel alertPanel;
+	public JLabel winAlertLabel;
+	public JPanel winAlertPanel;
 	public JLabel pointsEarnedLabel;
 	public JPanel pointsEarnedPanel;
 
 	private Dims d;
+	
+	public void endGame() {gameOver = true;}
+	
+	public boolean gameOver() {return gameOver;}
 	
 	private final int defaultHeight = 500;
 	private final int defaultWidth = 1000;
@@ -57,6 +64,13 @@ public class GUI extends JFrame implements ActionListener {
 	public void setAlert(String s) {alertLabel.setText(s);}
 	
 	public void clearAlert() {alertLabel.setText("");}
+
+
+	public void setWinAlert(String s) {winAlertLabel.setText(s);
+	System.out.println("setting the winner label");
+	}
+	
+	public void clearWinAlert() {winAlertLabel.setText("");}
 	
 	public Dims dims() {return d;}
 	
@@ -64,6 +78,7 @@ public class GUI extends JFrame implements ActionListener {
 		this.removeAll();
 		this.addAlert();
 		this.setAlert("Player " + winner.getID() + " has won!");
+		revalidate();
 	}
 	
 	/**
@@ -79,6 +94,7 @@ public class GUI extends JFrame implements ActionListener {
 		 * Initialize all panels
 		 */
 		addAlert();
+		addWinAlert();
 		addButton();
 		addCribLabel();
 		addHand();
@@ -109,6 +125,22 @@ public class GUI extends JFrame implements ActionListener {
 		alertPanel.add(alertLabel);
 		this.add(alertPanel);
 	}
+
+	 
+	public void addWinAlert() {
+		winAlertLabel = new JLabel();
+		winAlertLabel.setFont(new Font("Verdana", Font.BOLD, 20));
+		winAlertPanel = new JPanel();
+		winAlertPanel.setBounds(d.winAlertX(), d.winAlertY(), d.alertWidth(), 2*d.textHeight());
+		winAlertLabel.setText("");
+		winAlertPanel.add(winAlertLabel);
+		this.add(winAlertPanel);
+	}
+	private void updateWinAlert() {
+		winAlertPanel.setBounds(d.winAlertX(), d.winAlertY(), d.alertWidth(), 2*d.textHeight());
+		winAlertLabel.setFont(new Font("Verdana", Font.BOLD, 20));
+	}
+	
 	
 	private void updateAlert() {
 		alertPanel.setBounds(d.alertX(), d.alertY(), d.alertWidth(), d.textHeight());
@@ -655,6 +687,7 @@ public class GUI extends JFrame implements ActionListener {
 		updatePointsEarnedLabel();
 		updateTable();
 		updateTableScore();
+		updateWinAlert();
 	}
 	
 	private Image getScaledImage(Image srcImg, int w, int h) {
@@ -671,13 +704,15 @@ public class GUI extends JFrame implements ActionListener {
 	public boolean hidden() {return hidden;}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == drawButton) {
-			Game.getGame().startRound();
-			update();
-		} else if (e.getSource() == startTurnButton) {
-			// Game.getGame().getRound().endTurn();
-			hidden = false;
-			update();
+		if(!gameOver) {
+			if (e.getSource() == drawButton) {
+				Game.getGame().startRound();
+				update();
+			} else if (e.getSource() == startTurnButton) {
+				// Game.getGame().getRound().endTurn();
+				hidden = false;
+				update();
+			}
 		}
 	}
 
@@ -823,6 +858,10 @@ public class GUI extends JFrame implements ActionListener {
 		public int alertX() {return 35*baseUnit();}
 		
 		public int alertY() {return 5*baseUnit();}
+		
+		public int winAlertX() {return 35*baseUnit();}
+		
+		public int winAlertY() {return 7*baseUnit();}
 		
 		public int alertWidth() {return 30*baseUnit();}
 		

@@ -147,7 +147,6 @@ public class Score {
 				newCards.add(cards.get(i));
 			}
 			newCards.add(Deck.getCut());
-			// checking for combinations of 2 cards that add to 15
 			for (int i = 0; i < newCards.size(); i++) {
 				for (int j = i + 1; j < newCards.size(); j++) {
 					if (newCards.get(i).getRank() == newCards.get(j).getRank())

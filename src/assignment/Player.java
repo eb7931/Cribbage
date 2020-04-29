@@ -67,6 +67,7 @@ public class Player{
 		}
 	}
 	
+	
 	/*
 	 * getters and setters past this line
 	 */

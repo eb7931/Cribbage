@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class GUI extends JFrame implements ActionListener {
 
-	private String cardBack = "src\\cardImages\\blue_back.jpg";
+	private String cardBack = "cardImages\\blue_back.jpg";
 	JButton drawButton, startTurnButton;
 	public JLabel playerLabel;
 	public JPanel playerPanel;

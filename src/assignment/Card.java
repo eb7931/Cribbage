@@ -82,7 +82,7 @@ public class Card{
 		//Now that fileName has the correct file, add .jpg to the end and assign it to attribute image
 		fileName += ".jpg";
 		
-		image = "src\\cardImages\\" + fileName;
+		image = "cardImages\\" + fileName;
 	}
 	
 	public String getImage() {

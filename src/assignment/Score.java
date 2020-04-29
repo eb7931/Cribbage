@@ -310,30 +310,6 @@ public class Score {
 			break;
 
 		case SHOW:
-			// flush in crib: checks if suit in crib is equal to start card
-			if (cards.equals(Crib.getCards()) && (Deck.getCut().getSuit().equals(cards.get(1).getSuit()))) {
-				String[] newCards = new String[cards.size() + 1];
-				for (int i = 0; i < cards.size(); i++) {
-					newCards[i] = cards.get(i).getSuit();
-				}
-				
-				newCards[4] = Deck.getCut().getSuit();
-				
-				Arrays.sort(newCards);
-				for (int i = 0; i < newCards.length - 1; i++) {
-					if (newCards[i] == newCards[i + 1]) {
-						flushScore++;
-					}
-				}
-				if (flushScore >= 4 && Deck.getCut().getSuit().equals(newCards[1])) {
-					score = 5;
-				} else if (flushScore >= 4) {
-					score = 4;
-				} else {
-					score = 0;
-				}
-				
-			}
 
 			// Flush in hand
 			System.out.println(cards.size());
@@ -351,11 +327,11 @@ public class Score {
 					flushScore++;
 				}
 			}
-			if (flushScore >= 4) {
-				score = 4;
-			} 
-			if (flushScore >= 4  && Deck.getCut().getSuit().equals(newCards[1])) {
+			if (flushScore >= 3  && Deck.getCut().getSuit().equals(newCards[1])) {
 				score = 5;
+			} 
+			else if (flushScore >= 3) {
+				score = 4;
 			} else {
 				score = 0;
 			}

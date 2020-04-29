@@ -4,3 +4,7 @@ Installation instructions.
 4. Run Cribbage.jar
 
 To play new game re-execute jar
+
+==============================
+IF JAR DOES NOT OPEN!
+open project and run main

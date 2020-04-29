@@ -4,7 +4,10 @@ import java.util.*;
 
 public class Score {
 	private static Player lastPlayer;
+	private static int lastEarned = 0;
 
+	public static int lastEarned() {return lastEarned;}
+	
 	public static int getScore(ArrayList<Card> cards) {
 		Phase phase = Game.getPhase();
 		return getScore(cards, phase);
@@ -20,6 +23,7 @@ public class Score {
 		pointsEarned += checkFlush(phase, cards);
 		pointsEarned += checkRun(phase, cards);
 		
+		lastEarned = pointsEarned;
 		Game.getGame().checkWin(pointsEarned);
 
 		return pointsEarned;
@@ -143,7 +147,6 @@ public class Score {
 				newCards.add(cards.get(i));
 			}
 			newCards.add(Deck.getCut());
-			// checking for combinations of 2 cards that add to 15
 			for (int i = 0; i < newCards.size(); i++) {
 				for (int j = i + 1; j < newCards.size(); j++) {
 					if (newCards.get(i).getRank() == newCards.get(j).getRank())

@@ -13,6 +13,7 @@ public class Round {
 	private int hand2Points;
 	private int cribPoints;
 	
+	
 
 	public Round() {
 		setCurrentPlayer(getNextPlayer(Game.getGame().getDealer()));
@@ -32,8 +33,8 @@ public class Round {
 	private void drawPhase() {
 		Deck.shuffle();
 		ArrayList<Player> players = Game.getGame().getPlayers();
-		players.get(0).getHand().clear();
-		players.get(1).getHand().clear();
+		players.get(0).getHand().deleteHand();
+		players.get(1).getHand().deleteHand();
 		Crib.clear();
 		Table.clear();
 		GUI gui = Game.getGame().getGUI();
@@ -172,7 +173,7 @@ public class Round {
 
 	}
 
-	private Player getNextPlayer(Player p) {
+	public Player getNextPlayer(Player p) {
 		int i = Game.getGame().getPlayers().indexOf(p) + 1;
 		if (i >= Game.getGame().getPlayers().size())
 			return Game.getGame().getPlayers().get(0);
@@ -211,15 +212,15 @@ public class Round {
 		return 0;
 	}
 	
-	public int getHand1Points() {
+	public int hand1Points() {
 		return hand1Points;
 	}
 	
-	public int getHand2Points() {
+	public int hand2Points() {
 		return hand2Points;
 	}
 	
-	public int getCribPoints() {
+	public int cribPoints() {
 		return cribPoints;
 	}
 	

@@ -24,6 +24,14 @@ public class Hand {
 		}
 	}
 	
+
+	public void deleteHand() {
+		int j = cards.size();
+		for(int i = 0; i < j; i++) {
+			cards.remove(0);
+		}
+	}
+	
 	//Honestly not sure why these are needed
 	
 	//get num of cards in player hand

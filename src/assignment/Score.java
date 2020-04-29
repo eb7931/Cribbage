@@ -35,7 +35,7 @@ public class Score {
 		if(debug)
 			System.out.println("Player " + player.getID() + " earned " + points
 					+ " for a " + "pair");
-		pointsEarned += 
+		pointsEarned += points;
 		
 		points = checkNob(phase, player);
 		if(debug)
@@ -335,7 +335,7 @@ public class Score {
 				
 			}
 			// Flush in hand
-			System.out.println(cards.size());
+			//System.out.println(cards.size());
 
 			String[] newCards = new String[cards.size() + 1];
 			for (int i = 0; i < cards.size(); i++) {

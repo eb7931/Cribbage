@@ -85,15 +85,17 @@ public class Round {
 			}
 		cribPoints = Score.getScore(Crib.getCards());
 		
-		hand1Points = Score.getScore(players.get(0).getHand().getCards());
-		hand2Points = Score.getScore(players.get(1).getHand().getCards());
+		hand1Points = Score.getScore(Game.getGame().getDealer().getHand().getCards());
+		hand2Points = Score.getScore(Game.getGame().getRound().getNextPlayer(Game.getGame().getDealer()).getHand().getCards());
 		
 
 		System.out.println("Player " + Game.getGame().getDealer().getID() + " crib points earned " + cribPoints + ". Total: " + Game.getGame().getDealer().getPoints());
 		//Add points to player
 		Game.getGame().getDealer().addPoints(cribPoints);
-		players.get(0).addPoints(hand1Points);
-		players.get(1).addPoints(hand2Points);
+		
+		Game.getGame().getDealer().addPoints(hand1Points);
+		Game.getGame().getRound().getNextPlayer(Game.getGame().getDealer()).addPoints(hand2Points);
+	
 	}
 
 	// Will assign the hands to a player

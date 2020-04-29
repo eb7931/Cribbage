@@ -19,6 +19,8 @@ public class Score {
 		pointsEarned += checkNob(phase, player);
 		pointsEarned += checkFlush(phase, cards);
 		pointsEarned += checkRun(phase, cards);
+		
+		Game.getGame().checkWin(pointsEarned);
 
 		return pointsEarned;
 	}

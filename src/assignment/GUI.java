@@ -38,6 +38,8 @@ public class GUI extends JFrame implements ActionListener {
 	public JPanel tableScorePanel;
 	public JLabel alertLabel;
 	public JPanel alertPanel;
+	public JLabel pointsEarnedLabel;
+	public JPanel pointsEarnedPanel;
 
 	private Dims d;
 	
@@ -57,6 +59,12 @@ public class GUI extends JFrame implements ActionListener {
 	public void clearAlert() {alertLabel.setText("");}
 	
 	public Dims dims() {return d;}
+	
+	public void displayWinner(Player winner) {
+		this.removeAll();
+		this.addAlert();
+		this.setAlert("Player " + winner.getID() + " has won!");
+	}
 	
 	/**
 	 * Initialize the contents of the frame.
@@ -83,6 +91,7 @@ public class GUI extends JFrame implements ActionListener {
 		addPlayerTurn();
 		addPhaseLabel();
 		addPlayerScoreLabels();
+		addPointsEarnedLabel();
 		addTableScore();
 		this.addResizeListener();
 		//test();
@@ -90,7 +99,7 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	/*
-	 * methods altergin alert
+	 * methods altering alert
 	 */
 	public void addAlert() {
 		alertLabel = new JLabel();
@@ -270,7 +279,7 @@ public class GUI extends JFrame implements ActionListener {
 	private void updateHand() {
 		Player player;
 		if(Game.getPhase() == Phase.SHOW) {
-			player = Game.getGame().getPlayers().get(0);
+			player = Game.getGame().getDealer();
 		}
 		else {
 			player = Game.getGame().getRound().getCurrentPlayer();
@@ -360,7 +369,7 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	private void updateHand2() {
-		Player player2 = Game.getGame().getPlayers().get(1);
+		Player player2 = Game.getGame().getRound().getNextPlayer(Game.getGame().getDealer());
 		int length = player2.getNumOfCards();
 		// System.out.println("length: " + length);
 
@@ -443,11 +452,12 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	private void updateHandLabel() {
+		Player player = Game.getGame().getDealer();
 		handPanel.setBounds(d.handLabelX(), d.handLabelY(), d.textWidth(), d.textHeight());
 		Round round = Game.getGame().getRound();
 		Phase phase = Game.getPhase();
 		if(phase == Phase.SHOW) {
-			handLabel.setText("Player 1's hand earned " + round.hand1Points() + " points.");
+			handLabel.setText("Player " + player.getID() + "'s hand earned " + round.hand1Points() + " points.");
 		}
 		else
 			handLabel.setText("Player " + Game.getGame().getCurrentPlayer().getID() + "'s hand");
@@ -466,11 +476,12 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	private void updateHand2Label() {
+		Player player = Game.getGame().getRound().getNextPlayer(Game.getGame().getDealer());
 		Round round = Game.getGame().getRound();
 		hand2Panel.setBounds(d.hand2LabelX(), d.hand2LabelY(), d.textWidth(), d.textHeight());
 		Phase phase = Game.getPhase();
 		if(phase == Phase.SHOW)
-			hand2Label.setText("Player 2's hand earned " + round.hand2Points() + " points.");
+			hand2Label.setText("Player " + player.getID() + "'s hand earned " + round.hand2Points() + " points.");
 		else
 			hand2Label.setText("");
 		
@@ -533,6 +544,29 @@ public class GUI extends JFrame implements ActionListener {
 		playerLabel.setText("Player " + Game.getGame().getCurrentPlayer().getID() + "'s turn");
 	}
 
+	private void addPointsEarnedLabel() {
+		pointsEarnedLabel = new JLabel();
+		pointsEarnedLabel.setText("");
+		pointsEarnedLabel.setHorizontalTextPosition(SwingConstants.LEFT);
+		pointsEarnedPanel = new JPanel();
+		pointsEarnedPanel.setBounds(d.pointsEarnedLabelX(), d.pointsEarnedLabelY(), d.textWidth(), d.textHeight());
+		pointsEarnedPanel.add(pointsEarnedLabel);
+		this.add(pointsEarnedPanel);
+		
+	}
+
+	private void updatePointsEarnedLabel() {
+		pointsEarnedPanel.setBounds(d.pointsEarnedLabelX(), d.pointsEarnedLabelY(), d.textWidth(), d.textHeight());
+		Round round = Game.getGame().getRound();
+		Phase phase = Game.getPhase();
+		if(Game.getPhase() == Phase.PEGGING) {
+			pointsEarnedLabel.setText("Player 1's hand earned " + round.hand1Points() + " points.");
+		}
+		else {
+			pointsEarnedLabel.setText("Player " + Game.getGame().getCurrentPlayer().getID() + "'s hand");
+		}
+	}
+	
 	/*
 	 * methods affecting table
 	 */
@@ -618,6 +652,7 @@ public class GUI extends JFrame implements ActionListener {
 		updatePhaseLabel();
 		updatePlayerScoreLabels();
 		updatePlayerTurnLabel();
+		updatePointsEarnedLabel();
 		updateTable();
 		updateTableScore();
 	}
@@ -779,11 +814,11 @@ public class GUI extends JFrame implements ActionListener {
 		
 		public int startButtonX() {return 6*baseUnit();}
 		
-		public int startButtonY() {return 25*baseUnit();}
+		public int startButtonY() {return 26*baseUnit();}
 		
-		public int tableScoreX() {return 17*baseUnit();}
+		public int tableScoreX() {return 26*baseUnit();}
 		
-		public int tableScoreY() {return 13*baseUnit();}
+		public int tableScoreY() {return 14*baseUnit();}
 		
 		public int alertX() {return 35*baseUnit();}
 		
@@ -802,6 +837,10 @@ public class GUI extends JFrame implements ActionListener {
 		public int cribLabelX() {return 70*baseUnit();}
 		
 		public int cribLabelY() {return 12*baseUnit();}
+		
+		public int pointsEarnedLabelX() {return 26*baseUnit();}
+		
+		public int pointsEarnedLabelY() {return 17*baseUnit();}
 		
 		
 		}

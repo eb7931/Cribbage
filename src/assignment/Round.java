@@ -166,7 +166,7 @@ public class Round {
 
 	}
 
-	private Player getNextPlayer(Player p) {
+	public Player getNextPlayer(Player p) {
 		int i = Game.getGame().getPlayers().indexOf(p) + 1;
 		if (i >= Game.getGame().getPlayers().size())
 			return Game.getGame().getPlayers().get(0);

@@ -4,7 +4,10 @@ import java.util.*;
 
 public class Score {
 	private static Player lastPlayer;
+	private static int lastEarned = 0;
 
+	public static int lastEarned() {return lastEarned;}
+	
 	public static int getScore(ArrayList<Card> cards) {
 		Phase phase = Game.getPhase();
 		return getScore(cards, phase);
@@ -19,7 +22,9 @@ public class Score {
 		pointsEarned += checkNob(phase, player);
 		pointsEarned += checkFlush(phase, cards);
 		pointsEarned += checkRun(phase, cards);
-
+		
+		lastEarned = pointsEarned;
+		Game.getGame().checkWin(pointsEarned);
 		return pointsEarned;
 	}
 

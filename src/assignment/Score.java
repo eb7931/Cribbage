@@ -181,7 +181,7 @@ public class Score {
 	 * 2, 3, 4, 5, 6, 7 with a total of 28 so for pegging we will check each length
 	 * up to length 7
 	 */
-	private static int checkRun(Phase phase, ArrayList<Card> cards) {
+	public static int checkRun(Phase phase, ArrayList<Card> cards) {
 
 		int score = 0;
 		int longestRun = 0;
@@ -254,7 +254,7 @@ public class Score {
 		return score;
 	}
 
-	private static int checkFlush(Phase phase, ArrayList<Card> cards) {
+	public static int checkFlush(Phase phase, ArrayList<Card> cards) {
 		int flushScore = 0;
 		int score = 0;
 
@@ -267,7 +267,7 @@ public class Score {
 
 		case SHOW:
 			// flush in crib: checks if suit in crib is equal to start card
-			if (cards.equals(Crib.getCards()) && (Deck.getCut().getSuit() == cards.get(1).getSuit())) {
+			if (cards.equals(Crib.getCards()) && (Deck.getCut().getSuit().equals(cards.get(1).getSuit()))) {
 				String[] newCards = new String[cards.size() + 1];
 				for (int i = 0; i < cards.size(); i++) {
 					newCards[i] = cards.get(i).getSuit();
@@ -281,7 +281,7 @@ public class Score {
 						flushScore++;
 					}
 				}
-				if (flushScore >= 4 && Deck.getCut().getSuit() == newCards[1]) {
+				if (flushScore >= 4 && Deck.getCut().getSuit().equals(newCards[1])) {
 					score = 5;
 				} else if (flushScore >= 4) {
 					score = 4;
@@ -307,10 +307,11 @@ public class Score {
 					flushScore++;
 				}
 			}
-			if (flushScore >= 4 && Deck.getCut().getSuit() == newCards[1]) {
-				score = 5;
-			} else if (flushScore >= 4) {
+			if (flushScore >= 4) {
 				score = 4;
+			} 
+			if (flushScore >= 4  && Deck.getCut().getSuit().equals(newCards[1])) {
+				score = 5;
 			} else {
 				score = 0;
 			}

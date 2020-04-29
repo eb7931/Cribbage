@@ -43,6 +43,11 @@ public class Round {
 			setHand(players.get(i));
 		}
 		Game.setAlert("Round started, card dealt.");
+		
+		//His Heel
+		if(Deck.getCut().getRank() == 11) {
+			Game.getGame().getDealer().addPoints(2);
+		}
 		gui.update();
 
 	}

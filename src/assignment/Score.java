@@ -155,12 +155,20 @@ public class Score {
 
 	}
 
-	private static int checkNob(Phase phase, Player player) {
+	private static int checkNob(Phase phase, ArrayList<Card> cards) {
 		int score = 0;
-		if (Deck.getCut().getRank() == 11 && phase == Phase.DRAW && player.isDealer()) {
-			score = 2;
+		switch (phase) {
+		case DRAW:
+			break;
+		case PEGGING:
+			break;
+		case SHOW:
+			for(int i = 0; i < cards.size();i++) {
+				if (cards.get(i).getRank() == 11 && cards.get(i).getSuit() == Deck.getCut().getSuit()) {
+					score = 1;
+				}
+			}
 		}
-
 		return score;
 	}
 

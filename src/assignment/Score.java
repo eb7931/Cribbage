@@ -155,8 +155,9 @@ public class Score {
 
 	}
 
-	private static int checkNob(Phase phase, ArrayList<Card> cards) {
+	private static int checkNob(Phase phase, Player player) {
 		int score = 0;
+		ArrayList<Card> cards = player.getHand().getCards();
 		switch (phase) {
 		case DRAW:
 			break;
